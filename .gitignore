@@ -1,0 +1,5 @@
+# Bazel build artifacts
+/bazel-*
+
+# Vim swapfiles
+*.sw?

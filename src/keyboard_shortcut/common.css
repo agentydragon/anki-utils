@@ -1,0 +1,25 @@
+.card {
+ text-align: center;
+ background-color: white;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 1.5em;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 0.9em;
+}
+
+.shortcut-key {
+  display: inline-block;
+  color: #333;
+  margin: 0 2px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #eee;
+  box-shadow: 1px 1px 1px #aaa;
+}

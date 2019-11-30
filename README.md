@@ -14,7 +14,9 @@ bazel build //src/...
 
 Card HTML templates will appear in `bazel-genfiles/src/*.html`.
 
-## Installing the "Permuted Cloze" note type
+## Permuted Cloze
+
+### Installing the "Permuted Cloze" note type
 
 TODO: better install story. script?
 
@@ -76,9 +78,9 @@ editor uses is not valid, so the JavaScript doesn't know how to permute it.
 
 The note type should now be ready for use.
 
-## Creating "Permuted Cloze" cards
+### Creating "Permuted Cloze" cards
 
-### Permuted unordered list items
+#### Permuted unordered list items
 
 If your card contains an `<ul>` Permuted Cloze will permute the items of that
 element.
@@ -96,7 +98,7 @@ Foobar.
 
 TODO
 
-### Permuted table rows
+#### Permuted table rows
 
 If your card contains an `<tbody>` Permuted Cloze will permute the items of that
 element.
@@ -107,19 +109,43 @@ For example, this HTML:
 TODO
 ```
 
-### Permuted lines
+#### Permuted lines
 
 TODO
 
-## Advanced
+### Advanced
 
-### Extra PRNG seeding
+#### Extra PRNG seeding
 
 Anything you put into the `Seed` field will be used to seed the PRNG that
 shuffles the card. You can use it to force two cards to start from a different
 seed, or to check that varying the seed will indeed change the card order.
 
-### Logging
+#### Logging
 
 If you set the `Log` field to `true`, the JavaScript will write out visible
 logs.
+
+## Keyboard Shortcut
+
+### Installing
+
+TODO: blaze build
+
+TODO:
+
+```
+cat src/keyboard_shortcut/effect_to_shortcut_front.html | xclip
+# --> paste into "effect->shortcut" front
+
+cat blaze-genfiles/src/keyboard_shortcut/effect_to_shortcut_back.html | xclip
+# --> paste into "effect->shortcut" back
+
+cat blaze-genfiles/src/keyboard_shortcut/shortcut_to_effect_front.html | xclip
+# --> paste into "shortcut->effect" front
+
+cat src/keyboard_shortcut/shortcut_to_effect_back.html | xclip
+# --> paste into "shortcut->effect" back
+```
+
+TODO: installation instructions
