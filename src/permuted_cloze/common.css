@@ -1,0 +1,38 @@
+.card {
+  text-align: center;
+  background-color: white;
+}
+
+.cloze {
+  font-weight: bold;
+  color: blue;
+}
+
+.nightMode .cloze {
+  color: lightblue;
+}
+
+.js-wip {
+  visibility: hidden;
+}
+
+.js-finished {
+  visibility: visible;
+}
+
+#agentydragon-permuted-cloze-log {
+  font-family: monospace;
+  text-align: left;
+  font-size: 0.8;
+  border: 1px solid #666;
+  background-color: #ddd;
+}
+
+#agentydragon-permuted-cloze-log:empty {
+  /* Hide the log if there's nothing in it. */
+  display: none;
+}
+
+#agentydragon-permuted-cloze-log .error {
+  color: red;
+}
