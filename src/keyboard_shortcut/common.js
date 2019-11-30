@@ -1,4 +1,5 @@
-var shortcut = "{{Shortcut}}";
+(function() {
+const shortcut = document.getElementById("shortcut-code").innerText;
 
 // "Ctrl+K" --> [Ctrl][K]
 // "Ctrl+K S" --> [Ctrl][K], [S]
@@ -17,3 +18,4 @@ for (const chord of shortcut.split(" ")) {
   }
   ++i;
 }
+})();

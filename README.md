@@ -130,7 +130,7 @@ logs.
 
 ### Installing
 
-TODO: blaze build
+TODO: bazel build
 
 TODO:
 
@@ -138,14 +138,17 @@ TODO:
 cat src/keyboard_shortcut/effect_to_shortcut_front.html | xclip
 # --> paste into "effect->shortcut" front
 
-cat blaze-genfiles/src/keyboard_shortcut/effect_to_shortcut_back.html | xclip
+cat bazel-genfiles/src/keyboard_shortcut/effect_to_shortcut_back.html | xclip
 # --> paste into "effect->shortcut" back
 
-cat blaze-genfiles/src/keyboard_shortcut/shortcut_to_effect_front.html | xclip
+cat bazel-genfiles/src/keyboard_shortcut/shortcut_to_effect_front.html | xclip
 # --> paste into "shortcut->effect" front
 
 cat src/keyboard_shortcut/shortcut_to_effect_back.html | xclip
 # --> paste into "shortcut->effect" back
+
+cat src/keyboard_shortcut/common.css | xclip
+# --> paste into CSS
 ```
 
 TODO: installation instructions

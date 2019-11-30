@@ -1,6 +1,6 @@
 .card {
- text-align: center;
- background-color: white;
+  text-align: center;
+  background-color: white;
 }
 
 h1 {
@@ -11,6 +11,10 @@ h1 {
 h2 {
   font-weight: normal;
   font-size: 0.9em;
+}
+
+#shortcut-code {
+  display: none;
 }
 
 .shortcut-key {
