@@ -1,6 +1,6 @@
-# anki-permuted-cloze
+# Rai's Anki utilities
 
-Anki Permuted Cloze note type.
+TODO: Permuted Cloze, Keyboard Shortcut note types
 
 TODO(prvak)
 
