@@ -31,3 +31,18 @@ genrule(
         ") > \"$@\"",
     ]),
 )
+
+genrule(
+    name = "keyboard_shortcut_css_bundle_genrule",
+    srcs = [
+        "//src/shared_styles:keyboard_shortcut.css",
+        "keyboard_shortcut.css",
+    ],
+    outs = ["keyboard_shortcut_css_bundle.css"],
+    cmd = "\n".join([
+        "(",
+        "  cat $(location //src/shared_styles:keyboard_shortcut.css) && ",
+        "  cat $(location keyboard_shortcut.css)",
+        ") > \"$@\"",
+    ]),
+)

@@ -31,3 +31,18 @@ genrule(
         ") > \"$@\"",
     ]),
 )
+
+genrule(
+    name = "permuted_cloze_css_bundle_genrule",
+    srcs = [
+        "//src/shared_styles:keyboard_shortcut.css",
+        "permuted_cloze.css",
+    ],
+    outs = ["permuted_cloze_css_bundle.css"],
+    cmd = "\n".join([
+        "(",
+        "  cat $(location //src/shared_styles:keyboard_shortcut.css) && ",
+        "  cat $(location permuted_cloze.css)",
+        ") > \"$@\"",
+    ]),
+)

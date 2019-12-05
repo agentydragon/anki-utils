@@ -67,7 +67,7 @@ TODO: better install story. script?
      `src/permuted_cloze/common.css`. You can use:
 
      ```
-     cat src/permuted_cloze/common.css | xclip
+     cat bazel-genfiles/src/permuted_cloze/permuted_cloze_css_bundle.css | xclip
      ```
 
      Paste it into the shared CSS.
@@ -147,7 +147,7 @@ cat bazel-genfiles/src/keyboard_shortcut/shortcut_to_effect_front.html | xclip
 cat src/keyboard_shortcut/shortcut_to_effect_back.html | xclip
 # --> paste into "shortcut->effect" back
 
-cat src/keyboard_shortcut/common.css | xclip
+cat bazel-genfiles/src/keyboard_shortcut/keyboard_shortcut_css_bundle.css | xclip
 # --> paste into CSS
 ```
 
