@@ -1,8 +1,6 @@
-.cloze {
-  font-weight: bold;
-  color: blue;
-}
+@import "src/shared_styles/solarized";
 
-.nightMode .cloze {
-  color: lightblue;
+.card .cloze {
+  font-weight: bold;
+  color: $blue;
 }
