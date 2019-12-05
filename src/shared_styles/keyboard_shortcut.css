@@ -1,20 +1,3 @@
-.card {
-  display: flex;
-  background-color: white;
-  align-items: center;
-  justify-content: center;
-}
-
-h1 {
-  font-weight: normal;
-  font-size: 1.5em;
-}
-
-h2 {
-  font-weight: normal;
-  font-size: 0.9em;
-}
-
 .shortcut-key {
   display: inline-block;
   color: #333;
