@@ -1,9 +1,16 @@
+@import "src/shared_styles/solarized";
+@import "src/shared_styles/keyboard_shortcut";
+
 .card {
   display: flex;
-  background-color: white;
+  /* background-color: white; */
   align-items: center;
   justify-content: center;
+  @include rebase($base3,$base2,$base1,$base0,$base00,$base01,$base02,$base03);
 }
+
+/* TODO: dark: @include
+ * rebase($base03,$base02,$base01,$base00,$base0,$base1,$base2,$base3)} */
 
 h1 {
   font-weight: normal;

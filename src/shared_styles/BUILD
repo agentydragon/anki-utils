@@ -1,9 +1,5 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
 
-package(
-    default_visibility = ["//visibility:public"],
-)
-
 sass_library(
     name = "keyboard_shortcut",
     srcs = ["keyboard_shortcut.scss"],
@@ -12,13 +8,14 @@ sass_library(
 sass_library(
     name = "card",
     srcs = ["card.scss"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":keyboard_shortcut",
+        ":solarized",
+    ],
 )
 
-sass_binary(
-    name = "bin",
-    src = "bin.scss",
-    deps = [
-        ":card",
-        ":keyboard_shortcut",
-    ],
+sass_library(
+    name = "solarized",
+    srcs = ["solarized.scss"],
 )

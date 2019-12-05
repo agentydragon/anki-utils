@@ -39,6 +39,5 @@ sass_binary(
     src = "permuted_cloze.scss",
     deps = [
         "//src/shared_styles:card",
-        "//src/shared_styles:keyboard_shortcut",
     ],
 )
