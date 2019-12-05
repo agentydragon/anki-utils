@@ -6,7 +6,7 @@ if (header.textContent.length == 0) {
   const innerDeck = deckHierarchy[deckHierarchy.length - 1];
   // "05 German" --> "German"
   // "*05 German" --> "German"
-  const sanitizedDeck = innerDeck.replace(/^.?\d*\\ ?(.*)$/, "$1");
+  const sanitizedDeck = innerDeck.replace(/^[^a-zA-Z]?\d* ?(.*)$/, "$1");
   header.textContent = sanitizedDeck;
 }
 })();
