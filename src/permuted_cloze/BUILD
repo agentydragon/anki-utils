@@ -1,4 +1,4 @@
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 
 genrule(
     name = "back_genrule",
