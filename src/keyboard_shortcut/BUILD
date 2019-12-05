@@ -1,3 +1,5 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+
 genrule(
     name = "shortcut_to_effect_front_genrule",
     srcs = [
@@ -32,17 +34,26 @@ genrule(
     ]),
 )
 
-genrule(
-    name = "keyboard_shortcut_css_bundle_genrule",
-    srcs = [
-        "//src/shared_styles:shared_styles_css_bundle.css",
-        "keyboard_shortcut.css",
+# genrule(
+#     name = "keyboard_shortcut_css_bundle_genrule",
+#     srcs = [
+#         "//src/shared_styles:shared_styles_css_bundle.css",
+#         "keyboard_shortcut.css",
+#     ],
+#     outs = ["keyboard_shortcut_css_bundle.css"],
+#     cmd = "\n".join([
+#         "(",
+#         "  cat $(location //src/shared_styles:shared_styles_css_bundle.css) && ",
+#         "  cat $(location keyboard_shortcut.css)",
+#         ") > \"$@\"",
+#     ]),
+# )
+
+sass_binary(
+    name = "keyboard_shortcut",
+    src = "keyboard_shortcut.scss",
+    deps = [
+        "//src/shared_styles:card",
+        "//src/shared_styles:keyboard_shortcut",
     ],
-    outs = ["keyboard_shortcut_css_bundle.css"],
-    cmd = "\n".join([
-        "(",
-        "  cat $(location //src/shared_styles:shared_styles_css_bundle.css) && ",
-        "  cat $(location keyboard_shortcut.css)",
-        ") > \"$@\"",
-    ]),
 )

@@ -1,18 +1,24 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+
 package(
     default_visibility = ["//visibility:public"],
 )
 
-genrule(
-    name = "shared_styles_css_bundle_genrule",
-    srcs = [
-        ":keyboard_shortcut.css",
-        ":card.css",
+sass_library(
+    name = "keyboard_shortcut",
+    srcs = ["keyboard_shortcut.scss"],
+)
+
+sass_library(
+    name = "card",
+    srcs = ["card.scss"],
+)
+
+sass_binary(
+    name = "bin",
+    src = "bin.scss",
+    deps = [
+        ":card",
+        ":keyboard_shortcut",
     ],
-    outs = ["shared_styles_css_bundle.css"],
-    cmd = "\n".join([
-        "(",
-        "  cat $(location keyboard_shortcut.css) && ",
-        "  cat $(location card.css)",
-        ") > \"$@\"",
-    ]),
 )

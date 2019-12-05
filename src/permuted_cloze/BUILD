@@ -1,3 +1,5 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+
 genrule(
     name = "back_genrule",
     srcs = [
@@ -32,17 +34,11 @@ genrule(
     ]),
 )
 
-genrule(
-    name = "permuted_cloze_css_bundle_genrule",
-    srcs = [
-        "//src/shared_styles:shared_styles_css_bundle.css",
-        "permuted_cloze.css",
+sass_binary(
+    name = "permuted_cloze",
+    src = "permuted_cloze.scss",
+    deps = [
+        "//src/shared_styles:card",
+        "//src/shared_styles:keyboard_shortcut",
     ],
-    outs = ["permuted_cloze_css_bundle.css"],
-    cmd = "\n".join([
-        "(",
-        "  cat $(location //src/shared_styles:shared_styles_css_bundle.css) && ",
-        "  cat $(location permuted_cloze.css)",
-        ") > \"$@\"",
-    ]),
 )
