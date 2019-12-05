@@ -6,10 +6,16 @@ sass_library(
 )
 
 sass_library(
+    name = "cloze",
+    srcs = ["cloze.scss"],
+)
+
+sass_library(
     name = "card",
     srcs = ["card.scss"],
     visibility = ["//visibility:public"],
     deps = [
+        ":cloze",
         ":keyboard_shortcut",
         ":solarized",
     ],
