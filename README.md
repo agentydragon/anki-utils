@@ -152,3 +152,11 @@ cat bazel-bin/src/keyboard_shortcut/keyboard_shortcut.css | xclip
 ```
 
 TODO: installation instructions
+
+
+Ordinary:
+
+```
+cat bazel-bin/src/ordinary/ordinary.css | xclip
+# --> paste into CSS
+```
