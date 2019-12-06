@@ -1,6 +1,9 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
 
-exports_files(["common_header.html"])
+exports_files([
+    "common_header.html",
+    "log.js",
+])
 
 sass_library(
     name = "keyboard_shortcut",

@@ -1,28 +1,8 @@
 (function() {
 RaiPermutedCloze = {};
 
-RaiPermutedCloze.logContainer =
-    document.getElementById("agentydragon-permuted-cloze-log");
-
 RaiPermutedCloze.clozeContainer =
     document.getElementById("agentydragon-permuted-cloze-content");
-
-function doLog(message, level) {
-  const messageElement = document.createElement("div");
-  messageElement.className = level;
-  messageElement.innerText = message;
-  RaiPermutedCloze.logContainer.appendChild(messageElement);
-};
-
-function reportError(message) { doLog(message, "error"); };
-
-window.addEventListener('error', handleError);
-
-function log(message) {
-  if ("{{Log}}" == "true") {
-    doLog(message, "info");
-  }
-};
 
 function RNG(seed) {
   // LCG using GCC's constants
@@ -39,10 +19,10 @@ RNG.prototype.nextInt = function() {
 };
 
 RNG.prototype.shuffle = function(a) {
-  log("shuffling " + a.length + " elements");
+  Rai.log("shuffling " + a.length + " elements");
   for (var i = a.length - 1; i > 0; i--) {
     const j = this.nextInt() % (i + 1);
-    log("Shuffle " + i + " <-> " + j);
+    Rai.log("Shuffle " + i + " <-> " + j);
     const x = a[i];
     a[i] = a[j];
     a[j] = x;
@@ -78,10 +58,10 @@ function permuteJustDivAndLines(rng) {
     if (typeof child == 'string' || child instanceof CharacterData) {
       continue;
     }
-    log(child);
-    log(typeof child);
-    log(child.className);
-    log(child.tagName);
+    Rai.log(child);
+    Rai.log(typeof child);
+    Rai.log(child.className);
+    Rai.log(child.tagName);
     const tag = child.tagName.toLowerCase();
     if (tag == 'div' || tag == 'br') {
       continue;
@@ -90,7 +70,7 @@ function permuteJustDivAndLines(rng) {
       // Cloze in text.
       continue;
     }
-    log("child is <" + tag + "> -> not div-and-lines");
+    Rai.log("child is <" + tag + "> -> not div-and-lines");
     return false;
   }
   // OK. Now make the children.
@@ -110,19 +90,19 @@ function permuteJustDivAndLines(rng) {
   };
   for (const child of children) {
     if (child instanceof CharacterData) {
-      log("child: string, of: " + child.data);
+      Rai.log("child: string, of: " + child.data);
       currentRun.push(child);
       continue;
     }
     if (typeof child == 'string') {
-      log("child: string, of: " + child);
+      Rai.log("child: string, of: " + child);
       currentRun.push(child);
       continue;
     }
-    log(child);
-    log(typeof child);
-    log(child.className);
-    log(child.tagName);
+    Rai.log(child);
+    Rai.log(typeof child);
+    Rai.log(child.className);
+    Rai.log(child.tagName);
     const tag = child.tagName.toLowerCase();
     if (tag == 'br') {
       flushRun();
@@ -135,18 +115,18 @@ function permuteJustDivAndLines(rng) {
     } else if (tag == 'span') {
       currentRun.push(child);
     } else {
-      reportError('unexpected child kind');
+      Rai.reportError('unexpected child kind');
     }
   }
   flushRun();
 
-  log("wrapped children: " + wrappedChildren.length);
+  Rai.log("wrapped children: " + wrappedChildren.length);
   if (wrappedChildren.length == 0) {
-    reportError("no wrapped children");
+    Rai.reportError("no wrapped children");
     return;
   }
   if (wrappedChildren.length == 1) {
-    reportError("just 1 wrapped child!");
+    Rai.reportError("just 1 wrapped child!");
     return;
   }
   rng.shuffle(wrappedChildren);
@@ -163,7 +143,7 @@ function permuteElementChildren(rng) {
   const permutedContainer =
       RaiPermutedCloze.clozeContainer.querySelector(containersSelector);
   if (!permutedContainer) {
-    log("no " + containersSelector + " in Cloze content container");
+    Rai.log("no " + containersSelector + " in Cloze content container");
     return false;
   }
   permuteChildren(rng, permutedContainer);
@@ -193,23 +173,18 @@ function computeRngSeed() {
 function shuffleCloze() {
   const seed = computeRngSeed();
   const rng = new RNG(seed);
-  log("RNG seed: " + seed);
+  Rai.log("RNG seed: " + seed);
 
   if (permuteElementChildren(rng)) {
-    log("Success with permuted container.");
+    Rai.log("Success with permuted container.");
     return;
   }
   if (permuteJustDivAndLines(rng)) {
-    log("Success with permuted div-and-lines.");
+    Rai.log("Success with permuted div-and-lines.");
     return;
   }
-  reportError(
+  Rai.reportError(
       "No permuted container (tbody or ul, or <br>-separated plaintext) found in Cloze content.");
-};
-
-function handleError(event) {
-  reportError("Error " + event.lineno + ":" + event.colno + ": " +
-              event.message);
 };
 
 shuffleCloze();

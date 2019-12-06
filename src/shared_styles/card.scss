@@ -3,28 +3,84 @@
 @import "src/shared_styles/keyboard_shortcut";
 
 .card {
-  display: flex;
-  /* background-color: white; */
-  align-items: center;
-  justify-content: center;
-  @include rebase($base3,$base2,$base1,$base0,$base00,$base01,$base02,$base03);
   font-family: "Roboto", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+	padding: 10px;
+	margin: 0;
+}
+
+h2 {
+	padding: 10px;
+	margin: 0;
+}
+
+#agentydragon-content {
+	padding: 10px;
+}
+
+hr {
+border: 0;
+height: 1px;
 }
 
 code, pre {
   font-family: "Ubuntu Mono", "Roboto Mono", monospace;
 }
 
+@mixin cardRebase($rebase03, $rebase02, $rebase01, $rebase00, $rebase0, $rebase1, $rebase2, $rebase3)
+{
+    background-color: $rebase03;
+    color: $rebase0;
+    // h1, h2, h3, h4, h5, h6 { color: $rebase1; border-color: $rebase0; }
+    a, a:active, a:visited { color: $rebase1; }
+
+	h1 {
+	  color: $rebase1;
+	  background-color: $rebase02;
+	}
+	h2 {
+	  color: $rebase2;
+	  background-color: $rebase03;
+	}
+	hr {
+		background-color: $rebase02
+	}
+}
+
+.card {
+  @include cardRebase($base3,$base2,$base1,$base0,$base00,$base01,$base02,$base03);
+}
+
+h1, h2 {
+  font-weight: normal;
+  font-size: 1.0em;
+}
+
 .card .nightMode {
-  @include rebase($base03,$base02,$base01,$base00,$base0,$base1,$base2,$base3);
+  @include cardRebase($base03,$base02,$base01,$base00,$base0,$base1,$base2,$base3);
 }
 
-h1 {
-  font-weight: normal;
-  font-size: 1.5em;
+#agentydragon-log {
+  font-family: monospace;
+  text-align: left;
+  font-size: 0.8;
+  border: 1px solid #666;
+  background-color: #ddd;
 }
 
-h2 {
-  font-weight: normal;
-  font-size: 0.9em;
+#agentydragon-log:empty {
+  /* Hide the log if there's nothing in it. */
+  display: none;
+}
+
+#agentydragon-log .error {
+  color: red;
+}
+
+#agentydragon-heading, #agentydragon-deck {
+	display: none;
 }

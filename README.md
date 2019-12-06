@@ -159,6 +159,9 @@ Ordinary:
 ```
 cat bazel-bin/src/ordinary/ordinary.css | xclip
 # --> paste into CSS
+
+cat bazel-bin/src/cloze/cloze_front.html | xclip
+cat bazel-bin/src/cloze/cloze_back.html | xclip
 ```
 
 TODO: Add auto-title logic into Permuted Cloze
