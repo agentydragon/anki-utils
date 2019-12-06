@@ -15,7 +15,11 @@ if (headerInContent) {
   card.insertBefore(headerInContent, card.firstChild);
 } else if (!document.querySelector("h1")) {
   const newHeader = document.createElement("h1");
-  newHeader.textContent = getLastDeckComponent(deck);
+  if (heading.length > 0) {
+    newHeader.textContent = heading;
+  } else {
+    newHeader.textContent = getLastDeckComponent(deck);
+  }
   // There is another <h1> somewhere. Remove the empty placeholder.
   if (!card) {
     Rai.reportError("unexpected: no .card found. cannot insert header");
