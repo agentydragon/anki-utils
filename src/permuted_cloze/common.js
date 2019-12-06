@@ -1,4 +1,3 @@
-(function() {
 RaiPermutedCloze = {};
 
 RaiPermutedCloze.clozeContainer =
@@ -189,4 +188,3 @@ function shuffleCloze() {
 
 shuffleCloze();
 RaiPermutedCloze.clozeContainer.className = "js-finished";
-})();
