@@ -30,6 +30,7 @@ genrule(
     srcs = [
         "front_header.html",
         "common.js",
+        "//src/shared_styles:heading.js",
         "//src/shared_styles:log.js",
         "//src/shared_styles:common_header.html",
     ],
