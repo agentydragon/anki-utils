@@ -135,16 +135,16 @@ TODO: bazel build
 TODO:
 
 ```
-cat src/keyboard_shortcut/effect_to_shortcut_front.html | xclip
+cat bazel-bin/src/keyboard_shortcut/effect_to_shortcut_front.html | xclip
 # --> paste into "effect->shortcut" front
 
-cat bazel-genfiles/src/keyboard_shortcut/effect_to_shortcut_back.html | xclip
+cat bazel-bin/src/keyboard_shortcut/effect_to_shortcut_back.html | xclip
 # --> paste into "effect->shortcut" back
 
-cat bazel-genfiles/src/keyboard_shortcut/shortcut_to_effect_front.html | xclip
+cat bazel-bin/src/keyboard_shortcut/shortcut_to_effect_front.html | xclip
 # --> paste into "shortcut->effect" front
 
-cat src/keyboard_shortcut/shortcut_to_effect_back.html | xclip
+cat bazel-bin/src/keyboard_shortcut/shortcut_to_effect_back.html | xclip
 # --> paste into "shortcut->effect" back
 
 cat bazel-bin/src/keyboard_shortcut/keyboard_shortcut.css | xclip

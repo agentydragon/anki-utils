@@ -4,8 +4,8 @@ genrule(
     name = "back_genrule",
     srcs = [
         "back_header.html",
-        "//src/shared_styles:log.js",
         "common.js",
+        "//src/shared_styles:log.js",
     ],
     outs = ["back.html"],
     cmd = "\n".join([
