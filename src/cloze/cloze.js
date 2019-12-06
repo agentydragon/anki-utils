@@ -8,11 +8,15 @@ function getLastDeckComponent(deck) {
 
 const heading = document.getElementById("agentydragon-heading").textContent;
 const deck = document.getElementById("agentydragon-deck").textContent;
-if (!document.querySelector("h1")) {
+const card = document.getElementById("agentydragon-card");
+const headerInContent = document.querySelector("#agentydragon-content h1");
+if (headerInContent) {
+  headerInContent.remove();
+  card.insertBefore(headerInContent, card.firstChild);
+} else if (!document.querySelector("h1")) {
   const newHeader = document.createElement("h1");
   newHeader.textContent = getLastDeckComponent(deck);
   // There is another <h1> somewhere. Remove the empty placeholder.
-  const card = document.getElementById("agentydragon-card");
   if (!card) {
     Rai.reportError("unexpected: no .card found. cannot insert header");
   } else {
