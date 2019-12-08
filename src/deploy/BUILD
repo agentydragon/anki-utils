@@ -19,7 +19,7 @@ genrule(
     cmd = " ".join([
         "$(location :build_slug)",
         # Cloze
-        "--cloze_uuid=760de475-186c-11ea-9152-151b4dde761a",
+        "--cloze_uuid=760de482-186c-11ea-9152-151b4dde761a",
         "--cloze_html_front_path=$(location //src/cloze:cloze_front.html)",
         "--cloze_html_back_path=$(location //src/cloze:cloze_back.html)",
         "--cloze_css_path=$(location //src/ordinary:ordinary.css)",

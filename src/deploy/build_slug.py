@@ -1,3 +1,7 @@
+"""
+blaze build //src/deploy:slug.json
+"""
+
 from absl import app
 from absl import logging
 from absl import flags
