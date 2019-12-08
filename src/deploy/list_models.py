@@ -21,6 +21,13 @@ flags.DEFINE_string('slug_path', None, 'Path to update JSON slug')
 FLAGS = flags.FLAGS
 
 
+def log_model(model):
+    crowdanki_uuid = model['crowdanki_uuid']
+    logging.info("- %s (%s):", model['name'], crowdanki_uuid)
+    for tmpl in model['tmpls']:
+        logging.info("    %s", tmpl['name'])
+
+
 def main(_):
     slug_path = FLAGS.slug_path
     if slug_path is None:
@@ -52,16 +59,12 @@ def main(_):
     logging.info("")
     logging.info("Managed models:")
     for model in managed_models:
-        logging.info("- %s (%s):", model['name'], crowdanki_uuid)
-        for tmpl in model['tmpls']:
-            logging.info("    %s", tmpl['name'])
+        log_model(model)
 
     logging.info("")
     logging.info("Untracked models:")
     for model in untracked_models:
-        logging.info("- %s (%s):", model['name'], crowdanki_uuid)
-        for tmpl in model['tmpls']:
-            logging.info("    %s", tmpl['name'])
+        log_model(model)
 
     missing_managed = set(managed_uuids) - seen_uuids
     if len(missing_managed) > 0:

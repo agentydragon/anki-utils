@@ -67,7 +67,8 @@ def apply_model_update(model, model_update):
                 template_found = template
         if not template_found:
             raise KeyError(
-                'Template with name {} not found'.format(template_name))
+                'Template with name {} not found. Available: {}'.format(template_name, [template['name']
+                                                                                        for template in model['tmpls']]))
 
         if 'qfmt' in template_content:
             template_found['qfmt'] = template_content['qfmt']

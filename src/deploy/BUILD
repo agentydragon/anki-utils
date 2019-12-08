@@ -5,6 +5,7 @@ anki_slug(
     name = "slug",
     models = [
         "//src/cloze",
+        "//src/basic_and_reversed",
         "//src/permuted_cloze",
         "//src/keyboard_shortcut",
     ],
