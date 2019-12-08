@@ -81,8 +81,7 @@ def apply_slug(collection, slug):
         logging.info("Updating model with UUID %s", uuid)
         model = find_model_by_uuid(collection, uuid)
         apply_model_update(model, model_update)
-        if not FLAGS.dry_run:
-            collection.models.update(model)
+        collection.models.update(model)
 
 
 def main(_):
@@ -98,9 +97,13 @@ def main(_):
         slug = json.load(f)
 
     apply_slug(collection, slug)
+    collection.models.flush()
 
-    if not FLAGS.dry_run:
-        collection.models.flush()
+    if FLAGS.dry_run:
+        logging.info("If all looks good, run with --nodry_run to commit.")
+    else:
+        collection.save()
+        logging.info("Changes were actually commited.")
 
 
 if __name__ == '__main__':
