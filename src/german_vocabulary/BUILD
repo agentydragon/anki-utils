@@ -14,38 +14,34 @@ anki_model(
 
 anki_template(
     name = "english_to_german",
-    answer_html = ":english_to_german_back.html",
+    answer_html = ":english_to_german_back",
     human_name = "English->German",
-    question_html = ":english_to_german_front.html",
+    question_html = ":english_to_german_front",
 )
 
 anki_template(
     name = "german_to_english",
-    answer_html = ":german_to_english_back.html",
+    answer_html = ":german_to_english_back",
     human_name = "German->English",
-    question_html = ":german_to_english_front.html",
+    question_html = ":german_to_english_front",
 )
 
 ordinary_template(
     name = "english_to_german_front",
     html_in = "english_to_german_front_header.html",
-    html_out = "english_to_german_front.html",
 )
 
 ordinary_template(
     name = "english_to_german_back",
     html_in = "english_to_german_back_header.html",
-    html_out = "english_to_german_back.html",
 )
 
 ordinary_template(
     name = "german_to_english_front",
     html_in = "german_to_english_front_header.html",
-    html_out = "german_to_english_front.html",
 )
 
 ordinary_template(
     name = "german_to_english_back",
     html_in = "german_to_english_back_header.html",
-    html_out = "german_to_english_back.html",
 )

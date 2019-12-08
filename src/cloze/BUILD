@@ -13,19 +13,17 @@ anki_model(
 
 anki_template(
     name = "cloze_tmpl",
-    answer_html = ":cloze_back.html",
+    answer_html = ":cloze_back",
     human_name = "Cloze",
-    question_html = ":cloze_front.html",
+    question_html = ":cloze_front",
 )
 
 ordinary_template(
     name = "cloze_front",
     html_in = "cloze_front_header.html",
-    html_out = "cloze_front.html",
 )
 
 ordinary_template(
     name = "cloze_back",
     html_in = "cloze_back_header.html",
-    html_out = "cloze_back.html",
 )

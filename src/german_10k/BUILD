@@ -14,9 +14,9 @@ anki_model(
 
 anki_template(
     name = "tmpl",
-    answer_html = ":back.html",
+    answer_html = ":back",
     human_name = "Card 1",
-    question_html = ":front.html",
+    question_html = ":front",
 )
 
 sass_binary(
@@ -30,11 +30,9 @@ sass_binary(
 ordinary_template(
     name = "front",
     html_in = "front_header.html",
-    html_out = "front.html",
 )
 
 ordinary_template(
     name = "back",
     html_in = "back_header.html",
-    html_out = "back.html",
 )

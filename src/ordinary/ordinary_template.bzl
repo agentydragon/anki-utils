@@ -1,4 +1,6 @@
-def _ordinary_template_impl(name, html_in, html_out):
+def _ordinary_template_impl(name, html_in, html_out=None):
+    if html_out == None:
+        html_out = html_in + ".expanded_ordinary_template.html"
     native.genrule(
         name = name,
         srcs = [

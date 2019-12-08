@@ -14,38 +14,34 @@ anki_model(
 
 anki_template(
     name = "front_to_back",
-    answer_html = ":front_to_back_back.html",
+    answer_html = ":front_to_back_back",
     human_name = "Front -> Back",
-    question_html = ":front_to_back_front.html",
+    question_html = ":front_to_back_front",
 )
 
 anki_template(
     name = "back_to_front",
-    answer_html = ":back_to_front_back.html",
+    answer_html = ":back_to_front_back",
     human_name = "Back -> Front",
-    question_html = ":back_to_front_front.html",
+    question_html = ":back_to_front_front",
 )
 
 ordinary_template(
     name = "front_to_back_front",
     html_in = "front_to_back_front_header.html",
-    html_out = "front_to_back_front.html",
 )
 
 ordinary_template(
     name = "front_to_back_back",
     html_in = "front_to_back_back_header.html",
-    html_out = "front_to_back_back.html",
 )
 
 ordinary_template(
     name = "back_to_front_front",
     html_in = "back_to_front_front_header.html",
-    html_out = "back_to_front_front.html",
 )
 
 ordinary_template(
     name = "back_to_front_back",
     html_in = "back_to_front_back_header.html",
-    html_out = "back_to_front_back.html",
 )
