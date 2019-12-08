@@ -4,10 +4,11 @@ load("@rules_python//python:defs.bzl", "py_binary")
 anki_slug(
     name = "slug",
     models = [
-        "//src/cloze",
         "//src/basic_and_reversed",
-        "//src/permuted_cloze",
+        "//src/cloze",
+        "//src/german_vocabulary",
         "//src/keyboard_shortcut",
+        "//src/permuted_cloze",
     ],
     output_json = "slug.json",
 )
