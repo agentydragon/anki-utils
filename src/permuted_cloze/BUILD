@@ -1,4 +1,22 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//src:anki_template.bzl", "anki_template", "anki_model")
+
+anki_model(
+    name = "permuted_cloze",
+    crowdanki_uuid = "760de475-186c-11ea-9152-151b4dde761a",
+    css = ":permuted_cloze.css",
+    templates = [
+        ":template",
+    ],
+    visibility = ["//src/deploy:__subpackages__"],
+)
+
+anki_template(
+    name = "template",
+    answer_html = ":back.html",
+    human_name = "Cloze",
+    question_html = ":front.html",
+)
 
 genrule(
     name = "back_genrule",
@@ -53,7 +71,7 @@ genrule(
 )
 
 sass_binary(
-    name = "permuted_cloze",
+    name = "sass",
     src = "permuted_cloze.scss",
     visibility = ["//src/deploy:__subpackages__"],
     deps = [

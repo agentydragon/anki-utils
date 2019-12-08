@@ -45,7 +45,10 @@ genrule(
 sass_binary(
     name = "ordinary",
     src = "ordinary.scss",
-    visibility = ["//src/deploy:__subpackages__"],
+    visibility = [
+        "//src:__subpackages__",
+        "//src/deploy:__subpackages__",
+    ],
     deps = [
         "//src/shared_styles:card",
     ],
