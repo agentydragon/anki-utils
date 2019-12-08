@@ -1,4 +1,5 @@
 load("//src:anki_template.bzl", "anki_slug")
+load("@rules_python//python:defs.bzl", "py_binary")
 
 anki_slug(
     name = "slug",
@@ -18,4 +19,11 @@ py_binary(
 py_binary(
     name = "list_models",
     srcs = ["list_models.py"],
+)
+
+py_binary(
+    name = "deploy",
+    srcs = [":deploy.py"],
+    data = [":slug.json"],
+    deps = ["@rules_python//python/runfiles"],
 )
