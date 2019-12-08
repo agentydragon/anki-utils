@@ -7,6 +7,8 @@ anki_slug(
         "//src/basic_and_reversed",
         "//src/cloze",
         "//src/german_vocabulary",
+        "//src/german_10k",
+        "//src/german_memrise_4k",
         "//src/keyboard_shortcut",
         "//src/permuted_cloze",
     ],

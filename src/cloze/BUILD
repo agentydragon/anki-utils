@@ -1,13 +1,6 @@
 load("//src:anki_template.bzl", "anki_template", "anki_model")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 
-anki_template(
-    name = "cloze_tmpl",
-    answer_html = ":cloze_back.html",
-    human_name = "Cloze",
-    question_html = ":cloze_front.html",
-)
-
 anki_model(
     name = "cloze",
     crowdanki_uuid = "760de482-186c-11ea-9152-151b4dde761a",
@@ -16,6 +9,13 @@ anki_model(
         ":cloze_tmpl",
     ],
     visibility = ["//src/deploy:__subpackages__"],
+)
+
+anki_template(
+    name = "cloze_tmpl",
+    answer_html = ":cloze_back.html",
+    human_name = "Cloze",
+    question_html = ":cloze_front.html",
 )
 
 ordinary_template(
