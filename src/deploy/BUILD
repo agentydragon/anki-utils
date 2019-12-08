@@ -22,6 +22,7 @@ genrule(
         "//src/keyboard_shortcut:keyboard_shortcut.css",
     ],
     outs = ["slug.json"],
+    # TODO(prvak): Skylark encoding
     cmd = " ".join([
         "$(location :build_slug)",
         # Cloze
