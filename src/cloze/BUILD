@@ -6,24 +6,24 @@ anki_model(
     crowdanki_uuid = "760de482-186c-11ea-9152-151b4dde761a",
     css = "//src/ordinary:ordinary.css",
     templates = [
-        ":cloze_tmpl",
+        ":tmpl",
     ],
     visibility = ["//src/deploy:__subpackages__"],
 )
 
 anki_template(
-    name = "cloze_tmpl",
-    answer_html = ":cloze_back",
+    name = "tmpl",
+    answer_html = ":back",
     human_name = "Cloze",
-    question_html = ":cloze_front",
+    question_html = ":front",
 )
 
 ordinary_template(
-    name = "cloze_front",
-    html_in = "cloze_front_header.html",
+    name = "front",
+    html_in = "front.html",
 )
 
 ordinary_template(
-    name = "cloze_back",
-    html_in = "cloze_back_header.html",
+    name = "back",
+    html_in = "back.html",
 )
