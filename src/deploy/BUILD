@@ -19,6 +19,8 @@ py_binary(
 py_binary(
     name = "list_models",
     srcs = ["list_models.py"],
+    data = [":slug.json"],
+    deps = ["@rules_python//python/runfiles"],
 )
 
 py_binary(
