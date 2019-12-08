@@ -1,5 +1,6 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("//src:anki_template.bzl", "anki_template", "anki_model")
+load("//src/ordinary:ordinary_template.bzl", "general_template")
 
 anki_model(
     name = "permuted_cloze",
@@ -13,61 +14,35 @@ anki_model(
 
 anki_template(
     name = "template",
-    answer_html = ":back.html",
+    answer_html = ":back",
     human_name = "Cloze",
-    question_html = ":front.html",
+    question_html = ":front",
 )
 
-genrule(
-    name = "back_genrule",
-    srcs = [
+general_template(
+    name = "back",
+    html_headers = [
+        "//src/shared_styles:common_header.html",
         "back_header.html",
-        "common.js",
+    ],
+    js_footers = [
         "//src/shared_styles:log.js",
         "//src/shared_styles:heading.js",
-        "//src/shared_styles:common_header.html",
+        "common.js",
     ],
-    outs = ["back.html"],
-    cmd = "\n".join([
-        "(",
-        "  cat $(location //src/shared_styles:common_header.html) && ",
-        "  cat $(location back_header.html) && ",
-        "  echo \"<script>\" && ",
-        "  echo \"(function() {\" && ",
-        "  cat $(location //src/shared_styles:log.js) && ",
-        "  cat $(location //src/shared_styles:heading.js) && ",
-        "  cat $(location common.js) && ",
-        "  echo \"})();\" && ",
-        "  echo \"</script>\"",
-        ") > \"$@\"",
-    ]),
-    visibility = ["//src/deploy:__subpackages__"],
 )
 
-genrule(
-    name = "front_genrule",
-    srcs = [
-        "front_header.html",
-        "common.js",
-        "//src/shared_styles:heading.js",
-        "//src/shared_styles:log.js",
+general_template(
+    name = "front",
+    html_headers = [
         "//src/shared_styles:common_header.html",
+        "front_header.html",
     ],
-    outs = ["front.html"],
-    cmd = "\n".join([
-        "(",
-        "  cat $(location //src/shared_styles:common_header.html) && ",
-        "  cat $(location front_header.html) && ",
-        "  echo \"<script>\" && ",
-        "  echo \"(function() {\" && ",
-        "  cat $(location //src/shared_styles:log.js) && ",
-        "  cat $(location //src/shared_styles:heading.js) && ",
-        "  cat $(location common.js) && ",
-        "  echo \"})();\" && ",
-        "  echo \"</script>\"",
-        ") > \"$@\"",
-    ]),
-    visibility = ["//src/deploy:__subpackages__"],
+    js_footers = [
+        "//src/shared_styles:log.js",
+        "//src/shared_styles:heading.js",
+        "common.js",
+    ],
 )
 
 sass_binary(
