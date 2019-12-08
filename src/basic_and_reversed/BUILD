@@ -1,4 +1,5 @@
 load("//src:anki_template.bzl", "anki_template", "anki_model")
+load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 
 anki_model(
     name = "basic_and_reversed",
@@ -25,98 +26,26 @@ anki_template(
     question_html = ":back_to_front_front.html",
 )
 
-genrule(
+ordinary_template(
     name = "front_to_back_front",
-    srcs = [
-        "//src/shared_styles:common_header.html",
-        "//src/shared_styles:heading.js",
-        "//src/shared_styles:log.js",
-        "front_to_back_front_header.html",
-    ],
-    outs = ["front_to_back_front.html"],
-    cmd = "\n".join([
-        "(",
-        "  cat $(location //src/shared_styles:common_header.html) && ",
-        "  cat $(location front_to_back_front_header.html) && ",
-        "  echo \"<script>\" && ",
-        "  echo \"(function() {\" && ",
-        "  cat $(location //src/shared_styles:log.js) && ",
-        "  cat $(location //src/shared_styles:heading.js) && ",
-        "  echo \"})();\" && ",
-        "  echo \"</script>\"",
-        ") > \"$@\"",
-    ]),
-    visibility = ["//src/deploy:__subpackages__"],
+    html_in = "front_to_back_front_header.html",
+    html_out = "front_to_back_front.html",
 )
 
-genrule(
+ordinary_template(
     name = "front_to_back_back",
-    srcs = [
-        "//src/shared_styles:common_header.html",
-        "//src/shared_styles:heading.js",
-        "//src/shared_styles:log.js",
-        "front_to_back_back_header.html",
-    ],
-    outs = ["front_to_back_back.html"],
-    cmd = "\n".join([
-        "(",
-        "  cat $(location //src/shared_styles:common_header.html) && ",
-        "  cat $(location front_to_back_back_header.html) && ",
-        "  echo \"<script>\" && ",
-        "  echo \"(function() {\" && ",
-        "  cat $(location //src/shared_styles:log.js) && ",
-        "  cat $(location //src/shared_styles:heading.js) && ",
-        "  echo \"})();\" && ",
-        "  echo \"</script>\"",
-        ") > \"$@\"",
-    ]),
-    visibility = ["//src/deploy:__subpackages__"],
+    html_in = "front_to_back_back_header.html",
+    html_out = "front_to_back_back.html",
 )
 
-genrule(
+ordinary_template(
     name = "back_to_front_front",
-    srcs = [
-        "//src/shared_styles:common_header.html",
-        "//src/shared_styles:heading.js",
-        "//src/shared_styles:log.js",
-        "back_to_front_front_header.html",
-    ],
-    outs = ["back_to_front_front.html"],
-    cmd = "\n".join([
-        "(",
-        "  cat $(location //src/shared_styles:common_header.html) && ",
-        "  cat $(location back_to_front_front_header.html) && ",
-        "  echo \"<script>\" && ",
-        "  echo \"(function() {\" && ",
-        "  cat $(location //src/shared_styles:log.js) && ",
-        "  cat $(location //src/shared_styles:heading.js) && ",
-        "  echo \"})();\" && ",
-        "  echo \"</script>\"",
-        ") > \"$@\"",
-    ]),
-    visibility = ["//src/deploy:__subpackages__"],
+    html_in = "back_to_front_front_header.html",
+    html_out = "back_to_front_front.html",
 )
 
-genrule(
+ordinary_template(
     name = "back_to_front_back",
-    srcs = [
-        "//src/shared_styles:common_header.html",
-        "//src/shared_styles:heading.js",
-        "//src/shared_styles:log.js",
-        "back_to_front_back_header.html",
-    ],
-    outs = ["back_to_front_back.html"],
-    cmd = "\n".join([
-        "(",
-        "  cat $(location //src/shared_styles:common_header.html) && ",
-        "  cat $(location back_to_front_back_header.html) && ",
-        "  echo \"<script>\" && ",
-        "  echo \"(function() {\" && ",
-        "  cat $(location //src/shared_styles:log.js) && ",
-        "  cat $(location //src/shared_styles:heading.js) && ",
-        "  echo \"})();\" && ",
-        "  echo \"</script>\"",
-        ") > \"$@\"",
-    ]),
-    visibility = ["//src/deploy:__subpackages__"],
+    html_in = "back_to_front_back_header.html",
+    html_out = "back_to_front_back.html",
 )
