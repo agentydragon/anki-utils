@@ -14,6 +14,12 @@ genrule(
         "//src/permuted_cloze:front.html",
         "//src/permuted_cloze:back.html",
         "//src/permuted_cloze:permuted_cloze.css",
+        # Keyboard Shortcut
+        "//src/keyboard_shortcut:effect_to_shortcut_front.html",
+        "//src/keyboard_shortcut:effect_to_shortcut_back.html",
+        "//src/keyboard_shortcut:shortcut_to_effect_front.html",
+        "//src/keyboard_shortcut:shortcut_to_effect_back.html",
+        "//src/keyboard_shortcut:keyboard_shortcut.css",
     ],
     outs = ["slug.json"],
     cmd = " ".join([
@@ -28,6 +34,15 @@ genrule(
         "--permuted_cloze_html_front_path=$(location //src/permuted_cloze:front.html)",
         "--permuted_cloze_html_back_path=$(location //src/permuted_cloze:back.html)",
         "--permuted_cloze_css_path=$(location //src/permuted_cloze:permuted_cloze.css)",
+        # Keyboard Shortcut
+        "--keyboard_shortcut_uuid=873f9847-186c-11ea-9152-151b4dde761a",
+        "--keyboard_shortcut_html_effect_to_shortcut_front_path=$(location //src/keyboard_shortcut:effect_to_shortcut_front.html)",
+        "--keyboard_shortcut_html_effect_to_shortcut_back_path=$(location //src/keyboard_shortcut:effect_to_shortcut_back.html)",
+        "--keyboard_shortcut_html_shortcut_to_effect_front_path=$(location //src/keyboard_shortcut:shortcut_to_effect_front.html)",
+        "--keyboard_shortcut_html_shortcut_to_effect_back_path=$(location //src/keyboard_shortcut:shortcut_to_effect_back.html)",
+        "--keyboard_shortcut_css_path=$(location //src/keyboard_shortcut:keyboard_shortcut.css)",
+
+        # Output
         "--output_slug_path=$(location :slug.json)",
     ]),
     tools = [
