@@ -1,11 +1,5 @@
 load("//src:anki_template.bzl", "anki_slug")
 
-py_binary(
-    name = "build_slug",
-    srcs = ["build_slug.py"],
-    visibility = ["//visibility:public"],
-)
-
 anki_slug(
     name = "slug",
     models = [
@@ -17,8 +11,8 @@ anki_slug(
 )
 
 py_binary(
-    name = "build_model_slug",
-    srcs = ["build_model_slug.py"],
+    name = "build_slug",
+    srcs = ["build_slug.py"],
 )
 
 py_binary(
