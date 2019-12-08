@@ -11,6 +11,7 @@ anki_slug(
         "//src/german_memrise_4k",
         "//src/keyboard_shortcut",
         "//src/permuted_cloze",
+        "//src/geo_memrise_water",
     ],
     output_json = "slug.json",
 )
