@@ -19,6 +19,7 @@ genrule(
         "  echo \"</script>\"",
         ") > \"$@\"",
     ]),
+    visibility = ["//src/deploy:__subpackages__"],
 )
 
 genrule(
@@ -42,4 +43,5 @@ genrule(
         "  echo \"</script>\"",
         ") > \"$@\"",
     ]),
+    visibility = ["//src/deploy:__subpackages__"],
 )
