@@ -23,6 +23,7 @@ genrule(
         "  echo \"</script>\"",
         ") > \"$@\"",
     ]),
+    visibility = ["//src/deploy:__subpackages__"],
 )
 
 genrule(
@@ -48,11 +49,13 @@ genrule(
         "  echo \"</script>\"",
         ") > \"$@\"",
     ]),
+    visibility = ["//src/deploy:__subpackages__"],
 )
 
 sass_binary(
     name = "permuted_cloze",
     src = "permuted_cloze.scss",
+    visibility = ["//src/deploy:__subpackages__"],
     deps = [
         "//src/shared_styles:card",
     ],
