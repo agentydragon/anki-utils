@@ -32,6 +32,8 @@ def read_file(path):
 
 def main(_):
     slug = {}
+    if FLAGS.cloze_uuid in slug:
+        raise Exception("Duplicated UUID")
     slug[FLAGS.cloze_uuid] = {
         'css': read_file(FLAGS.cloze_css_path),
         'templates': {
@@ -41,6 +43,8 @@ def main(_):
             }
         }
     }
+    if FLAGS.permuted_cloze_uuid in slug:
+        raise Exception("Duplicated UUID")
     slug[FLAGS.permuted_cloze_uuid] = {
         'css': read_file(FLAGS.permuted_cloze_css_path),
         'templates': {
