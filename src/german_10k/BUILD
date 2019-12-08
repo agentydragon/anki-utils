@@ -29,10 +29,10 @@ sass_binary(
 
 ordinary_template(
     name = "front",
-    html_in = "front_header.html",
+    html_in = "front.html",
 )
 
 ordinary_template(
     name = "back",
-    html_in = "back_header.html",
+    html_in = "back.html",
 )
