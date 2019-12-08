@@ -34,7 +34,7 @@ def main(_):
                                 human_name + " in UUID " + uuid)
             templates[human_name] = {
                 'qfmt': read_file(template['question_html']),
-                'qfmt': read_file(template['answer_html']),
+                'afmt': read_file(template['answer_html']),
             }
         slug[uuid] = {
             'css': read_file(model['css']),
