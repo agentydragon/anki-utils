@@ -1,4 +1,4 @@
-load("//src:anki_template.bzl", "anki_template", "anki_model")
+load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 
 # TODO(prvak): set title to "Unicode" by default

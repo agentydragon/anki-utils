@@ -1,4 +1,4 @@
-def _general_template_impl(name, html_headers, js_footers, html_out=None):
+def _general_template_impl(name, html_headers, js_footers, html_out = None):
     if html_out == None:
         html_out = name + ".expanded_general_template.html"
     html_cat = "cat "
@@ -13,9 +13,11 @@ def _general_template_impl(name, html_headers, js_footers, html_out=None):
         outs = [html_out],
         cmd = "\n".join([
             "(",
-            ";\n".join([html_cat,
+            ";\n".join([
+                html_cat,
                 "echo \"<script>\"",
-                "echo \"(function() {\"",js_cat,
+                "echo \"(function() {\"",
+                js_cat,
                 "echo \"})();\" ",
                 "echo \"</script>\"",
             ]),
@@ -26,8 +28,9 @@ def _general_template_impl(name, html_headers, js_footers, html_out=None):
 
 general_template = _general_template_impl
 
-def _ordinary_template_impl(name, html_in, html_out=None):
-    _general_template_impl(name, html_headers=["//src/shared_styles:common_header.html", html_in], js_footers=["//src/shared_styles:log.js", "//src/shared_styles:heading.js",], html_out=html_out)
+def _ordinary_template_impl(name, html_in, html_out = None):
+    _general_template_impl(name, html_headers = ["//src/shared_styles:common_header.html", html_in], js_footers = ["//src/shared_styles:log.js", "//src/shared_styles:heading.js"], html_out = html_out)
+
 #    if html_out == None:
 #        html_out = html_in + ".expanded_ordinary_template.html"
 #    native.genrule(

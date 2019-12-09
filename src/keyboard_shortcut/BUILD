@@ -1,5 +1,5 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
-load("//src:anki_template.bzl", "anki_template", "anki_model")
+load("//src:anki_template.bzl", "anki_model", "anki_template")
 
 exports_files(["common.js"])
 
