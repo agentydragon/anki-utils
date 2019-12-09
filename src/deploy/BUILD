@@ -7,6 +7,7 @@ anki_slug(
         "//src/basic_and_reversed",
         "//src/cloze",
         "//src/confusing_pair",
+        "//src/geo_country_maps",
         "//src/geo_memrise_water",
         "//src/german_10k",
         "//src/german_memrise_4k",
