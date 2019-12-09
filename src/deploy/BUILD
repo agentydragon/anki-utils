@@ -5,6 +5,7 @@ anki_slug(
     name = "slug",
     models = [
         "//src/basic_and_reversed",
+        "//src/latex_math",
         "//src/cloze",
         "//src/confusing_pair",
         "//src/geo_country_maps",
