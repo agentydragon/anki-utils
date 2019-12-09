@@ -6,13 +6,14 @@ anki_slug(
     models = [
         "//src/basic_and_reversed",
         "//src/cloze",
-        "//src/unicode",
+        "//src/confusing_pair",
         "//src/geo_memrise_water",
         "//src/german_10k",
         "//src/german_memrise_4k",
         "//src/german_vocabulary",
         "//src/keyboard_shortcut",
         "//src/permuted_cloze",
+        "//src/unicode",
     ],
     output_json = "slug.json",
 )
