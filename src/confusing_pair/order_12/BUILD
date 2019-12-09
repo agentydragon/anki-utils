@@ -1,4 +1,4 @@
-load("//src:anki_template.bzl", "anki_model", "anki_template")
+load("//src:anki_template.bzl", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 
 anki_template(
