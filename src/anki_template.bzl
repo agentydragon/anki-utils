@@ -5,9 +5,11 @@ AnkiTemplateInfo = provider(fields = [
 ])
 
 def _anki_template_impl(ctx):
-    return [AnkiTemplateInfo(human_name = ctx.attr.human_name,
-                             question_html = ctx.attr.question_html,
-                             answer_html = ctx.attr.answer_html)]
+    return [AnkiTemplateInfo(
+        human_name = ctx.attr.human_name,
+        question_html = ctx.attr.question_html,
+        answer_html = ctx.attr.answer_html,
+    )]
 
 anki_template = rule(
     attrs = {
@@ -39,9 +41,10 @@ def _anki_model_impl(ctx):
     return [
         AnkiModelInfo(
             crowdanki_uuid = ctx.attr.crowdanki_uuid,
-            templates=templates,
-            css=ctx.attr.css
-        )]
+            templates = templates,
+            css = ctx.attr.css,
+        ),
+    ]
 
 anki_model = rule(
     attrs = {
@@ -73,23 +76,22 @@ def _anki_slug_impl(ctx):
             all_files.extend(a_html)
             templates.append(
                 struct(
-                    question_html=q_html[0].path,
-                    answer_html=a_html[0].path,
-                    human_name=template.human_name
-                )
+                    question_html = q_html[0].path,
+                    answer_html = a_html[0].path,
+                    human_name = template.human_name,
+                ),
             )
-        models.append(struct(crowdanki_uuid=info.crowdanki_uuid, templates=templates, css=info.css.files.to_list()[0].path))
-    inp = struct(models=models)
+        models.append(struct(crowdanki_uuid = info.crowdanki_uuid, templates = templates, css = info.css.files.to_list()[0].path))
+    inp = struct(models = models)
     args.add("--models", inp.to_json())
     args.add("--output_file", ctx.outputs.output_json)
     args.add("--alsologtostderr")
 
-
     ctx.actions.run(
         inputs = all_files,
         outputs = [ctx.outputs.output_json],
-        executable=ctx.executable.build_slug,
-        arguments=[args]
+        executable = ctx.executable.build_slug,
+        arguments = [args],
     )
 
 anki_slug = rule(
