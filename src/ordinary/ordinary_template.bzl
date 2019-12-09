@@ -28,13 +28,13 @@ def _general_template_impl(name, html_headers, js_footers, html_out = None):
 
 general_template = _general_template_impl
 
-def _ordinary_template_impl(name, html_in, extra_js = [], html_out = None):
+def _ordinary_template_impl(name, html_in, extra_js = [], html_out = None, html_prepend = [], html_append = []):
     _general_template_impl(
         name,
-        html_headers = [
+        html_headers = html_prepend + [
             "//src/shared_styles:common_header.html",
             html_in,
-        ],
+        ] + html_append,
         js_footers = [
             "//src/shared_styles:log.js",
             "//src/shared_styles:mathjax_log.js",

@@ -12,9 +12,13 @@ anki_template(
 ordinary_template(
     name = "front",
     html_in = "front.html",
+    html_prepend = ["header.html"],
+    html_append = ["footer.html"],
 )
 
 ordinary_template(
     name = "back",
     html_in = "back.html",
+    html_prepend = ["header.html"],
+    html_append = ["footer.html"],
 )
