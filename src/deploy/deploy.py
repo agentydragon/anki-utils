@@ -40,6 +40,8 @@ FLAGS = flags.FLAGS
 # }
 # Permuted Rows Cloze (JS powered)
 
+SLUG_RUNFILES_PATH = "__main__/src/models/slug.json"
+
 
 def find_model_by_uuid(collection, uuid):
     found = None
@@ -85,11 +87,12 @@ def apply_slug(collection, slug):
 
 
 def main(_):
+    r = runfiles.Create()
     collection = anki.Collection(FLAGS.collection_path)
 
     slug_path = FLAGS.slug_path
     if slug_path is None:
-        path = runfiles.Create().Rlocation("__main__/src/deploy/slug.json")
+        path = r.Rlocation(SLUG_RUNFILES_PATH)
         logging.info("Loading slug from runfiles: %s", path)
         slug_path = path
 
