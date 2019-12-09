@@ -28,35 +28,19 @@ def _general_template_impl(name, html_headers, js_footers, html_out = None):
 
 general_template = _general_template_impl
 
-def _ordinary_template_impl(name, html_in, html_out = None):
-    _general_template_impl(name, html_headers = ["//src/shared_styles:common_header.html", html_in], js_footers = ["//src/shared_styles:log.js", "//src/shared_styles:heading.js"], html_out = html_out)
-
-#    if html_out == None:
-#        html_out = html_in + ".expanded_ordinary_template.html"
-#    native.genrule(
-#        name = name,
-#        srcs = [
-#            "//src/shared_styles:common_header.html",
-#            "//src/shared_styles:heading.js",
-#            "//src/shared_styles:log.js",
-#            html_in
-#        ],
-#        outs = [html_out],
-#        cmd = "\n".join([
-#            "(",
-#            ";\n".join([
-#                "cat $(location //src/shared_styles:common_header.html)",
-#                "cat $(location :" + html_in + ")",
-#                "echo \"<script>\"",
-#                "echo \"(function() {\"",
-#                "cat $(location //src/shared_styles:log.js)",
-#                "cat $(location //src/shared_styles:heading.js)",
-#                "echo \"})();\" ",
-#                "echo \"</script>\"",
-#            ]),
-#            ") > \"$@\"",
-#        ]),
-#        visibility = ["//src/deploy:__subpackages__"],
-#    )
+def _ordinary_template_impl(name, html_in, extra_js = [], html_out = None):
+    _general_template_impl(
+        name,
+        html_headers = [
+            "//src/shared_styles:common_header.html",
+            html_in,
+        ],
+        js_footers = [
+            "//src/shared_styles:log.js",
+            "//src/shared_styles:mathjax_log.js",
+            "//src/shared_styles:heading.js",
+        ] + extra_js,
+        html_out = html_out,
+    )
 
 ordinary_template = _ordinary_template_impl

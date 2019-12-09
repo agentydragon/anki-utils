@@ -1,6 +1,6 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("//src:anki_template.bzl", "anki_model", "anki_template")
-load("//src/ordinary:ordinary_template.bzl", "general_template")
+load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 
 anki_model(
     name = "permuted_cloze",
@@ -19,30 +19,16 @@ anki_template(
     question_html = ":front",
 )
 
-general_template(
+ordinary_template(
     name = "back",
-    html_headers = [
-        "//src/shared_styles:common_header.html",
-        "back_header.html",
-    ],
-    js_footers = [
-        "//src/shared_styles:log.js",
-        "//src/shared_styles:heading.js",
-        "common.js",
-    ],
+    html_in = "back_header.html",
+    extra_js = ["common.js"],
 )
 
-general_template(
+ordinary_template(
     name = "front",
-    html_headers = [
-        "//src/shared_styles:common_header.html",
-        "front_header.html",
-    ],
-    js_footers = [
-        "//src/shared_styles:log.js",
-        "//src/shared_styles:heading.js",
-        "common.js",
-    ],
+    html_in = "front_header.html",
+    extra_js = ["common.js"],
 )
 
 sass_binary(

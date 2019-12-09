@@ -3,6 +3,7 @@ load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
 exports_files([
     "common_header.html",
     "heading.js",
+    "mathjax_log.js",
     "log.js",
 ])
 
