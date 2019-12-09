@@ -2,6 +2,8 @@
 @import "src/shared_styles/solarized";
 @import "src/shared_styles/keyboard_shortcut";
 
+$card-padding: 10px;
+
 .card {
   font-family: "Roboto", sans-serif;
   padding: 0;
@@ -11,21 +13,21 @@
 #content {
   // Override margin set in AnkiDroid's default style.
   // https://github.com/ankidroid/Anki-Android/blob/2bca8ade9197b59cbd38ef5d3076fc60c32dea84/AnkiDroid/src/main/assets/flashcard.css
-  margin: 0;
+  margin: 0 !important;
 }
 
 h1 {
-  padding: 10px;
+  padding: $card-padding;
   margin: 0;
 }
 
 h2 {
-  padding: 10px;
+  padding: $card-padding;
   margin: 0;
 }
 
 #agentydragon-content {
-  padding: 10px;
+  padding: $card-padding;
 }
 
 hr {
@@ -37,28 +39,29 @@ code, pre {
   font-family: "Ubuntu Mono", "Roboto Mono", monospace;
 }
 
-@mixin cardRebase($rebase03, $rebase02, $rebase01, $rebase00, $rebase0, $rebase1, $rebase2, $rebase3)
-{
-    background-color: $rebase03;
-    color: $rebase0;
-    // h1, h2, h3, h4, h5, h6 { color: $rebase1; border-color: $rebase0; }
-    a, a:active, a:visited { color: $rebase1; }
+@mixin cardRebase($rebase03, $rebase02, $rebase01, $rebase00, $rebase0, $rebase1, $rebase2, $rebase3) {
+  background-color: $rebase03;
+  color: $rebase0;
+  // h1, h2, h3, h4, h5, h6 { color: $rebase1; border-color: $rebase0; }
+  a, a:active, a:visited { color: $rebase1; }
 
-	h1 {
-	  color: $rebase2;
-	  background-color: $rebase02;
-	}
-	h2 {
-	  color: $rebase1;
-	  background-color: $rebase02;
-	}
-	hr {
-	  background-color: $rebase02
-	}
+  h1 {
+    color: $rebase2;
+    background-color: $rebase02;
+  }
+  h2 {
+    color: $rebase1;
+    background-color: $rebase02;
+  }
+  hr {
+    background-color: $rebase02
+  }
 }
 
 .card {
   @include cardRebase($base3,$base2,$base1,$base0,$base00,$base01,$base02,$base03);
+  margin: 0;
+  padding: 0;
 }
 
 .card.night_mode {
