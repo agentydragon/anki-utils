@@ -17,7 +17,6 @@ anki_model(
 sass_binary(
     name = "sass",
     src = "keyboard_shortcut.scss",
-    # visibility = ["//src/deploy:__subpackages__"],
     deps = [
         "//src/shared_styles:card",
     ],

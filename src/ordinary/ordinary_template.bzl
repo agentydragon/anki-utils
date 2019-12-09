@@ -1,46 +1,61 @@
-def _general_template_impl(name, html_headers, js_footers, html_out = None):
+def _concat(files):
+    if not files:
+        return ""
+    cat = "cat "
+    for f in files:
+        cat += "$(location " + f + ") "
+    return cat
+
+def _general_template_impl(
+        name,
+        html_headers,
+        js_footers,
+        html_out = None,
+        html_append = []):
     if html_out == None:
         html_out = name + ".expanded_general_template.html"
-    html_cat = "cat "
-    for html_header in html_headers:
-        html_cat += "$(location " + html_header + ") "
-    js_cat = "cat "
-    for js_footer in js_footers:
-        js_cat += "$(location " + js_footer + ") "
     native.genrule(
         name = name,
-        srcs = js_footers + html_headers,
+        srcs = js_footers + html_headers + html_append,
         outs = [html_out],
         cmd = "\n".join([
             "(",
             ";\n".join([
-                html_cat,
+                _concat(html_headers),
                 "echo \"<script>\"",
                 "echo \"(function() {\"",
-                js_cat,
+                _concat(js_footers),
                 "echo \"})();\" ",
                 "echo \"</script>\"",
+                _concat(html_append),
             ]),
-            ") > \"$@\"",
+            # Stripping whitespace to make sure we give Anki a fully empty card
+            # if wrapped in a {{#...}} {{/...}}
+            ") | python -c 'import sys; sys.stdout.write(sys.stdin.read().strip())' > \"$@\"",
         ]),
         visibility = ["//src/deploy:__subpackages__"],
     )
 
 general_template = _general_template_impl
 
-def _ordinary_template_impl(name, html_in, extra_js = [], html_out = None, html_prepend = [], html_append = []):
+def _ordinary_template_impl(
+        name,
+        html_in,
+        extra_js = [],
+        html_prepend = [],
+        **kwargs):
     _general_template_impl(
         name,
         html_headers = html_prepend + [
             "//src/shared_styles:common_header.html",
             html_in,
-        ] + html_append,
+        ],
         js_footers = [
             "//src/shared_styles:log.js",
             "//src/shared_styles:mathjax_log.js",
             "//src/shared_styles:heading.js",
         ] + extra_js,
-        html_out = html_out,
+        **kwargs
     )
 
 ordinary_template = _ordinary_template_impl
