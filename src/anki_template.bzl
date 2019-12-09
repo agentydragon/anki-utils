@@ -5,7 +5,6 @@ AnkiTemplateInfo = provider(fields = [
 ])
 
 def _anki_template_impl(ctx):
-    print("Anki template {} question={} answer={} human name={}".format(ctx.label, ctx.attr.question_html, ctx.attr.answer_html, ctx.attr.human_name))
     return [AnkiTemplateInfo(human_name = ctx.attr.human_name,
                              question_html = ctx.attr.question_html,
                              answer_html = ctx.attr.answer_html)]
@@ -32,14 +31,17 @@ AnkiModelInfo = provider(fields = [
 ])
 
 def _anki_model_impl(ctx):
-    print("Anki model label {} uuid {}".format(ctx.label, ctx.attr.crowdanki_uuid))
     templates = []
     for template in ctx.attr.templates:
         template_info = template[AnkiTemplateInfo]
-        print("question={} answer={} human_name={}".format(template_info.question_html, template_info.answer_html, template_info.human_name))
         templates.append(template_info)
 
-    return [AnkiModelInfo(crowdanki_uuid = ctx.attr.crowdanki_uuid, templates=templates, css=ctx.attr.css)]
+    return [
+        AnkiModelInfo(
+            crowdanki_uuid = ctx.attr.crowdanki_uuid,
+            templates=templates,
+            css=ctx.attr.css
+        )]
 
 anki_model = rule(
     attrs = {
@@ -57,7 +59,6 @@ anki_model = rule(
 )
 
 def _anki_slug_impl(ctx):
-    print("making slug")
     all_files = []
     args = ctx.actions.args()
     models = []
@@ -70,14 +71,19 @@ def _anki_slug_impl(ctx):
             a_html = template.answer_html.files.to_list()
             all_files.extend(q_html)
             all_files.extend(a_html)
-            templates.append(struct(question_html=q_html[0].path,answer_html=a_html[0].path,human_name=template.human_name))
+            templates.append(
+                struct(
+                    question_html=q_html[0].path,
+                    answer_html=a_html[0].path,
+                    human_name=template.human_name
+                )
+            )
         models.append(struct(crowdanki_uuid=info.crowdanki_uuid, templates=templates, css=info.css.files.to_list()[0].path))
     inp = struct(models=models)
     args.add("--models", inp.to_json())
     args.add("--output_file", ctx.outputs.output_json)
     args.add("--alsologtostderr")
 
-    print('all files: {}'.format(all_files))
 
     ctx.actions.run(
         inputs = all_files,
