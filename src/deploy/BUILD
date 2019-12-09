@@ -6,6 +6,7 @@ anki_slug(
     models = [
         "//src/basic_and_reversed",
         "//src/cloze",
+        "//src/unicode",
         "//src/geo_memrise_water",
         "//src/german_10k",
         "//src/german_memrise_4k",
