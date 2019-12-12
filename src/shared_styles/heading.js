@@ -44,10 +44,14 @@ Rai.headingFromTag = function(tag) {
 // languages::language::german::4k_words_by_frequency
 // languages::language::german::4k_words_by_frequency::Level::166 leech
 
+Rai.tagIsMeta = function(tag) {
+  return Rai.tagIsUnderTag(tag, "todo") || Rai.tagIsUnderTag(tag, "marked") ||
+         Rai.tagIsUnderTag(tag, "leech");
+};
+
 Rai.headingFromTags = function() {
   const tags = Rai.NOTE_FIELDS.TAGS;
-  const individualTags =
-      tags.split(' ').filter(tag => !Rai.tagIsUnderTag(tag, "todo"));
+  const individualTags = tags.split(' ').filter(tag => !Rai.tagIsMeta(tag));
   // Remove non-leaf tags.
   const tagIsNonleaf = tag => individualTags.some(
       candidateChild => Rai.tagIsStrictlyUnderTag(candidateChild, tag));
