@@ -7,30 +7,46 @@ function getLastDeckComponent(deck) {
   return innerDeck.replace(/^[^a-zA-Z]?\d* ?(.*)$/, "$1");
 }
 
-function headingIsUsable(heading) {
-  // Allow using automatic heading inference without a Heading field
-  // in the model.
-  return heading.length > 0 && heading.indexOf("unknown field Heading") === -1;
-}
-
-const heading = document.getElementById("agentydragon-heading").textContent;
-const deck = document.getElementById("agentydragon-deck").textContent;
-const card = document.getElementById("agentydragon-card");
-const headerInContent = document.querySelector("#agentydragon-content h1");
-if (headerInContent) {
-  headerInContent.remove();
-  card.insertBefore(headerInContent, card.firstChild);
-} else if (!document.querySelector("h1")) {
-  const newHeader = document.createElement("h1");
-  if (headingIsUsable(heading)) {
-    newHeader.textContent = heading;
-  } else {
-    newHeader.textContent = getLastDeckComponent(deck);
+Rai.obtainFieldFromId = function(id) {
+  const content = document.getElementById(id).textContent;
+  // If the model does not have the field, return null.
+  if (content.indexOf("unknown field ") !== -1) {
+    return null;
   }
+  return content;
+};
+
+Rai.obtainNoteFields = function() {
+  Rai.NOTE_FIELDS = {
+    HEADING : Rai.obtainFieldFromId("agentydragon-heading"),
+    DECK : Rai.obtainFieldFromId("agentydragon-deck"),
+  };
+};
+
+Rai.obtainHeading = function() {
+  const headerInContent = document.querySelector("#agentydragon-content h1");
+  if (headerInContent) {
+    headerInContent.remove();
+    return headerInContent.textContent;
+  }
+  if (Rai.NOTE_FIELDS.HEADING) {
+    return Rai.NOTE_FIELDS.HEADING;
+  }
+  return getLastDeckComponent(Rai.NOTE_FIELDS.DECK);
+};
+
+Rai.ensureHeading = function() {
+  const card = document.getElementById("agentydragon-card");
+  const headingText = Rai.obtainHeading();
   // There is another <h1> somewhere. Remove the empty placeholder.
   if (!card) {
     Rai.reportError("unexpected: no .card found. cannot insert header");
-  } else {
-    card.insertBefore(newHeader, card.firstChild);
+    return;
   }
-}
+  const newHeader = document.createElement("h1");
+  newHeader.textContent = headingText;
+  card.insertBefore(newHeader, card.firstChild);
+};
+
+Rai.obtainNoteFields();
+Rai.ensureHeading();
