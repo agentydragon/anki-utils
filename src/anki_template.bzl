@@ -72,8 +72,7 @@ def _anki_slug_impl(ctx):
         for template in info.templates:
             q_html = template.question_html.files.to_list()
             a_html = template.answer_html.files.to_list()
-            all_files.extend(q_html)
-            all_files.extend(a_html)
+            all_files.extend(q_html + a_html)
             templates.append(
                 struct(
                     question_html = q_html[0].path,
@@ -81,7 +80,13 @@ def _anki_slug_impl(ctx):
                     human_name = template.human_name,
                 ),
             )
-        models.append(struct(crowdanki_uuid = info.crowdanki_uuid, templates = templates, css = info.css.files.to_list()[0].path))
+        models.append(
+            struct(
+                crowdanki_uuid = info.crowdanki_uuid,
+                templates = templates,
+                css = info.css.files.to_list()[0].path,
+            ),
+        )
     inp = struct(models = models)
     args.add("--models", inp.to_json())
     args.add("--output_file", ctx.outputs.output_json)

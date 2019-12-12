@@ -20,6 +20,8 @@ flags.DEFINE_string('collection_path', None, 'Path to .anki2 collection')
 flags.DEFINE_string('slug_path', None, 'Path to update JSON slug')
 FLAGS = flags.FLAGS
 
+SLUG_RUNFILES_PATH = "__main__/src/models/slug.json"
+
 
 def log_model(model):
     crowdanki_uuid = model['crowdanki_uuid']
@@ -29,9 +31,10 @@ def log_model(model):
 
 
 def main(_):
+    r = runfiles.Create()
     slug_path = FLAGS.slug_path
     if slug_path is None:
-        path = runfiles.Create().Rlocation("__main__/src/deploy/slug.json")
+        path = r.Rlocation(SLUG_RUNFILES_PATH)
         logging.info("Loading slug from runfiles: %s", path)
         slug_path = path
 
