@@ -39,14 +39,9 @@ Rai.headingFromTag = function(tag) {
       .join(' ');
 };
 
-// TODO: this should result in 'german':
-// languages languages::language::german
-// languages::language::german::4k_words_by_frequency
-// languages::language::german::4k_words_by_frequency::Level::166 leech
-
 Rai.tagIsMeta = function(tag) {
-  return Rai.tagIsUnderTag(tag, "todo") || Rai.tagIsUnderTag(tag, "marked") ||
-         Rai.tagIsUnderTag(tag, "leech");
+  const metaFamilies = [ "todo", "marked", "leech", "source" ];
+  return metaFamilies.some(family => Rai.tagIsUnderTag(tag, family));
 };
 
 Rai.headingFromTags = function() {
