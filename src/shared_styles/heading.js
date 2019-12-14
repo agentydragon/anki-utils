@@ -31,12 +31,23 @@ Rai.tagIsUnderTag = function(tag, parentTag) {
   return tag == parentTag || Rai.tagIsStrictlyUnderTag(tag, parentTag);
 };
 
-Rai.headingFromTag = function(tag) {
-  const parts = tag.split('::');
-  return parts[parts.length - 1]
-      .split('-')
+const SPECIAL_TITLECASE = {
+  'javascript' : 'JavaScript',
+  'cpp' : 'C++',
+};
+
+Rai.titlecaseTag = function(tag) {
+  if (SPECIAL_TITLECASE[tag]) {
+    return SPECIAL_TITLECASE[tag];
+  }
+  return tag.split('-')
       .map(word => word.substring(0, 1).toUpperCase() + word.substring(1))
       .join(' ');
+};
+
+Rai.headingFromTag = function(tag) {
+  const parts = tag.split('::');
+  return Rai.titlecaseTag(parts[parts.length - 1]);
 };
 
 Rai.tagIsMeta = function(tag) {
