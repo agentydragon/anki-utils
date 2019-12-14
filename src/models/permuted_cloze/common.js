@@ -46,9 +46,7 @@ function detachChildren(element) {
 function permuteChildren(rng, element) {
   var children = detachChildren(element);
   rng.shuffle(children);
-  for (const row of children) {
-    element.appendChild(row);
-  }
+  element.append(...children);
 };
 
 function permuteJustDivAndLines(rng) {
@@ -81,9 +79,7 @@ function permuteJustDivAndLines(rng) {
       return;
     }
     const nc = document.createElement("div");
-    for (const x of currentRun) {
-      nc.appendChild(x);
-    }
+    nc.append(...currentRun);
     wrappedChildren.push(nc);
     currentRun = [];
   };
@@ -129,10 +125,7 @@ function permuteJustDivAndLines(rng) {
     return;
   }
   rng.shuffle(wrappedChildren);
-  for (const child of wrappedChildren) {
-    content.appendChild(child);
-  }
-
+  content.append(...wrappedChildren);
   return true;
 };
 
