@@ -1,5 +1,10 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_library", "closure_js_test")
+load(
+    "@io_bazel_rules_closure//closure:defs.bzl",
+    "closure_js_binary",
+    "closure_js_library",
+    "closure_js_test",
+)
 
 exports_files([
     "common_header.html",
