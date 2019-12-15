@@ -1,4 +1,5 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("@io_bazel_rules_webtesting//web:py.bzl", "py_web_test_suite")
 load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 
@@ -37,5 +38,18 @@ sass_binary(
     # visibility = ["//src/deploy:__subpackages__"],
     deps = [
         "//src/shared_styles:card",
+    ],
+)
+py_web_test_suite(
+    name = "test",
+    srcs = ["test.py"],
+    browsers = [
+        "@io_bazel_rules_webtesting//browsers:chromium-local",
+    ],
+    local = True,
+    data = [":front.expanded.html"],
+    deps = [
+        "@io_bazel_rules_webtesting//testing/web",
+        "@rules_python//python/runfiles",
     ],
 )

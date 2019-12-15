@@ -13,7 +13,7 @@ def _general_template_impl(
         html_out = None,
         html_append = []):
     if html_out == None:
-        html_out = name + ".expanded_general_template.html"
+        html_out = name + ".expanded.html"
     native.genrule(
         name = name,
         srcs = js_footers + html_headers + html_append,
