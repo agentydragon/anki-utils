@@ -39,7 +39,7 @@ class CardTestCase(absltest.TestCase):
     self.wait_until_loaded()
 
   def open_html(self, html):
-    html = '<div id="card">' + html + '</div>'
+    html = '<div id="testing-card">' + html + '</div>'
     filename = '/tmp/x.html'
     with open(filename, 'w') as f:
       f.write(html)

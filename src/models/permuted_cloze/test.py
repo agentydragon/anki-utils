@@ -5,10 +5,11 @@ FRONT_RUNFILES_PATH = "anki_utils/src/models/permuted_cloze/front.expanded.html"
 
 
 class PermutedClozeTest(card_testcase.CardTestCase):
-  def load_front_card(self, text, log=False):
+  def load_front_card(self, text, log=False, heading='Heading'):
     fields = {
         'cloze:Text': text,
-        'Log': 'true' if log else ''
+        'Log': 'true' if log else '',
+        'Heading': heading
     }
     self.open_card_from_runfiles(
         runfiles_path=FRONT_RUNFILES_PATH, fields=fields)
@@ -19,14 +20,26 @@ class PermutedClozeTest(card_testcase.CardTestCase):
   def make_list(self, items):
     return '<ul>' + '\n'.join(('<li>' + item for item in items)) + '</ul>'
 
-  def test_front_permutation(self):
-    items = self.make_items(10)
+  def assertIsPermutation(self, actual, expected):
+    self.assertEqual(set(actual), set(expected), "item set not preserved")
+    self.assertNotEqual(actual, expected, "item ordering not permuted")
+
+  def test_front_permutation_ul_items(self):
+    """Tests that <ul> items 1..20 in <li> tags get permuted."""
+    items = self.make_items(20)
     self.load_front_card(text=self.make_list(items))
     texts = [item.text for item in self.driver.find_elements_by_tag_name('li')]
-    self.assertEqual(set(texts), set(items), "item set not preserved")
-    self.assertNotEqual(texts, items, "item ordering not permuted")
+    self.assertIsPermutation(texts, items)
+
+  def test_front_permutation_br_divided_lines(self):
+    """Tests that <br>-divided items 1..20 get permuted."""
+    items = self.make_items(20)
+    self.load_front_card(text='<br>'.join(items))
+    actual_text = self.driver.find_element_by_id('agentydragon-content').text
+    self.assertIsPermutation(actual_text.strip().split('\n'), items)
 
   def test_log(self):
+    """Tests that Log set to 'true' enables logging."""
     items = self.make_items(2)
     self.load_front_card(text=self.make_list(items), log=True)
     self.assertIn('shuffling', self.get_log())
