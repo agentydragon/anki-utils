@@ -55,8 +55,19 @@ Rai.tagIsMeta = function(tag) {
   return metaFamilies.some(family => Rai.tagIsUnderTag(tag, family));
 };
 
+Rai.headingFromHeadingField = function() {
+  const headingField = Rai.NOTE_FIELDS.HEADING;
+  if (!headingField || headingField.length == 0) {
+    return null;
+  }
+  return headingField;
+};
+
 Rai.headingFromTags = function() {
   const tags = Rai.NOTE_FIELDS.TAGS;
+  if (!tags) {
+    return null;
+  }
   const individualTags = tags.split(' ').filter(tag => !Rai.tagIsMeta(tag));
   // Remove non-leaf tags.
   const tagIsNonleaf = tag => individualTags.some(
@@ -70,25 +81,37 @@ Rai.headingFromTags = function() {
   return candidateHeadings[0];
 };
 
+Rai.headingFromLastDeckComponent = function() {
+  if (!Rai.NOTE_FIELDS.DECK || Rai.NOTE_FIELDS.DECK.length == 0) {
+    return null;
+  }
+  return getLastDeckComponent(Rai.NOTE_FIELDS.DECK);
+};
+
 Rai.obtainHeading = function() {
+  const headingFromHeadingField = Rai.headingFromHeadingField();
   const headerInContent = document.querySelector("#agentydragon-content h1");
   if (headerInContent) {
-    if (Rai.NOTE_FIELDS.HEADING && Rai.NOTE_FIELDS.HEADING.length > 0) {
+    if (headingFromHeadingField) {
       Rai.doLog("warning", "Both Heading field and inline heading specified.");
     }
     headerInContent.remove();
     return headerInContent.textContent;
   }
   // Use the heading specified in the note, if given.
-  if (Rai.NOTE_FIELDS.HEADING && Rai.NOTE_FIELDS.HEADING.length > 0) {
-    return Rai.NOTE_FIELDS.HEADING;
+  if (headingFromHeadingField) {
+    return headingFromHeadingField;
   }
   const headingFromTags = Rai.headingFromTags();
   if (headingFromTags) {
     return headingFromTags;
   }
   // Last resort: show the deck name
-  return getLastDeckComponent(Rai.NOTE_FIELDS.DECK);
+  const headingFromDeck = Rai.headingFromLastDeckComponent();
+  if (headingFromDeck) {
+    return headingFromDeck;
+  }
+  Rai.reportError("no way to get a heading");
 };
 
 Rai.ensureHeading = function() {

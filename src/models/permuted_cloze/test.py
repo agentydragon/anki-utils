@@ -5,6 +5,10 @@ from testing.web import webtest
 from selenium.webdriver.support.ui import WebDriverWait
 from rules_python.python.runfiles import runfiles
 
+import sys
+sys.path.append('/usr/share/anki')
+from anki import template
+
 FRONT_RUNFILES_PATH = "anki_utils/src/models/permuted_cloze/front.expanded.html"
 
 
@@ -41,9 +45,11 @@ class PermutedClozeTest(unittest.TestCase):
     return self.driver.find_element_by_id('agentydragon-log').text
 
   def load_front_card(self, text, log=False):
-    html = self.load_front_html().replace('{{cloze:Text}}', text)
-    if log:
-      html = html.replace('{{Log}}', 'true')
+    fields = {
+        'cloze:Text': text,
+        'Log': 'true' if log else ''
+    }
+    html = template.render(template=self.load_front_html(), context=fields)
     self.open_html(html)
     self.wait_until_loaded()
 
