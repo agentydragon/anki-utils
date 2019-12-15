@@ -6,6 +6,10 @@ from testing.web import webtest
 from selenium.webdriver.support.ui import WebDriverWait
 from rules_python.python.runfiles import runfiles
 
+import sys
+sys.path.append('/usr/share/anki')
+from anki import template
+
 FRONT_RUNFILES_PATH = "anki_utils/src/models/basic_and_reversed/front_to_back/front.expanded.html"
 
 
@@ -44,9 +48,7 @@ class HeadingTest(parameterized.TestCase):
   def load_front_card(self, fields):
     for field in ['Heading', 'Tags', 'Deck']:
         fields.setdefault(field, '')
-    html = self.load_front_html()
-    for key, value in fields.items():
-        html = html.replace('{{' + key + '}}', value)
+    html = template.render(template=self.load_front_html(), context=fields)
     self.open_html(html)
     self.wait_until_loaded()
 
