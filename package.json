@@ -5,7 +5,5 @@
     "test": "bazel test ..."
   },
   "devDependencies": {
-    "@bazel/terser": "^0.42.3",
-    "terser": "4.3.1"
   }
 }
