@@ -6,6 +6,7 @@ const {Note} = goog.require('agentydragon.note');
 const SPECIAL_TITLECASE = {
   'javascript' : 'JavaScript',
   'cpp' : 'C++',
+  'probability-statistics' : 'Probability & Statistics',
 };
 
 const META_FAMILIES =
