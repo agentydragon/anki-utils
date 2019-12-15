@@ -1,13 +1,10 @@
-function getLastDeckComponent(deck) {
-  // TODO(agentydragon): This will need to work on tags.
+Rai.getLastDeckComponent =
+    function(deck) {
   const deckHierarchy = deck.split("::");
-  const innerDeck = deckHierarchy[deckHierarchy.length - 1];
-  // "05 German" --> "German"
-  // "*05 German" --> "German"
-  return innerDeck.replace(/^[^a-zA-Z]?\d* ?(.*)$/, "$1");
+  return deckHierarchy[deckHierarchy.length - 1];
 }
 
-Rai.obtainFieldFromId = function(id) {
+    Rai.obtainFieldFromId = function(id) {
   const content = document.getElementById(id).innerHTML;
   // If the model does not have the field, return null.
   if (content.indexOf("unknown field ") !== -1) {
@@ -102,7 +99,7 @@ Rai.headingFromLastDeckComponent = function() {
   if (!Rai.NOTE_FIELDS.DECK || Rai.NOTE_FIELDS.DECK.length == 0) {
     return null;
   }
-  return getLastDeckComponent(Rai.NOTE_FIELDS.DECK);
+  return Rai.getLastDeckComponent(Rai.NOTE_FIELDS.DECK);
 };
 
 Rai.obtainHeadingHtml = function() {
