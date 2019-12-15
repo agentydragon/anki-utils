@@ -63,7 +63,6 @@ anki_model = rule(
 
 def _anki_slug_impl(ctx):
     all_files = []
-    args = ctx.actions.args()
     models = []
     for model in ctx.attr.models:
         info = model[AnkiModelInfo]
@@ -87,10 +86,11 @@ def _anki_slug_impl(ctx):
                 css = info.css.files.to_list()[0].path,
             ),
         )
-    inp = struct(models = models)
-    args.add("--models", inp.to_json())
+    args = ctx.actions.args()
+    args.add("--models", struct(models = models).to_json())
     args.add("--output_file", ctx.outputs.output_json)
-    args.add("--alsologtostderr")
+    if ctx.attr.log:
+        args.add("--alsologtostderr")
 
     ctx.actions.run(
         inputs = all_files,
@@ -110,6 +110,7 @@ anki_slug = rule(
             default =
                 Label("//src/deploy:build_slug"),
         ),
+        "log": attr.bool(default = False),
     },
     implementation = _anki_slug_impl,
 )

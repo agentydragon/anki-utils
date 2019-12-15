@@ -22,7 +22,7 @@ def read_file(path):
 def main(_):
     slug = {}
     for model in json.loads(FLAGS.models)['models']:
-        logging.info("%s", model)
+        logging.vlog(1, "Model: %s", model)
         uuid = model['crowdanki_uuid']
         if uuid in slug:
             raise Exception("duplicated UUID: " + uuid)
