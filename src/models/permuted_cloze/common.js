@@ -175,7 +175,7 @@ function shuffleCloze() {
     return;
   }
   Rai.reportError(
-      "No permuted container (tbody or ul, or <br>-separated plaintext) found in Cloze content.");
+      "No permuted container (tbody, ul, or <br>-separated lines) found.");
 };
 
 shuffleCloze();
