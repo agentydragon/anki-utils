@@ -56,6 +56,7 @@ closure_js_library(
     ],
     deps = [
         ":log_lib",
+        ":note_lib",
         "@io_bazel_rules_closure//closure/library",
     ],
     visibility = ["//visibility:public"],
@@ -94,5 +95,6 @@ closure_js_test(
     ],
     deps = [
         "@io_bazel_rules_closure//closure/library:testing",
+        ":heading_lib",
     ],
 )

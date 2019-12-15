@@ -1,98 +1,109 @@
 goog.module('agentydragon.heading');
 
+const {Note} = goog.require('agentydragon.note');
 const {reportError} = goog.require('agentydragon.logging');
-
-let Rai = {};
-
-function getLastDeckComponent(deck) {
-  const deckHierarchy = deck.split("::");
-  return deckHierarchy[deckHierarchy.length - 1];
-}
-
-Rai.tagIsStrictlyUnderTag = function(
-    tag, parentTag) { return tag.startsWith(parentTag + '::'); };
-
-Rai.tagIsUnderTag = function(tag, parentTag) {
-  return tag == parentTag || Rai.tagIsStrictlyUnderTag(tag, parentTag);
-};
 
 const SPECIAL_TITLECASE = {
   'javascript' : 'JavaScript',
   'cpp' : 'C++',
 };
 
-Rai.titlecaseTag = function(tag) {
+const META_FAMILIES =
+    [ "todo", "marked", "leech", "source", "persons::_my_network" ];
+
+function getLastDeckComponent(deck) {
+  const deckHierarchy = deck.split("::");
+  return deckHierarchy[deckHierarchy.length - 1];
+}
+
+function tagIsStrictlyUnderTag(tag, parentTag) {
+  return tag.startsWith(parentTag + '::');
+}
+
+function tagIsUnderTag(tag, parentTag) {
+  return tag == parentTag || tagIsStrictlyUnderTag(tag, parentTag);
+}
+
+function titlecaseTag(tag) {
   if (SPECIAL_TITLECASE[tag]) {
     return SPECIAL_TITLECASE[tag];
   }
   return tag.split('-')
       .map(word => word.substring(0, 1).toUpperCase() + word.substring(1))
       .join(' ');
-};
+}
 
-Rai.headingFromTag = function(tag) {
+function headingFromTag(tag) {
   const parts = tag.split('::');
-  return Rai.titlecaseTag(parts[parts.length - 1]);
-};
+  return titlecaseTag(parts[parts.length - 1]);
+}
 
-Rai.tagIsMeta = function(tag) {
-  const metaFamilies =
-      [ "todo", "marked", "leech", "source", "persons::_my_network" ];
-  return metaFamilies.some(family => Rai.tagIsUnderTag(tag, family));
-};
+function tagIsMeta(tag) {
+  return META_FAMILIES.some(family => tagIsUnderTag(tag, family));
+}
 
-Rai.headingFromHeadingField = function(note) {
+function getHeadingFromHeadingField(note) {
   const headingField = note.heading;
   if (!headingField || headingField.length == 0) {
     return null;
   }
   return headingField;
-};
+}
 
-Rai.expandTag = function(tag) {
+function expandTag(tag) {
   const parts = tag.split('::');
   let result = [];
   for (let i = 0; i < parts.length; i++) {
     result.push(parts.slice(0, i + 1).join('::'));
   }
   return result;
-};
+}
 
-Rai.expandTags = function(
-    tags) { return [...new Set(tags.flatMap(tag => Rai.expandTag(tag))) ]; };
+/**
+ * @param {!Array<string>} tags
+ * @return {!Array<string>}
+ */
+function expandTags(tags) { return [...new Set(tags.flatMap(expandTag)) ]; }
 
-Rai.headingFromTags = function(note) {
-  const tags = note.tags;
+/**
+ * @param {string} tags
+ * @return {?string}
+ */
+function getHeadingFromTags(tags) {
   if (!tags) {
     return null;
   }
   // Fully expand.
-  const expandedTags = Rai.expandTags(tags.split(' '));
+  const expandedTags = expandTags(tags.split(' '));
   console.log("expanded tags:", expandedTags);
-  const individualTags = expandedTags.filter(tag => !Rai.tagIsMeta(tag));
+  const individualTags = expandedTags.filter(tag => !tagIsMeta(tag));
   // Remove non-leaf tags.
   const tagIsNonleaf = tag => individualTags.some(
-      candidateChild => Rai.tagIsStrictlyUnderTag(candidateChild, tag));
+      candidateChild => tagIsStrictlyUnderTag(candidateChild, tag));
   const tagIsLeaf = tag => !tagIsNonleaf(tag);
   const leafTags = individualTags.filter(tagIsLeaf);
   console.log("leaf tags:", leafTags);
-  const candidateHeadings = leafTags.map(Rai.headingFromTag).sort();
+  const candidateHeadings = leafTags.map(headingFromTag).sort();
   if (candidateHeadings.length == 0) {
     return null;
   }
   return candidateHeadings[0];
-};
+}
 
-Rai.headingFromLastDeckComponent = function(note) {
+/**
+ * @param {!Note} note
+ * @return {?string}
+ */
+function headingFromLastDeckComponent(note) {
   const deck = note.deck;
   if (!deck || deck.length == 0) {
     return null;
   }
   return getLastDeckComponent(deck);
-};
+}
 
 function obtainHeadingHtml(note) {
-  const headingFromHeadingField = Rai.headingFromHeadingField(note);
+  const headingFromHeadingField = getHeadingFromHeadingField(note);
   const headerInContent = document.querySelector("#agentydragon-content h1");
   if (headerInContent) {
     if (headingFromHeadingField) {
@@ -105,12 +116,12 @@ function obtainHeadingHtml(note) {
   if (headingFromHeadingField) {
     return headingFromHeadingField;
   }
-  const headingFromTags = Rai.headingFromTags(note);
+  const headingFromTags = getHeadingFromTags(note.tags);
   if (headingFromTags) {
     return headingFromTags;
   }
   // Last resort: show the deck name
-  const headingFromDeck = Rai.headingFromLastDeckComponent(note);
+  const headingFromDeck = headingFromLastDeckComponent(note);
   if (headingFromDeck) {
     return headingFromDeck;
   }
@@ -132,7 +143,8 @@ function ensureHeading(note) {
 }
 
 exports = {
-  getLastDeckComponent,
-  ensureHeading
+  ensureHeading,
+  expandTags,
+  getHeadingFromTags
 };
 // TODO(prvak): library should win over language
