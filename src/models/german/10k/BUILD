@@ -3,7 +3,7 @@ load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 
 anki_model(
-    name = "german_10k",
+    name = "10k",
     crowdanki_uuid = "76cced62-186c-11ea-9152-151b4dde761a",
     css = ":german_10k.css",
     templates = [

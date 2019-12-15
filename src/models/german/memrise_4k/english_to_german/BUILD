@@ -6,7 +6,7 @@ anki_template(
     answer_html = ":back",
     human_name = "English -> German",
     question_html = ":front",
-    visibility = ["//src/models/german_memrise_4k:__subpackages__"],
+    visibility = ["//src/models/german/memrise_4k:__subpackages__"],
 )
 
 ordinary_template(

@@ -4,9 +4,9 @@ load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 anki_template(
     name = "german_to_english",
     answer_html = ":back",
-    human_name = "German -> English",
+    human_name = "German->English",
     question_html = ":front",
-    visibility = ["//src/models/german_memrise_4k:__subpackages__"],
+    visibility = ["//src/models/german/vocabulary:__subpackages__"],
 )
 
 ordinary_template(

@@ -2,11 +2,11 @@ load("//src:anki_template.bzl", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 
 anki_template(
-    name = "english_to_german",
+    name = "german_to_english",
     answer_html = ":back",
-    human_name = "English->German",
+    human_name = "German -> English",
     question_html = ":front",
-    visibility = ["//src/models/german_vocabulary:__subpackages__"],
+    visibility = ["//src/models/german/memrise_4k:__subpackages__"],
 )
 
 ordinary_template(
