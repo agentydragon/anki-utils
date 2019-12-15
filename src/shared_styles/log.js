@@ -9,6 +9,13 @@ Rai.doLog = function(message, level) {
   Rai.logContainer.appendChild(messageElement);
 };
 
+Rai.doLog2 = function(level, message, ...rest) {
+  const messageElement = document.createElement("div");
+  messageElement.className = level;
+  messageElement.innerText = message;
+  Rai.logContainer.appendChild(messageElement);
+};
+
 Rai.reportError = function(message) { Rai.doLog(message, "error"); };
 
 Rai.handleError = function(event) {
@@ -23,3 +30,15 @@ Rai.log = function(message) {
     Rai.doLog(message, "info");
   }
 };
+
+(function() {
+let _log = console.log;
+let _error = console.error;
+let _warning = console.warning;
+
+console.error = function() { _error.apply(console, arguments); };
+
+// console.log = function(message) { _log.apply(console, arguments); };
+//
+// console.warning = function(message) { _log.apply(console, arguments); };
+});
