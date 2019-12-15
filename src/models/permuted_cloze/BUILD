@@ -62,12 +62,25 @@ closure_js_library(
     suppress = [
         "JSC_MISSING_JSDOC",
         "JSC_UNKNOWN_EXPR_TYPE",
-        "JSC_REQUIRES_NOT_SORTED",
     ],
     deps = [
         "//src/shared_styles:log_lib",
-        "//src/shared_styles:heading_lib",
         "//src/shared_styles:rng_lib",
+        "@io_bazel_rules_closure//closure/library",
+    ],
+)
+
+closure_js_library(
+    name = "main_lib",
+    srcs = ["main.js"],
+    suppress = [
+        "JSC_UNKNOWN_EXPR_TYPE",
+        "JSC_REQUIRES_NOT_SORTED",
+    ],
+    deps = [
+        ":common_lib",
+        "//src/shared_styles:log_lib",
+        "//src/shared_styles:heading_lib",
         "//src/shared_styles:note_lib",
         "@io_bazel_rules_closure//closure/library",
     ],
@@ -75,7 +88,11 @@ closure_js_library(
 
 closure_js_binary(
     name = "common_bin",
-    deps = [":common_lib", "//src/shared_styles:heading_lib"],
+    deps = [
+        ":common_lib",
+        ":main_lib",
+        "//src/shared_styles:heading_lib",
+    ],
     entry_points = [
         "goog:agentydragon.permutedCloze.main",
     ],

@@ -1,17 +1,6 @@
-goog.module('agentydragon.permutedCloze.main');
+goog.module('agentydragon.permutedCloze.permutedCloze');
 
 const {RNG} = goog.require('agentydragon.rng');
-const {Logger} = goog.require('agentydragon.logging');
-const {ensureHeading} = goog.require('agentydragon.heading');
-const {obtainNote} = goog.require('agentydragon.note');
-
-const logger = new Logger();
-logger.installToConsole();
-
-let RaiPermutedCloze = {};
-
-RaiPermutedCloze.clozeContainer =
-    document.getElementById("agentydragon-permuted-cloze-content");
 
 function addHash(hash, x) {
   hash = (hash * 17 + x) % 256;
@@ -32,13 +21,13 @@ function permuteChildren(rng, element) {
   element.append(...children);
 }
 
-function permuteJustDivAndLines(logger, rng) {
-  const content = RaiPermutedCloze.clozeContainer;
+function permuteJustDivAndLines(clozeContainer, logger, rng) {
+  const content = clozeContainer;
   for (const child of content.children) {
     if (typeof child == 'string' || child instanceof CharacterData) {
       continue;
     }
-    console.log(child, typeof child, child.className, child.tagName);
+    logger.log(child, typeof child, child.className, child.tagName);
     const tag = child.tagName.toLowerCase();
     if (tag == 'div' || tag == 'br') {
       continue;
@@ -47,7 +36,7 @@ function permuteJustDivAndLines(logger, rng) {
       // Cloze in text.
       continue;
     }
-    console.log("child is <" + tag + "> -> not div-and-lines");
+    logger.log("child is <" + tag + "> -> not div-and-lines");
     return false;
   }
   // OK. Now make the children.
@@ -65,16 +54,16 @@ function permuteJustDivAndLines(logger, rng) {
   };
   for (const child of children) {
     if (child instanceof CharacterData) {
-      console.log("child: string, of: " + child.data);
+      logger.log("child: string, of: " + child.data);
       currentRun.push(child);
       continue;
     }
     if (typeof child == 'string') {
-      console.log("child: string, of: " + child);
+      logger.log("child: string, of: " + child);
       currentRun.push(child);
       continue;
     }
-    console.log(child, typeof child, child.className, child.tagName);
+    logger.log(child, typeof child, child.className, child.tagName);
     const tag = child.tagName.toLowerCase();
     if (tag == 'br') {
       flushRun();
@@ -92,7 +81,7 @@ function permuteJustDivAndLines(logger, rng) {
   }
   flushRun();
 
-  console.log("wrapped children: " + wrappedChildren.length);
+  logger.log("wrapped children: " + wrappedChildren.length);
   if (wrappedChildren.length == 0) {
     logger.error("no wrapped children");
     return;
@@ -106,13 +95,12 @@ function permuteJustDivAndLines(logger, rng) {
   return true;
 }
 
-function permuteElementChildren(rng) {
+function permuteElementChildren(logger, clozeContainer, rng) {
   const containersSelector = "tbody, ul";
   // Permute all children according to the RNG.
-  const permutedContainer =
-      RaiPermutedCloze.clozeContainer.querySelector(containersSelector);
+  const permutedContainer = clozeContainer.querySelector(containersSelector);
   if (!permutedContainer) {
-    console.log("no " + containersSelector + " in Cloze content container");
+    logger.log("no " + containersSelector + " in Cloze content container");
     return false;
   }
   permuteChildren(rng, permutedContainer);
@@ -139,24 +127,21 @@ function computeRngSeed() {
   return hash;
 }
 
-function shuffleCloze(logger) {
+function shuffleCloze(clozeContainer, logger) {
   const seed = computeRngSeed();
   const rng = new RNG(seed, logger);
-  console.log("RNG seed: " + seed);
+  logger.log("RNG seed: " + seed);
 
-  if (permuteElementChildren(rng)) {
-    console.log("Success with permuted container.");
+  if (permuteElementChildren(logger, clozeContainer, rng)) {
+    logger.log("Success with permuted container.");
     return;
   }
-  if (permuteJustDivAndLines(logger, rng)) {
-    console.log("Success with permuted div-and-lines.");
+  if (permuteJustDivAndLines(clozeContainer, logger, rng)) {
+    logger.log("Success with permuted div-and-lines.");
     return;
   }
   logger.error(
       "No permuted container (tbody, ul, or <br>-separated lines) found.");
 }
 
-const note = obtainNote();
-ensureHeading(logger, note);
-shuffleCloze(logger);
-RaiPermutedCloze.clozeContainer.className = "js-finished";
+exports = {shuffleCloze};
