@@ -1,7 +1,13 @@
 goog.module('agentydragon.rng');
 
+const {Logger} = goog.require('agentydragon.logging');
+
 class RNG {
-  constructor(seed, logger = console) {
+  /**
+   * @param {number} seed
+   * @param {!Logger} logger
+   */
+  constructor(seed, logger) {
     this.logger = logger;
 
     this.m = 256;
@@ -11,6 +17,9 @@ class RNG {
     this.state = seed;
   }
 
+  /**
+   * @return {number}
+   */
   nextInt() {
     this.state = (this.a * this.state + this.c) % this.m;
     return this.state;

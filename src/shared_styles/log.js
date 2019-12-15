@@ -35,32 +35,30 @@ class Logger {
   };
 }
 
-const LOGGER = new Logger();
+const GLOBAL_LOGGER = new Logger();
 
 // TODO(prvak): This should log separately for user errors?
-function reportError(message) { LOGGER.error(message); }
+function reportError(message) { GLOBAL_LOGGER.error(message); }
 
 function installToConsole() {
   window.addEventListener('error', Logger.handleError);
-
-  const logger = new Logger();
 
   let _log = console.log;
   let _warn = console.warn;
   let _error = console.error;
 
   console.log = function() {
-    logger.log(...arguments);
+    GLOBAL_LOGGER.log(...arguments);
     _log.apply(console, arguments);
   };
 
   console.warn = function() {
-    logger.warn(...arguments);
+    GLOBAL_LOGGER.warn(...arguments);
     _warn.apply(console, arguments);
   };
 
   console.error = function() {
-    logger.error(...arguments);
+    GLOBAL_LOGGER.error(...arguments);
     _error.apply(console, arguments);
   };
 }
@@ -68,5 +66,6 @@ function installToConsole() {
 exports = {
   reportError,
   installToConsole,
-  LOGGER
+  Logger,
+  GLOBAL_LOGGER
 };

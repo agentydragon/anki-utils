@@ -65,11 +65,12 @@ closure_js_library(
 closure_js_library(
     name = "rng_lib",
     srcs = ["rng.js"],
+    deps = [
+        ":log_lib",
+        "@io_bazel_rules_closure//closure/library",
+    ],
     suppress = [
         "JSC_UNKNOWN_EXPR_TYPE",
-    ],
-    deps = [
-        "@io_bazel_rules_closure//closure/library",
     ],
     visibility = ["//visibility:public"],
 )
