@@ -3,31 +3,32 @@ RaiPermutedCloze = {};
 RaiPermutedCloze.clozeContainer =
     document.getElementById("agentydragon-permuted-cloze-content");
 
-function RNG(seed) {
-  // LCG using GCC's constants
-  this.m = 256;
-  this.a = 11;
-  this.c = 17;
+class RNG {
+  constructor(seed) {
+    this.m = 256;
+    this.a = 11;
+    this.c = 17;
 
-  this.state = seed;
-};
-
-RNG.prototype.nextInt = function() {
-  this.state = (this.a * this.state + this.c) % this.m;
-  return this.state;
-};
-
-RNG.prototype.shuffle = function(a) {
-  console.log("shuffling " + a.length + " elements");
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = this.nextInt() % (i + 1);
-    console.log("Shuffle " + i + " <-> " + j);
-    const x = a[i];
-    a[i] = a[j];
-    a[j] = x;
+    this.state = seed;
   }
-  return a;
-};
+
+  nextInt() {
+    this.state = (this.a * this.state + this.c) % this.m;
+    return this.state;
+  }
+
+  shuffle(a) {
+    console.log("shuffling " + a.length + " elements");
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = this.nextInt() % (i + 1);
+      console.log("Shuffle " + i + " <-> " + j);
+      const x = a[i];
+      a[i] = a[j];
+      a[j] = x;
+    }
+    return a;
+  }
+}
 
 function addHash(hash, x) {
   hash = (hash * 17 + x) % 256;
@@ -35,7 +36,7 @@ function addHash(hash, x) {
 };
 
 function detachChildren(element) {
-  var children = [];
+  let children = [];
   while (element.firstChild) {
     children.push(element.removeChild(element.firstChild));
   }
@@ -43,7 +44,7 @@ function detachChildren(element) {
 };
 
 function permuteChildren(rng, element) {
-  var children = detachChildren(element);
+  let children = detachChildren(element);
   rng.shuffle(children);
   element.append(...children);
 };
