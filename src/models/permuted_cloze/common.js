@@ -1,11 +1,12 @@
 goog.module('agentydragon.permutedCloze.main');
 
 const {RNG} = goog.require('agentydragon.rng');
-const {GLOBAL_LOGGER} = goog.require('agentydragon.logging');
+const {Logger} = goog.require('agentydragon.logging');
 const {ensureHeading} = goog.require('agentydragon.heading');
 const {obtainNote} = goog.require('agentydragon.note');
 
-GLOBAL_LOGGER.installToConsole();
+const logger = new Logger();
+logger.installToConsole();
 
 let RaiPermutedCloze = {};
 
@@ -156,6 +157,6 @@ function shuffleCloze(logger) {
 }
 
 const note = obtainNote();
-ensureHeading(GLOBAL_LOGGER, note);
-shuffleCloze(GLOBAL_LOGGER);
+ensureHeading(logger, note);
+shuffleCloze(logger);
 RaiPermutedCloze.clozeContainer.className = "js-finished";

@@ -60,11 +60,6 @@ class Logger {
   }
 }
 
-const GLOBAL_LOGGER = new Logger();
-
 // TODO(prvak): Separately log user errors?
 
-exports = {
-  Logger,
-  GLOBAL_LOGGER
-};
+exports = {Logger};
