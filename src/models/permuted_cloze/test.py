@@ -11,7 +11,7 @@ FRONT_RUNFILES_PATH = "anki_utils/src/models/permuted_cloze/front.expanded.html"
 class PermutedClozeTest(unittest.TestCase):
   def setUp(self):
     self.driver = webtest.new_webdriver_session()
-    self.r = runfiles.Create()
+    self.runfiles = runfiles.Create()
 
   def tearDown(self):
     try:
@@ -20,7 +20,7 @@ class PermutedClozeTest(unittest.TestCase):
       self.driver = None
 
   def load_front_html(self):
-    with open(self.r.Rlocation(FRONT_RUNFILES_PATH)) as f:
+    with open(self.runfiles.Rlocation(FRONT_RUNFILES_PATH)) as f:
         return f.read()
 
   def wait_until_loaded(self):
@@ -35,8 +35,6 @@ class PermutedClozeTest(unittest.TestCase):
     filename = '/tmp/x.html'
     with open(filename, 'w') as f:
       f.write(html)
-
-    # data:text/html;charset=utf-8,{html}".format(html=html))
     self.driver.get("file://{}".format(filename))
 
   def get_log(self):
@@ -53,13 +51,10 @@ class PermutedClozeTest(unittest.TestCase):
     return ["item {}".format(i) for i in range(1, n + 1)]
 
   def make_list(self, items):
-    html = '<ul>\n'
-    html += '\n'.join(('<li>' + item for item in items))
-    html += '</ul>\n'
-    return html
+    return '<ul>' + '\n'.join(('<li>' + item for item in items)) + '</ul>'
 
   def test_front_permutation(self):
-    # TODO: set {{Heading}}, {{Deck}}, {{Tags}}
+    # TODO(prvak): set {{Heading}}, {{Deck}}, {{Tags}}
     items = self.make_items(10)
     self.load_front_card(text=self.make_list(items))
     texts = [item.text for item in self.driver.find_elements_by_tag_name('li')]
