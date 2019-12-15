@@ -42,6 +42,8 @@ class HeadingTest(parameterized.TestCase):
     return self.driver.find_element_by_id('agentydragon-log').text
 
   def load_front_card(self, fields):
+    for field in ['Heading', 'Tags', 'Deck']:
+        fields.setdefault(field, '')
     html = self.load_front_html()
     for key, value in fields.items():
         html = html.replace('{{' + key + '}}', value)
