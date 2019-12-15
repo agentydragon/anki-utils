@@ -35,11 +35,11 @@ ordinary_template(
 sass_binary(
     name = "sass",
     src = "permuted_cloze.scss",
-    # visibility = ["//src/deploy:__subpackages__"],
     deps = [
         "//src/shared_styles:card",
     ],
 )
+
 py_web_test_suite(
     name = "test",
     srcs = ["test.py"],
