@@ -1,5 +1,6 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
 load("//src:anki_template.bzl", "anki_model", "anki_template")
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_library")
 
 exports_files(["common.js"])
 
@@ -20,4 +21,31 @@ sass_binary(
     deps = [
         "//src/shared_styles:card",
     ],
+)
+
+closure_js_library(
+    name = "common_lib",
+    srcs = ["common.js"],
+    suppress = [
+        "JSC_UNKNOWN_EXPR_TYPE",
+    ],
+    deps = [
+        "@io_bazel_rules_closure//closure/library",
+    ],
+)
+
+closure_js_binary(
+    name = "ordinary_bin",
+    deps = [
+        "//src/shared_styles:log_lib",
+        "//src/shared_styles:heading_lib",
+        ":common_lib",
+    ],
+    # TODO:"//src/shared_styles:mathjax_log_lib",
+    entry_points = [
+        "goog:agentydragon.logging",
+        "goog:agentydragon.heading",
+        "goog:agentydragon.keyboardShortcut",
+    ],
+    visibility = ["//src/models/keyboard_shortcut:__subpackages__"],
 )

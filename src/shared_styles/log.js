@@ -1,3 +1,5 @@
+goog.module('agentydragon.logging');
+
 class Logger {
   constructor() {
     this.container = document.getElementById("agentydragon-log");
@@ -58,13 +60,7 @@ class Logger {
 
 Logger.installToConsole();
 
-// if (typeof Rai === "undefined") {
-//  Rai = {};
-//}
-
 // TODO(prvak): This should log separately for user errors?
 function reportError(message) { console.error(message); }
 
-reportError("AAA");
-
-// export reportError;
+exports = {reportError};

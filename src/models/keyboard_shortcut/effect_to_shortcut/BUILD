@@ -12,11 +12,13 @@ anki_template(
 general_template(
     name = "front",
     html_headers = ["front.html"],
-    js_footers = ["//src/models/keyboard_shortcut:common.js"],
+    #    js_footers = ["//src/models/keyboard_shortcut:common.js"],
+    js_binary = "//src/models/keyboard_shortcut:ordinary_bin.js",
 )
 
 general_template(
     name = "back",
     html_headers = ["back.html"],
-    js_footers = ["//src/models/keyboard_shortcut:common.js"],
+    #    js_footers = ["//src/models/keyboard_shortcut:common.js"],
+    js_binary = "//src/models/keyboard_shortcut:ordinary_bin.js",
 )

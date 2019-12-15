@@ -1,39 +1,17 @@
-RaiPermutedCloze = {};
+goog.module('agentydragon.permutedCloze');
+
+const {RNG} = goog.require('agentydragon.rng');
+const {reportError} = goog.require('agentydragon.logging');
+
+let RaiPermutedCloze = {};
 
 RaiPermutedCloze.clozeContainer =
     document.getElementById("agentydragon-permuted-cloze-content");
 
-class RNG {
-  constructor(seed) {
-    this.m = 256;
-    this.a = 11;
-    this.c = 17;
-
-    this.state = seed;
-  }
-
-  nextInt() {
-    this.state = (this.a * this.state + this.c) % this.m;
-    return this.state;
-  }
-
-  shuffle(a) {
-    console.log("shuffling " + a.length + " elements");
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = this.nextInt() % (i + 1);
-      console.log("Shuffle " + i + " <-> " + j);
-      const x = a[i];
-      a[i] = a[j];
-      a[j] = x;
-    }
-    return a;
-  }
-}
-
 function addHash(hash, x) {
   hash = (hash * 17 + x) % 256;
   return hash;
-};
+}
 
 function detachChildren(element) {
   let children = [];
@@ -41,13 +19,13 @@ function detachChildren(element) {
     children.push(element.removeChild(element.firstChild));
   }
   return children;
-};
+}
 
 function permuteChildren(rng, element) {
   let children = detachChildren(element);
   rng.shuffle(children);
   element.append(...children);
-};
+}
 
 function permuteJustDivAndLines(rng) {
   const content = RaiPermutedCloze.clozeContainer;
@@ -104,24 +82,24 @@ function permuteJustDivAndLines(rng) {
     } else if (tag == 'span') {
       currentRun.push(child);
     } else {
-      Rai.reportError('unexpected child kind');
+      reportError('unexpected child kind');
     }
   }
   flushRun();
 
   console.log("wrapped children: " + wrappedChildren.length);
   if (wrappedChildren.length == 0) {
-    Rai.reportError("no wrapped children");
+    reportError("no wrapped children");
     return;
   }
   if (wrappedChildren.length == 1) {
-    Rai.reportError("just 1 wrapped child!");
+    reportError("just 1 wrapped child!");
     return;
   }
   rng.shuffle(wrappedChildren);
   content.append(...wrappedChildren);
   return true;
-};
+}
 
 function permuteElementChildren(rng) {
   const containersSelector = "tbody, ul";
@@ -134,7 +112,7 @@ function permuteElementChildren(rng) {
   }
   permuteChildren(rng, permutedContainer);
   return true;
-};
+}
 
 function computeRngSeed() {
   const today = new Date();
@@ -154,7 +132,7 @@ function computeRngSeed() {
   // However, anything that's in the cloze field might get Clozed out.
   // ... But - maybe we could ge the unclozed content?
   return hash;
-};
+}
 
 function shuffleCloze() {
   const seed = computeRngSeed();
@@ -169,9 +147,9 @@ function shuffleCloze() {
     console.log("Success with permuted div-and-lines.");
     return;
   }
-  Rai.reportError(
+  reportError(
       "No permuted container (tbody, ul, or <br>-separated lines) found.");
-};
+}
 
 shuffleCloze();
 RaiPermutedCloze.clozeContainer.className = "js-finished";

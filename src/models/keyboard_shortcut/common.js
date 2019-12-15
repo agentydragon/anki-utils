@@ -1,4 +1,5 @@
-(function() {
+goog.module('agentydragon.keyboardShortcut');
+
 const shortcut = document.getElementById("shortcut-code").innerText;
 
 // "Ctrl+K" --> [Ctrl][K]
@@ -18,4 +19,3 @@ for (const chord of shortcut.split(" ")) {
   }
   ++i;
 }
-})();

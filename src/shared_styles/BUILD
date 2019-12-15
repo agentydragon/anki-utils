@@ -41,9 +41,45 @@ closure_js_library(
         "JSC_MISSING_JSDOC",
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
+    deps = [
+        "@io_bazel_rules_closure//closure/library",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+closure_js_library(
+    name = "heading_lib",
+    srcs = ["heading.js"],
+    suppress = [
+        "JSC_MISSING_JSDOC",
+        "JSC_UNKNOWN_EXPR_TYPE",
+    ],
+    deps = [
+        ":log_lib",
+        "@io_bazel_rules_closure//closure/library",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+closure_js_library(
+    name = "rng_lib",
+    srcs = ["rng.js"],
+    suppress = [
+        "JSC_UNKNOWN_EXPR_TYPE",
+    ],
+    deps = [
+        "@io_bazel_rules_closure//closure/library",
+    ],
+    visibility = ["//visibility:public"],
 )
 
 closure_js_binary(
-    name = "test_bin",
-    deps = [":log_lib"],
+    name = "ordinary_bin",
+    deps = [":log_lib", ":heading_lib"],
+    # TODO:"//src/shared_styles:mathjax_log_lib",
+    entry_points = [
+        "goog:agentydragon.logging",
+        "goog:agentydragon.heading",
+    ],
+    visibility = ["//visibility:public"],
 )

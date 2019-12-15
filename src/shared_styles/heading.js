@@ -1,14 +1,18 @@
-if (typeof Rai === "undefined") {
-  Rai = {};
-}
+goog.module('agentydragon.heading');
 
-Rai.getLastDeckComponent =
-    function(deck) {
+const {reportError} = goog.require('agentydragon.logging');
+
+let Rai = {};
+// if (typeof Rai === "undefined") {
+//  Rai = {};
+//}
+
+Rai.getLastDeckComponent = function(deck) {
   const deckHierarchy = deck.split("::");
   return deckHierarchy[deckHierarchy.length - 1];
-}
+};
 
-    Rai.obtainFieldFromId = function(id) {
+Rai.obtainFieldFromId = function(id) {
   const content = document.getElementById(id).innerHTML;
   // If the model does not have the field, return null.
   if (content.indexOf("unknown field ") !== -1) {
@@ -129,7 +133,7 @@ Rai.obtainHeadingHtml = function() {
   if (headingFromDeck) {
     return headingFromDeck;
   }
-  Rai.reportError("no way to get a heading");
+  reportError("no way to get a heading");
 };
 
 Rai.ensureHeading = function() {
@@ -137,7 +141,7 @@ Rai.ensureHeading = function() {
   const headingHtml = Rai.obtainHeadingHtml();
   // There is another <h1> somewhere. Remove the empty placeholder.
   if (!card) {
-    Rai.reportError("unexpected: no .card found. cannot insert header");
+    reportError("unexpected: no .card found. cannot insert header");
     return;
   }
   const newHeader = document.createElement("h1");

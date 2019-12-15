@@ -1,3 +1,5 @@
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary")
+
 def _concat(files):
     if not files:
         return ""
@@ -9,23 +11,21 @@ def _concat(files):
 def _general_template_impl(
         name,
         html_headers,
-        js_footers,
+        js_binary,
         html_out = None,
         html_append = []):
     if html_out == None:
         html_out = name + ".expanded.html"
     native.genrule(
         name = name,
-        srcs = js_footers + html_headers + html_append,
+        srcs = [js_binary] + html_headers + html_append,
         outs = [html_out],
         cmd = "\n".join([
             "(",
             ";\n".join([
                 _concat(html_headers),
                 "echo \"<script>\"",
-                "echo \"(function() {\"",
-                _concat(js_footers),
-                "echo \"})();\" ",
+                _concat([js_binary]),
                 "echo \"</script>\"",
                 _concat(html_append),
             ]),
@@ -41,7 +41,7 @@ general_template = _general_template_impl
 def _ordinary_template_impl(
         name,
         html_in,
-        extra_js = [],
+        js_binary = "//src/shared_styles:ordinary_bin.js",
         html_prepend = [],
         **kwargs):
     _general_template_impl(
@@ -50,11 +50,7 @@ def _ordinary_template_impl(
             "//src/shared_styles:common_header.html",
             html_in,
         ],
-        js_footers = [
-            "//src/shared_styles:log.js",
-            "//src/shared_styles:mathjax_log.js",
-            "//src/shared_styles:heading.js",
-        ] + extra_js,
+        js_binary = js_binary,
         **kwargs
     )
 
