@@ -5,9 +5,9 @@ RaiPermutedCloze.clozeContainer =
 
 function RNG(seed) {
   // LCG using GCC's constants
-  this.m = 0x80000000; // 2**31;
-  this.a = 1103515245;
-  this.c = 12345;
+  this.m = 256;
+  this.a = 11;
+  this.c = 17;
 
   this.state = seed;
 };
