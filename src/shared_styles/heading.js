@@ -8,7 +8,7 @@ function getLastDeckComponent(deck) {
 }
 
 Rai.obtainFieldFromId = function(id) {
-  const content = document.getElementById(id).textContent;
+  const content = document.getElementById(id).innerHTML;
   // If the model does not have the field, return null.
   if (content.indexOf("unknown field ") !== -1) {
     return null;
@@ -105,7 +105,7 @@ Rai.headingFromLastDeckComponent = function() {
   return getLastDeckComponent(Rai.NOTE_FIELDS.DECK);
 };
 
-Rai.obtainHeading = function() {
+Rai.obtainHeadingHtml = function() {
   const headingFromHeadingField = Rai.headingFromHeadingField();
   const headerInContent = document.querySelector("#agentydragon-content h1");
   if (headerInContent) {
@@ -113,7 +113,7 @@ Rai.obtainHeading = function() {
       Rai.doLog("warning", "Both Heading field and inline heading specified.");
     }
     headerInContent.remove();
-    return headerInContent.textContent;
+    return headerInContent.innerHTML;
   }
   // Use the heading specified in the note, if given.
   if (headingFromHeadingField) {
@@ -133,14 +133,15 @@ Rai.obtainHeading = function() {
 
 Rai.ensureHeading = function() {
   const card = document.getElementById("agentydragon-card");
-  const headingText = Rai.obtainHeading();
+  const headingHtml = Rai.obtainHeadingHtml();
   // There is another <h1> somewhere. Remove the empty placeholder.
   if (!card) {
     Rai.reportError("unexpected: no .card found. cannot insert header");
     return;
   }
   const newHeader = document.createElement("h1");
-  newHeader.textContent = headingText;
+  // TODO(prvak): Sanitize?
+  newHeader.innerHTML = headingHtml;
   card.insertBefore(newHeader, card.firstChild);
 };
 

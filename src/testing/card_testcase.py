@@ -48,5 +48,5 @@ class CardTestCase(absltest.TestCase):
   def get_log(self):
     return self.driver.find_element_by_id('agentydragon-log').text
 
-  def get_heading(self):
-    return self.driver.find_element_by_tag_name('h1').text
+  def get_heading_html(self):
+    return self.driver.find_element_by_tag_name('h1').get_property('innerHTML')
