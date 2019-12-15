@@ -30,7 +30,5 @@ py_web_test_suite(
     data = [":front.expanded.html"],
     deps = [
         "//src/testing:card_testcase",
-        "@io_bazel_rules_webtesting//testing/web",
-        #"@rules_python//python/runfiles",
     ],
 )

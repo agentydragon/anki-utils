@@ -1,9 +1,8 @@
 from absl.testing import absltest
 from absl.testing import parameterized
+from src.testing import card_testcase
 
 FRONT_RUNFILES_PATH = "anki_utils/src/models/basic_and_reversed/front_to_back/front.expanded.html"
-
-from src.testing import card_testcase
 
 
 class HeadingTest(card_testcase.CardTestCase, parameterized.TestCase):
