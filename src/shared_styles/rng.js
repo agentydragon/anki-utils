@@ -1,7 +1,9 @@
 goog.module('agentydragon.rng');
 
 class RNG {
-  constructor(seed) {
+  constructor(seed, logger = console) {
+    this.logger = logger;
+
     this.m = 256;
     this.a = 11;
     this.c = 17;
@@ -15,10 +17,10 @@ class RNG {
   }
 
   shuffle(a) {
-    console.log("shuffling " + a.length + " elements");
+    this.logger.log("shuffling " + a.length + " elements");
     for (let i = a.length - 1; i > 0; i--) {
       const j = this.nextInt() % (i + 1);
-      console.log("Shuffle " + i + " <-> " + j);
+      this.logger.log("Shuffle " + i + " <-> " + j);
       const x = a[i];
       a[i] = a[j];
       a[j] = x;

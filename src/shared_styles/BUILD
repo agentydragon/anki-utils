@@ -1,5 +1,5 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_library")
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_library", "closure_js_test")
 
 exports_files([
     "common_header.html",
@@ -73,13 +73,13 @@ closure_js_library(
     visibility = ["//visibility:public"],
 )
 
-closure_js_binary(
-    name = "ordinary_bin",
-    deps = [":log_lib", ":heading_lib"],
-    # TODO:"//src/shared_styles:mathjax_log_lib",
+closure_js_test(
+    name = "heading_test",
+    srcs = ["heading_test.js"],
     entry_points = [
-        "goog:agentydragon.logging",
-        "goog:agentydragon.heading",
+        "goog:agentydragon.headingTest",
     ],
-    visibility = ["//visibility:public"],
+    deps = [
+        "@io_bazel_rules_closure//closure/library:testing",
+    ],
 )

@@ -62,9 +62,11 @@ closure_js_library(
     suppress = [
         "JSC_MISSING_JSDOC",
         "JSC_UNKNOWN_EXPR_TYPE",
+        "JSC_REQUIRES_NOT_SORTED",
     ],
     deps = [
         "//src/shared_styles:log_lib",
+        "//src/shared_styles:heading_lib",
         "//src/shared_styles:rng_lib",
         "@io_bazel_rules_closure//closure/library",
     ],
@@ -74,8 +76,6 @@ closure_js_binary(
     name = "common_bin",
     deps = [":common_lib", "//src/shared_styles:heading_lib"],
     entry_points = [
-        "goog:agentydragon.logging",
-        "goog:agentydragon.heading",
-        "goog:agentydragon.permutedCloze",
+        "goog:agentydragon.permutedCloze.main",
     ],
 )

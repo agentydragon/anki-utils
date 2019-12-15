@@ -1,7 +1,11 @@
-goog.module('agentydragon.permutedCloze');
+goog.module('agentydragon.permutedCloze.main');
 
 const {RNG} = goog.require('agentydragon.rng');
-const {reportError} = goog.require('agentydragon.logging');
+const {reportError, installToConsole, LOGGER} =
+    goog.require('agentydragon.logging');
+const {obtainNoteFields, ensureHeading} = goog.require('agentydragon.heading');
+
+installToConsole();
 
 let RaiPermutedCloze = {};
 
@@ -134,9 +138,9 @@ function computeRngSeed() {
   return hash;
 }
 
-function shuffleCloze() {
+function shuffleCloze(logger) {
   const seed = computeRngSeed();
-  const rng = new RNG(seed);
+  const rng = new RNG(seed, logger);
   console.log("RNG seed: " + seed);
 
   if (permuteElementChildren(rng)) {
@@ -151,5 +155,7 @@ function shuffleCloze() {
       "No permuted container (tbody, ul, or <br>-separated lines) found.");
 }
 
-shuffleCloze();
+obtainNoteFields();
+ensureHeading();
+shuffleCloze(LOGGER);
 RaiPermutedCloze.clozeContainer.className = "js-finished";

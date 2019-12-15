@@ -3,7 +3,9 @@ goog.module('agentydragon.logging');
 class Logger {
   constructor() {
     this.container = document.getElementById("agentydragon-log");
-    this.loggingEnabled = ("{{Log}}" == "true");
+    this.loggingEnabled =
+        (document.getElementById("agentydragon-log-enabled").innerHTML ==
+         "true" /*"{{Log}}" == "true"*/);
   }
 
   doLog(level, message, ...rest) {
@@ -31,36 +33,40 @@ class Logger {
     console.error("Error " + event.lineno + ":" + event.colno + ": " +
                   event.message);
   };
-
-  static installToConsole() {
-    window.addEventListener('error', Logger.handleError);
-
-    const logger = new Logger();
-
-    let _log = console.log;
-    let _warn = console.warn;
-    let _error = console.error;
-
-    console.log = function() {
-      logger.log(...arguments);
-      _log.apply(console, arguments);
-    };
-
-    console.warn = function() {
-      logger.warn(...arguments);
-      _warn.apply(console, arguments);
-    };
-
-    console.error = function() {
-      logger.error(...arguments);
-      _error.apply(console, arguments);
-    };
-  }
 }
 
-Logger.installToConsole();
+const LOGGER = new Logger();
 
 // TODO(prvak): This should log separately for user errors?
-function reportError(message) { console.error(message); }
+function reportError(message) { LOGGER.error(message); }
 
-exports = {reportError};
+function installToConsole() {
+  window.addEventListener('error', Logger.handleError);
+
+  const logger = new Logger();
+
+  let _log = console.log;
+  let _warn = console.warn;
+  let _error = console.error;
+
+  console.log = function() {
+    logger.log(...arguments);
+    _log.apply(console, arguments);
+  };
+
+  console.warn = function() {
+    logger.warn(...arguments);
+    _warn.apply(console, arguments);
+  };
+
+  console.error = function() {
+    logger.error(...arguments);
+    _error.apply(console, arguments);
+  };
+}
+
+exports = {
+  reportError,
+  installToConsole,
+  LOGGER
+};

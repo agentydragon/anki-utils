@@ -7,10 +7,10 @@ let Rai = {};
 //  Rai = {};
 //}
 
-Rai.getLastDeckComponent = function(deck) {
+function getLastDeckComponent(deck) {
   const deckHierarchy = deck.split("::");
   return deckHierarchy[deckHierarchy.length - 1];
-};
+}
 
 Rai.obtainFieldFromId = function(id) {
   const content = document.getElementById(id).innerHTML;
@@ -21,13 +21,13 @@ Rai.obtainFieldFromId = function(id) {
   return content;
 };
 
-Rai.obtainNoteFields = function() {
+function obtainNoteFields() {
   Rai.NOTE_FIELDS = {
     HEADING : Rai.obtainFieldFromId("agentydragon-heading"),
     DECK : Rai.obtainFieldFromId("agentydragon-deck"),
     TAGS : Rai.obtainFieldFromId("agentydragon-tags"),
   };
-};
+}
 
 Rai.tagIsStrictlyUnderTag = function(
     tag, parentTag) { return tag.startsWith(parentTag + '::'); };
@@ -107,7 +107,7 @@ Rai.headingFromLastDeckComponent = function() {
   if (!Rai.NOTE_FIELDS.DECK || Rai.NOTE_FIELDS.DECK.length == 0) {
     return null;
   }
-  return Rai.getLastDeckComponent(Rai.NOTE_FIELDS.DECK);
+  return getLastDeckComponent(Rai.NOTE_FIELDS.DECK);
 };
 
 Rai.obtainHeadingHtml = function() {
@@ -136,7 +136,7 @@ Rai.obtainHeadingHtml = function() {
   reportError("no way to get a heading");
 };
 
-Rai.ensureHeading = function() {
+function ensureHeading() {
   const card = document.getElementById("agentydragon-card");
   const headingHtml = Rai.obtainHeadingHtml();
   // There is another <h1> somewhere. Remove the empty placeholder.
@@ -148,7 +148,11 @@ Rai.ensureHeading = function() {
   // TODO(prvak): Sanitize?
   newHeader.innerHTML = headingHtml;
   card.insertBefore(newHeader, card.firstChild);
-};
+}
 
-Rai.obtainNoteFields();
-Rai.ensureHeading();
+exports = {
+  getLastDeckComponent,
+  obtainNoteFields,
+  ensureHeading
+};
+// TODO(prvak): library should win over language
