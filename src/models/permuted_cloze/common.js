@@ -54,10 +54,7 @@ function permuteJustDivAndLines(rng) {
     if (typeof child == 'string' || child instanceof CharacterData) {
       continue;
     }
-    console.log(child);
-    console.log(typeof child);
-    console.log(child.className);
-    console.log(child.tagName);
+    console.log(child, typeof child, child.className, child.tagName);
     const tag = child.tagName.toLowerCase();
     if (tag == 'div' || tag == 'br') {
       continue;
@@ -93,10 +90,7 @@ function permuteJustDivAndLines(rng) {
       currentRun.push(child);
       continue;
     }
-    console.log(child);
-    console.log(typeof child);
-    console.log(child.className);
-    console.log(child.tagName);
+    console.log(child, typeof child, child.className, child.tagName);
     const tag = child.tagName.toLowerCase();
     if (tag == 'br') {
       flushRun();
