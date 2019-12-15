@@ -1,13 +1,26 @@
 goog.module('agentydragon.note');
 
 class Note {
-  constructor(fields) { this.fields = fields; }
+  /**
+   * @param {?string} heading
+   * @param {?string} deck
+   * @param {?string} tags
+   */
+  constructor(heading, deck, tags) {
+    this._heading = heading;
+    this._deck = deck;
+    this._tags = tags;
+  }
 
-  get heading() { return this.fields.HEADING; }
-  get tags() { return this.fields.TAGS; }
-  get deck() { return this.fields.DECK; }
+  get heading() { return this._heading; }
+  get tags() { return this._tags; }
+  get deck() { return this._deck; }
 }
 
+/**
+ * @param {string} id
+ * @return {?string}
+ */
 function obtainFieldFromId(id) {
   const content = document.getElementById(id).innerHTML;
   // If the model does not have the field, return null.
@@ -18,12 +31,9 @@ function obtainFieldFromId(id) {
 }
 
 function obtainNote() {
-  const fields = {
-    HEADING : obtainFieldFromId("agentydragon-heading"),
-    DECK : obtainFieldFromId("agentydragon-deck"),
-    TAGS : obtainFieldFromId("agentydragon-tags"),
-  };
-  return new Note(fields);
+  return new Note(obtainFieldFromId("agentydragon-heading"),
+                  obtainFieldFromId("agentydragon-deck"),
+                  obtainFieldFromId("agentydragon-tags"));
 }
 
 exports = {

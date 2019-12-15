@@ -78,7 +78,6 @@ closure_js_library(
     name = "note_lib",
     srcs = ["note.js"],
     suppress = [
-        "JSC_UNKNOWN_EXPR_TYPE",
         "JSC_MISSING_JSDOC",
     ],
     deps = [
