@@ -1,7 +1,7 @@
 goog.module('agentydragon.heading');
 
+const {Logger} = goog.require('agentydragon.logging');
 const {Note} = goog.require('agentydragon.note');
-const {reportError} = goog.require('agentydragon.logging');
 
 const SPECIAL_TITLECASE = {
   'javascript' : 'JavaScript',
@@ -102,7 +102,12 @@ function headingFromLastDeckComponent(note) {
   return getLastDeckComponent(deck);
 }
 
-function obtainHeadingHtml(note) {
+/**
+ * @param {!Logger} logger
+ * @param {!Note} note
+ * @return {?string}
+ */
+function obtainHeadingHtml(logger, note) {
   const headingFromHeadingField = getHeadingFromHeadingField(note);
   const headerInContent = document.querySelector("#agentydragon-content h1");
   if (headerInContent) {
@@ -125,15 +130,20 @@ function obtainHeadingHtml(note) {
   if (headingFromDeck) {
     return headingFromDeck;
   }
-  reportError("no way to get a heading");
+  logger.error("no way to get a heading");
+  return null;
 }
 
-function ensureHeading(note) {
+/**
+ * @param {!Logger} logger
+ * @param {!Note} note
+ */
+function ensureHeading(logger, note) {
   const card = document.getElementById("agentydragon-card");
-  const headingHtml = obtainHeadingHtml(note);
+  const headingHtml = obtainHeadingHtml(logger, note);
   // There is another <h1> somewhere. Remove the empty placeholder.
   if (!card) {
-    reportError("unexpected: no .card found. cannot insert header");
+    logger.error("unexpected: no .card found. cannot insert header");
     return;
   }
   const newHeader = document.createElement("h1");

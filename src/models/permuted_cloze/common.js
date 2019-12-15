@@ -157,6 +157,6 @@ function shuffleCloze(logger) {
 }
 
 const note = obtainNote();
-ensureHeading(note);
+ensureHeading(GLOBAL_LOGGER, note);
 shuffleCloze(GLOBAL_LOGGER);
 RaiPermutedCloze.clozeContainer.className = "js-finished";
