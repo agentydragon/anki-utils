@@ -111,7 +111,7 @@ Rai.obtainHeadingHtml = function() {
   const headerInContent = document.querySelector("#agentydragon-content h1");
   if (headerInContent) {
     if (headingFromHeadingField) {
-      console.warning("Both Heading field and inline heading specified.");
+      console.warn("Both Heading field and inline heading specified.");
     }
     headerInContent.remove();
     return headerInContent.innerHTML;

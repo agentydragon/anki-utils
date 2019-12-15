@@ -21,7 +21,7 @@ class Logger {
     }
   }
 
-  warning(message, ...rest) { this.doLog("warning", message, ...rest); }
+  warn(message, ...rest) { this.doLog("warn", message, ...rest); }
 
   error(message, ...rest) { this.doLog("error", message, ...rest); }
 
@@ -36,7 +36,7 @@ class Logger {
     const logger = new Logger();
 
     let _log = console.log;
-    let _warning = console.warning;
+    let _warn = console.warn;
     let _error = console.error;
 
     console.log = function() {
@@ -44,9 +44,9 @@ class Logger {
       _log.apply(console, arguments);
     };
 
-    console.warning = function() {
-      logger.warning(...arguments);
-      _warning.apply(console, arguments);
+    console.warn = function() {
+      logger.warn(...arguments);
+      _warn.apply(console, arguments);
     };
 
     console.error = function() {
@@ -58,9 +58,13 @@ class Logger {
 
 Logger.installToConsole();
 
-if (typeof Rai === "undefined") {
-  Rai = {};
-}
+// if (typeof Rai === "undefined") {
+//  Rai = {};
+//}
 
 // TODO(prvak): This should log separately for user errors?
-Rai.reportError = function(message) { console.error(message); }
+function reportError(message) { console.error(message); }
+
+reportError("AAA");
+
+// export reportError;

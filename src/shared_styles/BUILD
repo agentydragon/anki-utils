@@ -1,4 +1,5 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_library")
 
 exports_files([
     "common_header.html",
@@ -31,4 +32,18 @@ sass_library(
 sass_library(
     name = "solarized",
     srcs = ["solarized.scss"],
+)
+
+closure_js_library(
+    name = "log_lib",
+    srcs = ["log.js"],
+    suppress = [
+        "JSC_MISSING_JSDOC",
+        "JSC_UNKNOWN_EXPR_TYPE",
+    ],
+)
+
+closure_js_binary(
+    name = "test_bin",
+    deps = [":log_lib"],
 )
