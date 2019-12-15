@@ -30,8 +30,7 @@ RNG.prototype.shuffle = function(a) {
 };
 
 function addHash(hash, x) {
-  hash = ((hash << 5) - hash) + x;
-  hash |= 0; // Convert to 32bit integer
+  hash = (hash * 17 + x) % 256;
   return hash;
 };
 
