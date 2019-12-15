@@ -40,7 +40,7 @@ FLAGS = flags.FLAGS
 # }
 # Permuted Rows Cloze (JS powered)
 
-SLUG_RUNFILES_PATH = "__main__/src/models/slug.json"
+SLUG_RUNFILES_PATH = "anki_utils/src/models/slug.json"
 
 
 def find_model_by_uuid(collection, uuid):
