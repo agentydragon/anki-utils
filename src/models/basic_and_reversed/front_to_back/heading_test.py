@@ -12,6 +12,7 @@ class HeadingTest(card_testcase.CardTestCase, parameterized.TestCase):
       ({'Tags': 'programming::python'}, 'Python'),
       ({'Tags': 'todo::problems source::books', 'Deck': 'My Deck'}, 'My Deck'),
       ({'Tags': 'javascript'}, 'JavaScript'),
+      ({'Tags': 'persons::_my_network'}, 'Persons'),
   )
   def test_heading(self, fields, expected_heading):
     self.open_card_from_runfiles(runfiles_path=FRONT_RUNFILES_PATH,

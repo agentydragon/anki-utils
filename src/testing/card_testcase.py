@@ -16,6 +16,9 @@ class CardTestCase(absltest.TestCase):
     self.runfiles = runfiles.Create()
 
   def tearDown(self):
+    log = self.driver.get_log("browser")
+    if len(log) > 0:
+      print("Browser log:", log)
     try:
       self.driver.quit()
     finally:

@@ -51,7 +51,8 @@ Rai.headingFromTag = function(tag) {
 };
 
 Rai.tagIsMeta = function(tag) {
-  const metaFamilies = [ "todo", "marked", "leech", "source" ];
+  const metaFamilies =
+      [ "todo", "marked", "leech", "source", "persons::_my_network" ];
   return metaFamilies.some(family => Rai.tagIsUnderTag(tag, family));
 };
 
@@ -63,17 +64,33 @@ Rai.headingFromHeadingField = function() {
   return headingField;
 };
 
+Rai.expandTag = function(tag) {
+  const parts = tag.split('::');
+  let result = [];
+  for (let i = 0; i < parts.length; i++) {
+    result.push(parts.slice(0, i + 1).join('::'));
+  }
+  return result;
+};
+
+Rai.expandTags = function(
+    tags) { return [...new Set(tags.flatMap(tag => Rai.expandTag(tag))) ]; };
+
 Rai.headingFromTags = function() {
   const tags = Rai.NOTE_FIELDS.TAGS;
   if (!tags) {
     return null;
   }
-  const individualTags = tags.split(' ').filter(tag => !Rai.tagIsMeta(tag));
+  // Fully expand.
+  const expandedTags = Rai.expandTags(tags.split(' '));
+  console.log("expanded tags:", expandedTags);
+  const individualTags = expandedTags.filter(tag => !Rai.tagIsMeta(tag));
   // Remove non-leaf tags.
   const tagIsNonleaf = tag => individualTags.some(
       candidateChild => Rai.tagIsStrictlyUnderTag(candidateChild, tag));
   const tagIsLeaf = tag => !tagIsNonleaf(tag);
   const leafTags = individualTags.filter(tagIsLeaf);
+  console.log("leaf tags:", leafTags);
   const candidateHeadings = leafTags.map(Rai.headingFromTag).sort();
   if (candidateHeadings.length == 0) {
     return null;
