@@ -28,23 +28,23 @@ closure_js_library(
     srcs = ["common.js"],
     suppress = [
         "JSC_UNKNOWN_EXPR_TYPE",
+        "JSC_REQUIRES_NOT_SORTED",
     ],
     deps = [
         "@io_bazel_rules_closure//closure/library",
+        "//src/shared_styles:log_lib",
+        "//src/shared_styles:heading_lib",
+        "//src/shared_styles:note_lib",
     ],
 )
 
 closure_js_binary(
     name = "ordinary_bin",
     deps = [
-        "//src/shared_styles:log_lib",
-        "//src/shared_styles:heading_lib",
         ":common_lib",
     ],
     # TODO:"//src/shared_styles:mathjax_log_lib",
     entry_points = [
-        "goog:agentydragon.logging",
-        "goog:agentydragon.heading",
         "goog:agentydragon.keyboardShortcut",
     ],
     visibility = ["//src/models/keyboard_shortcut:__subpackages__"],

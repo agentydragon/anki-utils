@@ -73,6 +73,19 @@ closure_js_library(
     visibility = ["//visibility:public"],
 )
 
+closure_js_library(
+    name = "note_lib",
+    srcs = ["note.js"],
+    suppress = [
+        "JSC_UNKNOWN_EXPR_TYPE",
+        "JSC_MISSING_JSDOC",
+    ],
+    deps = [
+        "@io_bazel_rules_closure//closure/library",
+    ],
+    visibility = ["//visibility:public"],
+)
+
 closure_js_test(
     name = "heading_test",
     srcs = ["heading_test.js"],

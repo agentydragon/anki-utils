@@ -3,30 +3,10 @@ goog.module('agentydragon.heading');
 const {reportError} = goog.require('agentydragon.logging');
 
 let Rai = {};
-// if (typeof Rai === "undefined") {
-//  Rai = {};
-//}
 
 function getLastDeckComponent(deck) {
   const deckHierarchy = deck.split("::");
   return deckHierarchy[deckHierarchy.length - 1];
-}
-
-Rai.obtainFieldFromId = function(id) {
-  const content = document.getElementById(id).innerHTML;
-  // If the model does not have the field, return null.
-  if (content.indexOf("unknown field ") !== -1) {
-    return null;
-  }
-  return content;
-};
-
-function obtainNoteFields() {
-  Rai.NOTE_FIELDS = {
-    HEADING : Rai.obtainFieldFromId("agentydragon-heading"),
-    DECK : Rai.obtainFieldFromId("agentydragon-deck"),
-    TAGS : Rai.obtainFieldFromId("agentydragon-tags"),
-  };
 }
 
 Rai.tagIsStrictlyUnderTag = function(
@@ -61,8 +41,8 @@ Rai.tagIsMeta = function(tag) {
   return metaFamilies.some(family => Rai.tagIsUnderTag(tag, family));
 };
 
-Rai.headingFromHeadingField = function() {
-  const headingField = Rai.NOTE_FIELDS.HEADING;
+Rai.headingFromHeadingField = function(note) {
+  const headingField = note.heading;
   if (!headingField || headingField.length == 0) {
     return null;
   }
@@ -81,8 +61,8 @@ Rai.expandTag = function(tag) {
 Rai.expandTags = function(
     tags) { return [...new Set(tags.flatMap(tag => Rai.expandTag(tag))) ]; };
 
-Rai.headingFromTags = function() {
-  const tags = Rai.NOTE_FIELDS.TAGS;
+Rai.headingFromTags = function(note) {
+  const tags = note.tags;
   if (!tags) {
     return null;
   }
@@ -103,15 +83,16 @@ Rai.headingFromTags = function() {
   return candidateHeadings[0];
 };
 
-Rai.headingFromLastDeckComponent = function() {
-  if (!Rai.NOTE_FIELDS.DECK || Rai.NOTE_FIELDS.DECK.length == 0) {
+Rai.headingFromLastDeckComponent = function(note) {
+  const deck = note.deck;
+  if (!deck || deck.length == 0) {
     return null;
   }
-  return getLastDeckComponent(Rai.NOTE_FIELDS.DECK);
+  return getLastDeckComponent(deck);
 };
 
-Rai.obtainHeadingHtml = function() {
-  const headingFromHeadingField = Rai.headingFromHeadingField();
+function obtainHeadingHtml(note) {
+  const headingFromHeadingField = Rai.headingFromHeadingField(note);
   const headerInContent = document.querySelector("#agentydragon-content h1");
   if (headerInContent) {
     if (headingFromHeadingField) {
@@ -124,21 +105,21 @@ Rai.obtainHeadingHtml = function() {
   if (headingFromHeadingField) {
     return headingFromHeadingField;
   }
-  const headingFromTags = Rai.headingFromTags();
+  const headingFromTags = Rai.headingFromTags(note);
   if (headingFromTags) {
     return headingFromTags;
   }
   // Last resort: show the deck name
-  const headingFromDeck = Rai.headingFromLastDeckComponent();
+  const headingFromDeck = Rai.headingFromLastDeckComponent(note);
   if (headingFromDeck) {
     return headingFromDeck;
   }
   reportError("no way to get a heading");
-};
+}
 
-function ensureHeading() {
+function ensureHeading(note) {
   const card = document.getElementById("agentydragon-card");
-  const headingHtml = Rai.obtainHeadingHtml();
+  const headingHtml = obtainHeadingHtml(note);
   // There is another <h1> somewhere. Remove the empty placeholder.
   if (!card) {
     reportError("unexpected: no .card found. cannot insert header");
@@ -152,7 +133,6 @@ function ensureHeading() {
 
 exports = {
   getLastDeckComponent,
-  obtainNoteFields,
   ensureHeading
 };
 // TODO(prvak): library should win over language

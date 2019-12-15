@@ -19,9 +19,11 @@ closure_js_library(
     deps = [
         "//src/shared_styles:heading_lib",
         "//src/shared_styles:log_lib",
+        "//src/shared_styles:note_lib",
     ],
     suppress = [
         "JSC_REQUIRES_NOT_SORTED",
+        "JSC_UNKNOWN_EXPR_TYPE",
     ],
 )
 

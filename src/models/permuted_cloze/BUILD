@@ -68,6 +68,7 @@ closure_js_library(
         "//src/shared_styles:log_lib",
         "//src/shared_styles:heading_lib",
         "//src/shared_styles:rng_lib",
+        "//src/shared_styles:note_lib",
         "@io_bazel_rules_closure//closure/library",
     ],
 )

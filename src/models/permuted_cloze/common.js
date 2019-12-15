@@ -3,7 +3,8 @@ goog.module('agentydragon.permutedCloze.main');
 const {RNG} = goog.require('agentydragon.rng');
 const {reportError, installToConsole, LOGGER} =
     goog.require('agentydragon.logging');
-const {obtainNoteFields, ensureHeading} = goog.require('agentydragon.heading');
+const {ensureHeading} = goog.require('agentydragon.heading');
+const {obtainNote} = goog.require('agentydragon.note');
 
 installToConsole();
 
@@ -155,7 +156,7 @@ function shuffleCloze(logger) {
       "No permuted container (tbody, ul, or <br>-separated lines) found.");
 }
 
-obtainNoteFields();
-ensureHeading();
+const note = obtainNote();
+ensureHeading(note);
 shuffleCloze(LOGGER);
 RaiPermutedCloze.clozeContainer.className = "js-finished";

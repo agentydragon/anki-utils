@@ -1,5 +1,13 @@
 goog.module('agentydragon.keyboardShortcut');
 
+const {installToConsole} = goog.require('agentydragon.logging');
+const {obtainNote} = goog.require('agentydragon.note');
+const {ensureHeading} = goog.require('agentydragon.heading');
+
+installToConsole();
+const note = obtainNote();
+ensureHeading(note);
+
 const shortcut = document.getElementById("shortcut-code").innerText;
 
 // "Ctrl+K" --> [Ctrl][K]
