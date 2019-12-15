@@ -38,6 +38,8 @@ class PermutedClozeTest(card_testcase.CardTestCase):
     actual_text = self.driver.find_element_by_id('agentydragon-content').text
     self.assertIsPermutation(actual_text.strip().split('\n'), items)
 
+  # TODO(prvak): Add test for tbody rows
+
   def test_log(self):
     """Tests that Log set to 'true' enables logging."""
     items = self.make_items(2)
