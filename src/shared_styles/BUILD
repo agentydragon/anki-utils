@@ -71,6 +71,7 @@ closure_js_library(
     srcs = ["rng.js"],
     deps = [
         ":log_lib",
+        ":note_lib",
         "@io_bazel_rules_closure//closure/library",
     ],
     suppress = [

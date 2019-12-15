@@ -1,11 +1,9 @@
 goog.module('agentydragon.logging');
 
 class Logger {
-  constructor() {
+  constructor(note) {
     this.container = document.getElementById("agentydragon-log");
-    this.loggingEnabled =
-        (document.getElementById("agentydragon-log-enabled").innerHTML ==
-         "true" /*"{{Log}}" == "true"*/);
+    this.loggingEnabled = (note.logEnabled == "true");
   }
 
   doLog(level, message, ...rest) {

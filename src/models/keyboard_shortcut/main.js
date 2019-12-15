@@ -6,9 +6,9 @@ const {ensureHeading} = goog.require('agentydragon.heading');
 const {applyShortcuts} =
     goog.require('agentydragon.keyboardShortcut.keyboardShortcut');
 
-const logger = new Logger();
-logger.installToConsole();
 const note = obtainNote();
+const logger = new Logger(note);
+logger.installToConsole();
 ensureHeading(logger, note);
 
 const shortcut = document.getElementById("shortcut");
