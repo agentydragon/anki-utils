@@ -29,34 +29,14 @@ class Logger {
 
   error(message, ...rest) { this.doLog("error", message, ...rest); }
 
-  static handleError(event) {
-    console.error("Error " + event.lineno + ":" + event.colno + ": " +
-                  event.message);
+  handleError(event) {
+    this.error("Error " + event.lineno + ":" + event.colno + ": " +
+               event.message);
   };
 
   installToConsole() {
-    window.addEventListener('error', Logger.handleError);
-
     const me = this;
-
-    let _log = console.log;
-    let _warn = console.warn;
-    let _error = console.error;
-
-    console.log = function() {
-      me.log(...arguments);
-      _log.apply(console, arguments);
-    };
-
-    console.warn = function() {
-      me.warn(...arguments);
-      _warn.apply(console, arguments);
-    };
-
-    console.error = function() {
-      me.error(...arguments);
-      _error.apply(console, arguments);
-    };
+    window.addEventListener('error', e => me.handleError(e));
   }
 }
 

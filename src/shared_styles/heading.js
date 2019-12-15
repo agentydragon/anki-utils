@@ -76,14 +76,12 @@ function getHeadingFromTags(tags) {
   }
   // Fully expand.
   const expandedTags = expandTags(tags.split(' '));
-  console.log("expanded tags:", expandedTags);
   const individualTags = expandedTags.filter(tag => !tagIsMeta(tag));
   // Remove non-leaf tags.
   const tagIsNonleaf = tag => individualTags.some(
       candidateChild => tagIsStrictlyUnderTag(candidateChild, tag));
   const tagIsLeaf = tag => !tagIsNonleaf(tag);
   const leafTags = individualTags.filter(tagIsLeaf);
-  console.log("leaf tags:", leafTags);
   const candidateHeadings = leafTags.map(headingFromTag).sort();
   if (candidateHeadings.length == 0) {
     return null;
@@ -113,7 +111,7 @@ function obtainHeadingHtml(logger, note) {
   const headerInContent = document.querySelector("#agentydragon-content h1");
   if (headerInContent) {
     if (headingFromHeadingField) {
-      console.warn("Both Heading field and inline heading specified.");
+      logger.warn("Both Heading field and inline heading specified.");
     }
     headerInContent.remove();
     return headerInContent.innerHTML;
