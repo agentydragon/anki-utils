@@ -4,9 +4,11 @@ const {Logger} = goog.require('agentydragon.logging');
 const {Note} = goog.require('agentydragon.note');
 
 const SPECIAL_TITLECASE = {
-  'javascript' : 'JavaScript',
   'cpp' : 'C++',
+  'javascript' : 'JavaScript',
+  'latex' : 'LaTeX',
   'probability-statistics' : 'Probability & Statistics',
+  'zetasql' : 'ZetaSQL',
 };
 
 const META_FAMILIES =
