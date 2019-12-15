@@ -1,12 +1,11 @@
 goog.module('agentydragon.permutedCloze.main');
 
 const {RNG} = goog.require('agentydragon.rng');
-const {reportError, installToConsole, GLOBAL_LOGGER} =
-    goog.require('agentydragon.logging');
+const {GLOBAL_LOGGER} = goog.require('agentydragon.logging');
 const {ensureHeading} = goog.require('agentydragon.heading');
 const {obtainNote} = goog.require('agentydragon.note');
 
-installToConsole();
+GLOBAL_LOGGER.installToConsole();
 
 let RaiPermutedCloze = {};
 
@@ -32,7 +31,7 @@ function permuteChildren(rng, element) {
   element.append(...children);
 }
 
-function permuteJustDivAndLines(rng) {
+function permuteJustDivAndLines(logger, rng) {
   const content = RaiPermutedCloze.clozeContainer;
   for (const child of content.children) {
     if (typeof child == 'string' || child instanceof CharacterData) {
@@ -87,18 +86,18 @@ function permuteJustDivAndLines(rng) {
     } else if (tag == 'span') {
       currentRun.push(child);
     } else {
-      reportError('unexpected child kind');
+      logger.error('unexpected child kind');
     }
   }
   flushRun();
 
   console.log("wrapped children: " + wrappedChildren.length);
   if (wrappedChildren.length == 0) {
-    reportError("no wrapped children");
+    logger.error("no wrapped children");
     return;
   }
   if (wrappedChildren.length == 1) {
-    reportError("just 1 wrapped child!");
+    logger.error("just 1 wrapped child!");
     return;
   }
   rng.shuffle(wrappedChildren);
@@ -148,11 +147,11 @@ function shuffleCloze(logger) {
     console.log("Success with permuted container.");
     return;
   }
-  if (permuteJustDivAndLines(rng)) {
+  if (permuteJustDivAndLines(logger, rng)) {
     console.log("Success with permuted div-and-lines.");
     return;
   }
-  reportError(
+  logger.error(
       "No permuted container (tbody, ul, or <br>-separated lines) found.");
 }
 

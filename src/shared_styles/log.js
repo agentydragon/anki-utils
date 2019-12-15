@@ -33,39 +33,38 @@ class Logger {
     console.error("Error " + event.lineno + ":" + event.colno + ": " +
                   event.message);
   };
+
+  installToConsole() {
+    window.addEventListener('error', Logger.handleError);
+
+    const me = this;
+
+    let _log = console.log;
+    let _warn = console.warn;
+    let _error = console.error;
+
+    console.log = function() {
+      me.log(...arguments);
+      _log.apply(console, arguments);
+    };
+
+    console.warn = function() {
+      me.warn(...arguments);
+      _warn.apply(console, arguments);
+    };
+
+    console.error = function() {
+      me.error(...arguments);
+      _error.apply(console, arguments);
+    };
+  }
 }
 
 const GLOBAL_LOGGER = new Logger();
 
-// TODO(prvak): This should log separately for user errors?
-function reportError(message) { GLOBAL_LOGGER.error(message); }
-
-function installToConsole() {
-  window.addEventListener('error', Logger.handleError);
-
-  let _log = console.log;
-  let _warn = console.warn;
-  let _error = console.error;
-
-  console.log = function() {
-    GLOBAL_LOGGER.log(...arguments);
-    _log.apply(console, arguments);
-  };
-
-  console.warn = function() {
-    GLOBAL_LOGGER.warn(...arguments);
-    _warn.apply(console, arguments);
-  };
-
-  console.error = function() {
-    GLOBAL_LOGGER.error(...arguments);
-    _error.apply(console, arguments);
-  };
-}
+// TODO(prvak): Separately log user errors?
 
 exports = {
-  reportError,
-  installToConsole,
   Logger,
   GLOBAL_LOGGER
 };

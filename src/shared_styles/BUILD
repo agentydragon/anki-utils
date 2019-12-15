@@ -38,7 +38,6 @@ closure_js_library(
     name = "log_lib",
     srcs = ["log.js"],
     suppress = [
-        "JSC_MISSING_JSDOC",
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
     deps = [
