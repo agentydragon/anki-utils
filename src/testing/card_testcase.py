@@ -40,17 +40,11 @@ class CardTestCase(absltest.TestCase):
 
   def open_html(self, html):
     html = '<div id="testing-card">' + html + '</div>'
-    filename = '/tmp/x.html'
-    with open(filename, 'w') as f:
-      f.write(html)
-    self.driver.get("file://{}".format(filename))
+    tempfile = self.create_tempfile('card.html', content=html)
+    self.driver.get("file://{}".format(tempfile.full_path))
 
   def get_log(self):
     return self.driver.find_element_by_id('agentydragon-log').text
 
   def get_heading(self):
     return self.driver.find_element_by_tag_name('h1').text
-
-
-if __name__ == "__main__":
-  absltest.main()
