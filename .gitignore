@@ -3,3 +3,5 @@
 
 # Vim swapfiles
 *.sw?
+
+/node_modules

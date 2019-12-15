@@ -1,0 +1,11 @@
+{
+  "name": "anki-utils",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "bazel test ..."
+  },
+  "devDependencies": {
+    "@bazel/terser": "^0.42.3",
+    "terser": "4.3.1"
+  }
+}

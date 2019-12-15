@@ -1,3 +1,8 @@
+workspace(
+    name = "anki_utils",
+    managed_directories = {"@npm": ["node_modules"]},
+)
+
 # These rules are built-into Bazel but we need to load them first to download more rules
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -8,6 +13,8 @@ http_archive(
     sha256 = "16fc00ab0d1e538e88f084272316c0693a2e9007d64f45529b82f6230aedb073",
     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.42.2/rules_nodejs-0.42.2.tar.gz"],
 )
+
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
 
 # Fetch sass rules for compiling sass files
 http_archive(
@@ -35,3 +42,39 @@ py_repositories()
 # Only needed if using the packaging rules.
 # load("@rules_python//python:pip.bzl", "pip_repositories")
 # pip_repositories()
+
+node_repositories(package_json = ["//:package.json"])
+
+load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
+
+yarn_install(
+    name = "npm",
+    package_json = "//:package.json",
+    yarn_lock = "//:yarn.lock",
+)
+
+load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+
+install_bazel_dependencies()
+
+# Python web tests
+
+http_archive(
+    name = "io_bazel_rules_webtesting",
+    sha256 = "9bb461d5ef08e850025480bab185fd269242d4e533bca75bfb748001ceb343c3",
+    urls = [
+        "https://github.com/bazelbuild/rules_webtesting/releases/download/0.3.3/rules_webtesting.tar.gz",
+    ],
+)
+
+load("@io_bazel_rules_webtesting//web:repositories.bzl", "web_test_repositories")
+
+web_test_repositories()
+
+load("@io_bazel_rules_webtesting//web/versioned:browsers-0.3.2.bzl", "browser_repositories")
+
+browser_repositories(chromium = True)
+
+load("@io_bazel_rules_webtesting//web:py_repositories.bzl", "py_repositories")
+
+py_repositories()
