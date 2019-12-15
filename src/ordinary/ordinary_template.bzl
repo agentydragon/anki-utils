@@ -1,3 +1,5 @@
+load("@npm_bazel_terser//:index.bzl", "terser_minified")
+
 def _concat(files):
     if not files:
         return ""
@@ -6,26 +8,22 @@ def _concat(files):
         cat += "$(location " + f + ") "
     return cat
 
-def _general_template_impl(
+def _compose_template(
         name,
         html_headers,
-        js_footers,
-        html_out = None,
-        html_append = []):
-    if html_out == None:
-        html_out = name + ".expanded.html"
+        html_append,
+        html_out,
+        js_bundle):
     native.genrule(
         name = name,
-        srcs = js_footers + html_headers + html_append,
+        srcs = html_headers + html_append + [js_bundle],
         outs = [html_out],
         cmd = "\n".join([
             "(",
             ";\n".join([
                 _concat(html_headers),
                 "echo \"<script>\"",
-                "echo \"(function() {\"",
-                _concat(js_footers),
-                "echo \"})();\" ",
+                _concat([js_bundle]),
                 "echo \"</script>\"",
                 _concat(html_append),
             ]),
@@ -34,6 +32,49 @@ def _general_template_impl(
             ") | python -c 'import sys; sys.stdout.write(sys.stdin.read().strip())' > \"$@\"",
         ]),
         visibility = ["//src/deploy:__subpackages__"],
+    )
+
+def _general_template_impl(
+        name,
+        html_headers,
+        js_footers,
+        html_append = []):
+    bundle_js_path = name + "_bundle.js"
+    native.genrule(
+        name = name + "_bundle_js",
+        srcs = js_footers,
+        outs = [bundle_js_path],
+        cmd = "\n".join([
+            "(",
+            ";\n".join([
+                "echo \"(function() {\"",
+                _concat(js_footers),
+                "echo \"})();\" ",
+            ]),
+            ") > \"$@\"",
+        ]),
+    )
+    terser_minified(
+        name = name + "_min",
+        src = ":" + bundle_js_path,
+    )
+
+    # Minified target
+    _compose_template(
+        name = name,
+        html_headers = html_headers,
+        html_append = html_append,
+        html_out = name + ".min.html",
+        js_bundle = name + "_min.js",  #":" + name + "_min.js",
+    )
+
+    # Unminified target
+    _compose_template(
+        name = name + "_unminified",
+        html_headers = html_headers,
+        html_append = html_append,
+        html_out = name + ".unminified.html",
+        js_bundle = bundle_js_path,
     )
 
 general_template = _general_template_impl
