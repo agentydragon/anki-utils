@@ -18,10 +18,10 @@ RNG.prototype.nextInt = function() {
 };
 
 RNG.prototype.shuffle = function(a) {
-  Rai.log("shuffling " + a.length + " elements");
-  for (var i = a.length - 1; i > 0; i--) {
+  console.log("shuffling " + a.length + " elements");
+  for (let i = a.length - 1; i > 0; i--) {
     const j = this.nextInt() % (i + 1);
-    Rai.log("Shuffle " + i + " <-> " + j);
+    console.log("Shuffle " + i + " <-> " + j);
     const x = a[i];
     a[i] = a[j];
     a[j] = x;
@@ -54,10 +54,10 @@ function permuteJustDivAndLines(rng) {
     if (typeof child == 'string' || child instanceof CharacterData) {
       continue;
     }
-    Rai.log(child);
-    Rai.log(typeof child);
-    Rai.log(child.className);
-    Rai.log(child.tagName);
+    console.log(child);
+    console.log(typeof child);
+    console.log(child.className);
+    console.log(child.tagName);
     const tag = child.tagName.toLowerCase();
     if (tag == 'div' || tag == 'br') {
       continue;
@@ -66,7 +66,7 @@ function permuteJustDivAndLines(rng) {
       // Cloze in text.
       continue;
     }
-    Rai.log("child is <" + tag + "> -> not div-and-lines");
+    console.log("child is <" + tag + "> -> not div-and-lines");
     return false;
   }
   // OK. Now make the children.
@@ -84,19 +84,19 @@ function permuteJustDivAndLines(rng) {
   };
   for (const child of children) {
     if (child instanceof CharacterData) {
-      Rai.log("child: string, of: " + child.data);
+      console.log("child: string, of: " + child.data);
       currentRun.push(child);
       continue;
     }
     if (typeof child == 'string') {
-      Rai.log("child: string, of: " + child);
+      console.log("child: string, of: " + child);
       currentRun.push(child);
       continue;
     }
-    Rai.log(child);
-    Rai.log(typeof child);
-    Rai.log(child.className);
-    Rai.log(child.tagName);
+    console.log(child);
+    console.log(typeof child);
+    console.log(child.className);
+    console.log(child.tagName);
     const tag = child.tagName.toLowerCase();
     if (tag == 'br') {
       flushRun();
@@ -114,7 +114,7 @@ function permuteJustDivAndLines(rng) {
   }
   flushRun();
 
-  Rai.log("wrapped children: " + wrappedChildren.length);
+  console.log("wrapped children: " + wrappedChildren.length);
   if (wrappedChildren.length == 0) {
     Rai.reportError("no wrapped children");
     return;
@@ -134,7 +134,7 @@ function permuteElementChildren(rng) {
   const permutedContainer =
       RaiPermutedCloze.clozeContainer.querySelector(containersSelector);
   if (!permutedContainer) {
-    Rai.log("no " + containersSelector + " in Cloze content container");
+    console.log("no " + containersSelector + " in Cloze content container");
     return false;
   }
   permuteChildren(rng, permutedContainer);
@@ -164,14 +164,14 @@ function computeRngSeed() {
 function shuffleCloze() {
   const seed = computeRngSeed();
   const rng = new RNG(seed);
-  Rai.log("RNG seed: " + seed);
+  console.log("RNG seed: " + seed);
 
   if (permuteElementChildren(rng)) {
-    Rai.log("Success with permuted container.");
+    console.log("Success with permuted container.");
     return;
   }
   if (permuteJustDivAndLines(rng)) {
-    Rai.log("Success with permuted div-and-lines.");
+    console.log("Success with permuted div-and-lines.");
     return;
   }
   Rai.reportError(

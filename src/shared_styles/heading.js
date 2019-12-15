@@ -1,3 +1,7 @@
+if (typeof Rai === "undefined") {
+  Rai = {};
+}
+
 Rai.getLastDeckComponent =
     function(deck) {
   const deckHierarchy = deck.split("::");
@@ -107,7 +111,7 @@ Rai.obtainHeadingHtml = function() {
   const headerInContent = document.querySelector("#agentydragon-content h1");
   if (headerInContent) {
     if (headingFromHeadingField) {
-      Rai.doLog("warning", "Both Heading field and inline heading specified.");
+      console.warning("Both Heading field and inline heading specified.");
     }
     headerInContent.remove();
     return headerInContent.innerHTML;

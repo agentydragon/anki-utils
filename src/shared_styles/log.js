@@ -1,44 +1,66 @@
-Rai = {};
-
-Rai.logContainer = document.getElementById("agentydragon-log");
-
-Rai.doLog = function(message, level) {
-  const messageElement = document.createElement("div");
-  messageElement.className = level;
-  messageElement.innerText = message;
-  Rai.logContainer.appendChild(messageElement);
-};
-
-Rai.doLog2 = function(level, message, ...rest) {
-  const messageElement = document.createElement("div");
-  messageElement.className = level;
-  messageElement.innerText = message;
-  Rai.logContainer.appendChild(messageElement);
-};
-
-Rai.reportError = function(message) { Rai.doLog(message, "error"); };
-
-Rai.handleError = function(event) {
-  Rai.reportError("Error " + event.lineno + ":" + event.colno + ": " +
-                  event.message);
-};
-
-window.addEventListener('error', Rai.handleError);
-
-Rai.log = function(message) {
-  if ("{{Log}}" == "true") {
-    Rai.doLog(message, "info");
+class Logger {
+  constructor() {
+    this.container = document.getElementById("agentydragon-log");
+    this.loggingEnabled = ("{{Log}}" == "true");
   }
-};
 
-(function() {
-let _log = console.log;
-let _error = console.error;
-let _warning = console.warning;
+  doLog(level, message, ...rest) {
+    const messageElement = document.createElement("div");
+    messageElement.className = level;
+    messageElement.innerText = message;
+    //    for (const item of rest) {
+    //      // TODO: log better?
+    //      messageElement.innerText += "; " + JSON.stringify(item));
+    //    }
+    this.container.appendChild(messageElement);
+  }
 
-console.error = function() { _error.apply(console, arguments); };
+  log(message, ...rest) {
+    if (this.loggingEnabled) {
+      this.doLog("info", message, ...rest);
+    }
+  }
 
-// console.log = function(message) { _log.apply(console, arguments); };
-//
-// console.warning = function(message) { _log.apply(console, arguments); };
-});
+  warning(message, ...rest) { this.doLog("warning", message, ...rest); }
+
+  error(message, ...rest) { this.doLog("error", message, ...rest); }
+
+  static handleError(event) {
+    console.error("Error " + event.lineno + ":" + event.colno + ": " +
+                  event.message);
+  };
+
+  static installToConsole() {
+    window.addEventListener('error', Logger.handleError);
+
+    const logger = new Logger();
+
+    let _log = console.log;
+    let _warning = console.warning;
+    let _error = console.error;
+
+    console.log = function() {
+      logger.log(...arguments);
+      _log.apply(console, arguments);
+    };
+
+    console.warning = function() {
+      logger.warning(...arguments);
+      _warning.apply(console, arguments);
+    };
+
+    console.error = function() {
+      logger.error(...arguments);
+      _error.apply(console, arguments);
+    };
+  }
+}
+
+Logger.installToConsole();
+
+if (typeof Rai === "undefined") {
+  Rai = {};
+}
+
+// TODO(prvak): This should log separately for user errors?
+Rai.reportError = function(message) { console.error(message); }
