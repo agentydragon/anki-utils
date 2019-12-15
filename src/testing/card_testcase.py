@@ -39,7 +39,6 @@ class CardTestCase(absltest.TestCase):
     self.wait_until_loaded()
 
   def open_html(self, html):
-    html = '<div id="testing-card">' + html + '</div>'
     tempfile = self.create_tempfile('card.html', content=html)
     self.driver.get("file://{}".format(tempfile.full_path))
 
