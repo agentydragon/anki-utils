@@ -145,6 +145,15 @@ function ensureHeading(logger, note) {
     logger.error("unexpected: no .card found. cannot insert header");
     return;
   }
+
+  // Move h2 out of content, if it's present.
+  const subheaders = document.querySelectorAll("#agentydragon-content h2");
+  if (subheaders.length == 1) {
+    const h2 = subheaders[0];
+    h2.remove();
+    card.insertBefore(h2, card.firstChild);
+  }
+
   const newHeader = document.createElement("h1");
   // TODO(prvak): Sanitize?
   newHeader.innerHTML = headingHtml;

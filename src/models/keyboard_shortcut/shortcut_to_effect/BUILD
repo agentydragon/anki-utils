@@ -1,5 +1,5 @@
 load("//src:anki_template.bzl", "anki_template")
-load("//src/ordinary:ordinary_template.bzl", "general_template")
+load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_library")
 
 anki_template(
@@ -10,14 +10,14 @@ anki_template(
     visibility = ["//src/models/keyboard_shortcut:__subpackages__"],
 )
 
-general_template(
+ordinary_template(
     name = "front",
-    html_headers = ["front.html"],
+    html_in = "front.html",
     js_binary = "//src/models/keyboard_shortcut:main_bin.js",
 )
 
-general_template(
+ordinary_template(
     name = "back",
-    html_headers = ["back.html"],
+    html_in = "back.html",
     js_binary = "//src/models/keyboard_shortcut:main_bin.js",
 )
