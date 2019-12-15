@@ -12,6 +12,9 @@ const SPECIAL_TITLECASE = {
 const META_FAMILIES =
     [ "todo", "marked", "leech", "source", "persons::_my_network" ];
 
+const LIBRARY = "cs::libraries";
+const PROGRAMMING_LANGUAGE = "cs::languages";
+
 function getLastDeckComponent(deck) {
   const deckHierarchy = deck.split("::");
   return deckHierarchy[deckHierarchy.length - 1];
@@ -21,6 +24,11 @@ function tagIsStrictlyUnderTag(tag, parentTag) {
   return tag.startsWith(parentTag + '::');
 }
 
+/**
+ * @param {string} tag
+ * @param {string} parentTag
+ * @return {boolean}
+ */
 function tagIsUnderTag(tag, parentTag) {
   return tag == parentTag || tagIsStrictlyUnderTag(tag, parentTag);
 }
@@ -67,6 +75,26 @@ function expandTag(tag) {
 function expandTags(tags) { return [...new Set(tags.flatMap(expandTag)) ]; }
 
 /**
+ * @param {string} lhs
+ * @param {string} rhs
+ * @return {number}
+ */
+function compareTags(lhs, rhs) {
+  // Sort libraries before languages.
+  const lhsLibrary = tagIsUnderTag(lhs, LIBRARY);
+  const rhsLanguage = tagIsUnderTag(rhs, PROGRAMMING_LANGUAGE);
+  const lhsLanguage = tagIsUnderTag(lhs, PROGRAMMING_LANGUAGE);
+  const rhsLibrary = tagIsUnderTag(rhs, LIBRARY);
+  if (lhsLibrary && rhsLanguage) {
+    return -1;
+  }
+  if (lhsLanguage && rhsLibrary) {
+    return 1;
+  }
+  return lhs.localeCompare(rhs);
+}
+
+/**
  * @param {string} tags
  * @return {?string}
  */
@@ -82,7 +110,8 @@ function getHeadingFromTags(tags) {
       candidateChild => tagIsStrictlyUnderTag(candidateChild, tag));
   const tagIsLeaf = tag => !tagIsNonleaf(tag);
   const leafTags = individualTags.filter(tagIsLeaf);
-  const candidateHeadings = leafTags.map(headingFromTag).sort();
+  const sorted = leafTags.sort(compareTags);
+  const candidateHeadings = sorted.map(headingFromTag);
   if (candidateHeadings.length == 0) {
     return null;
   }
@@ -161,6 +190,8 @@ function ensureHeading(logger, note) {
 }
 
 exports = {
+  tagIsUnderTag,
+  compareTags,
   ensureHeading,
   expandTags,
   getHeadingFromTags
