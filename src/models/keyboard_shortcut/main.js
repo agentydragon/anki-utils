@@ -12,8 +12,8 @@ logger.installToConsole();
 ensureHeading(logger, note);
 
 const shortcut = document.getElementById("shortcut");
-if (!shortcut) {
-  logger.error("no #shortcut");
-} else {
+if (shortcut) {
   applyShortcuts(document.getElementById("shortcut-code").innerText, shortcut);
+} else {
+  // Assuming we are not on the card that has the shortcut on it.
 }

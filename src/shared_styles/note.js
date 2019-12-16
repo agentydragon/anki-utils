@@ -28,7 +28,12 @@ class Note {
  * @return {?string}
  */
 function obtainFieldFromId(id) {
-  const content = document.getElementById(id).innerHTML;
+  const field = document.getElementById(id);
+  if (!field) {
+    alert("error, missing " + id);
+    return null;
+  }
+  const content = field.innerHTML;
   // If the model does not have the field, return null.
   if (content.indexOf("unknown field ") !== -1) {
     return null;
