@@ -30,7 +30,6 @@ closure_js_library(
 closure_js_binary(
     name = "main_bin",
     deps = [":main_lib"],
-    # TODO:"//src/shared_styles:mathjax_log_lib",
     entry_points = [
         "goog:agentydragon.ordinary.main",
     ],

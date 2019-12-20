@@ -10,7 +10,7 @@ from anki import template as anki_template
 from src.testing import card_testcase
 
 # Stub out MathJax.
-# TODO(prvak): Might be nice to also test it.
+# TODO(prvak): Might be nice to also test MathJax rendering.
 MATHJAX_STUB = """
 <script>
 var MathJax = {"Hub" : {"Register" : {"MessageHook" : function() {}}}};

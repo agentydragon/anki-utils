@@ -59,7 +59,6 @@ closure_js_binary(
         ":keyboard_shortcut_lib",
         ":main_lib",
     ],
-    # TODO:"//src/shared_styles:mathjax_log_lib",
     entry_points = [
         "goog:agentydragon.keyboardShortcut.main",
     ],
