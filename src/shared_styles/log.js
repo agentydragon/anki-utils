@@ -2,6 +2,8 @@ goog.module('agentydragon.logging');
 
 const {Note} = goog.require('agentydragon.note');
 
+// TODO(prvak): Switch to closure library's logging subsystem
+
 class Logger {
   /**
    * @param {!Note} note
@@ -70,7 +72,5 @@ class Logger {
                                      message => me.error(message));
   }
 }
-
-// TODO(prvak): Separately log user errors?
 
 exports = {Logger};
