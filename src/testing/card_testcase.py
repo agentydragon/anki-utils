@@ -9,6 +9,14 @@ from anki import template as anki_template
 
 from src.testing import card_testcase
 
+# Stub out MathJax.
+# TODO(prvak): Might be nice to also test it.
+MATHJAX_STUB = """
+<script>
+var MathJax = {"Hub" : {"Register" : {"MessageHook" : function() {}}}};
+</script>
+"""
+
 
 class CardTestCase(absltest.TestCase):
   def setUp(self):
@@ -37,7 +45,8 @@ class CardTestCase(absltest.TestCase):
 
   def open_card_from_runfiles(self, runfiles_path, fields):
     template = self.load_from_runfiles(runfiles_path)
-    html = anki_template.render(template=template, context=fields)
+    html = MATHJAX_STUB + \
+        anki_template.render(template=template, context=fields)
     self.open_html(html)
     self.wait_until_loaded()
 

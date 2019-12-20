@@ -8,9 +8,6 @@ load(
 
 exports_files([
     "common_header.html",
-    "heading.js",
-    "mathjax_log.js",
-    "log.js",
 ])
 
 sass_library(
@@ -41,7 +38,10 @@ sass_library(
 
 closure_js_library(
     name = "log_lib",
-    srcs = ["log.js"],
+    srcs = [
+        "log.js",
+        "mathjax_externs.js",
+    ],
     suppress = [
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
