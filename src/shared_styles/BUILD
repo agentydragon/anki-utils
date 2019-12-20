@@ -53,10 +53,6 @@ closure_js_library(
 closure_js_library(
     name = "heading_lib",
     srcs = ["heading.js"],
-    suppress = [
-        "JSC_MISSING_JSDOC",
-        "JSC_UNKNOWN_EXPR_TYPE",
-    ],
     deps = [
         ":log_lib",
         ":note_lib",
@@ -82,9 +78,6 @@ closure_js_library(
 closure_js_library(
     name = "note_lib",
     srcs = ["note.js"],
-    suppress = [
-        "JSC_MISSING_JSDOC",
-    ],
     deps = [
         "@io_bazel_rules_closure//closure/library",
     ],

@@ -11,22 +11,29 @@ class Note {
    * @param {?string} card
    */
   constructor(heading, deck, tags, seed, logEnabled, noteType, card) {
-    this._heading = heading;
-    this._deck = deck;
-    this._tags = tags;
-    this._seed = seed;
-    this._logEnabled = logEnabled;
-    this._noteType = noteType;
-    this._card = card;
+    this.heading_ = heading;
+    this.deck_ = deck;
+    this.tags_ = tags;
+    this.seed_ = seed;
+    this.logEnabled_ = logEnabled;
+    this.noteType_ = noteType;
+    this.card_ = card;
   }
 
-  get heading() { return this._heading; }
-  get tags() { return this._tags; }
-  get deck() { return this._deck; }
-  get seed() { return this._seed; }
-  get logEnabled() { return this._logEnabled; }
-  get noteType() { return this._noteType; }
-  get card() { return this._card; }
+  /** @return {?string} */
+  get heading() { return this.heading_; }
+  /** @return {?string} */
+  get tags() { return this.tags_; }
+  /** @return {?string} */
+  get deck() { return this.deck_; }
+  /** @return {?string} */
+  get seed() { return this.seed_; }
+  /** @return {?string} */
+  get logEnabled() { return this.logEnabled_; }
+  /** @return {?string} */
+  get noteType() { return this.noteType_; }
+  /** @return {?string} */
+  get card() { return this.card_; }
 }
 
 /**
@@ -47,6 +54,9 @@ function obtainFieldFromId(id) {
   return content;
 }
 
+/**
+ * @return {!Note}
+ */
 function obtainNote() {
   return new Note(obtainFieldFromId("agentydragon-heading"),
                   obtainFieldFromId("agentydragon-deck"),

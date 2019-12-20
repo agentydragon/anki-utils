@@ -20,12 +20,17 @@ const SPECIAL_TITLECASE = {
   'cpp::stl' : 'C++ STL',
 };
 
+/** @const {!Array<string>} */
 const META_FAMILIES =
     [ "todo", "marked", "leech", "source", "persons::_my_network" ];
 
 const LIBRARY = "cs::libraries";
 const PROGRAMMING_LANGUAGE = "cs::languages";
 
+/**
+ * @param {string} deck
+ * @return {string}
+ */
 function getLastDeckComponent(deck) {
   const deckHierarchy = deck.split("::");
   return deckHierarchy[deckHierarchy.length - 1];
@@ -33,6 +38,11 @@ function getLastDeckComponent(deck) {
 
 const HIERARCHY_SEPARATOR = '::';
 
+/**
+ * @param {string} tag
+ * @param {string} parentTag
+ * @return {boolean}
+ */
 function tagIsStrictlyUnderTag(tag, parentTag) {
   return tag.startsWith(parentTag + HIERARCHY_SEPARATOR);
 }
@@ -46,6 +56,10 @@ function tagIsUnderTag(tag, parentTag) {
   return tag == parentTag || tagIsStrictlyUnderTag(tag, parentTag);
 }
 
+/**
+ * @param {string} tag
+ * @return {string}
+ */
 function titlecaseTag(tag) {
   if (SPECIAL_TITLECASE[tag]) {
     return SPECIAL_TITLECASE[tag];
@@ -55,6 +69,10 @@ function titlecaseTag(tag) {
       .join(' ');
 }
 
+/**
+ * @param {string} tag
+ * @return {string}
+ */
 function headingFromTag(tag) {
   const parts = tag.split(HIERARCHY_SEPARATOR);
   // If any suffix of the tag is in SPECIAL_TITLECASE, return it.
@@ -68,10 +86,18 @@ function headingFromTag(tag) {
   return titlecaseTag(parts[parts.length - 1]);
 }
 
+/**
+ * @param {string} tag
+ * @return {boolean}
+ */
 function tagIsMeta(tag) {
   return META_FAMILIES.some(family => tagIsUnderTag(tag, family));
 }
 
+/**
+ * @param {!Note} note
+ * @return {?string}
+ */
 function getHeadingFromHeadingField(note) {
   const headingField = note.heading;
   if (!headingField || headingField.length == 0) {
@@ -80,6 +106,10 @@ function getHeadingFromHeadingField(note) {
   return headingField;
 }
 
+/**
+ * @param {string} tag
+ * @return {!Array<string>}
+ */
 function expandTag(tag) {
   const parts = tag.split(HIERARCHY_SEPARATOR);
   let result = [];
@@ -126,6 +156,7 @@ function getHeadingFromTags(note) {
   }
   // Fully expand.
   const expandedTags = expandTags(tags.split(' '));
+  /** @type {!Array<string>} */
   let individualTags = expandedTags.filter(tag => !tagIsMeta(tag));
   // Remove continent names.
   if (note.card == 'Flag') {
@@ -136,8 +167,10 @@ function getHeadingFromTags(note) {
         individualTags.filter(tag => !tagIsUnderTag(tag, "geo::continent"));
   }
   // Remove non-leaf tags.
+  /** @type {!function(string): boolean} */
   const tagIsNonleaf = tag => individualTags.some(
       candidateChild => tagIsStrictlyUnderTag(candidateChild, tag));
+  /** @type {!function(string): boolean} */
   const tagIsLeaf = tag => !tagIsNonleaf(tag);
   const leafTags = individualTags.filter(tagIsLeaf);
   const sorted = leafTags.sort(compareTags);
