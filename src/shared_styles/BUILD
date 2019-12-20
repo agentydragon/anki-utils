@@ -42,10 +42,12 @@ closure_js_library(
         "mathjax_externs.js",
     ],
     suppress = [
+        # Because of window error handling.
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
     deps = [
         "@io_bazel_rules_closure//closure/library",
+        ":note_lib",
     ],
     visibility = ["//visibility:public"],
 )
@@ -70,6 +72,7 @@ closure_js_library(
         "@io_bazel_rules_closure//closure/library",
     ],
     suppress = [
+        # Because of shuffling array of unknown concrete type.
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
     visibility = ["//visibility:public"],

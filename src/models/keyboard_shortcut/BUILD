@@ -29,9 +29,6 @@ sass_binary(
 closure_js_library(
     name = "keyboard_shortcut_lib",
     srcs = ["keyboard_shortcut.js"],
-    suppress = [
-        "JSC_UNKNOWN_EXPR_TYPE",
-    ],
     deps = [
         "@io_bazel_rules_closure//closure/library",
     ],
@@ -41,6 +38,7 @@ closure_js_library(
     name = "main_lib",
     srcs = ["main.js"],
     suppress = [
+        # Because of unguarded getElementByd
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
     deps = [

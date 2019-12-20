@@ -21,9 +21,6 @@ closure_js_library(
         "//src/shared_styles:log_lib",
         "//src/shared_styles:note_lib",
     ],
-    suppress = [
-        "JSC_UNKNOWN_EXPR_TYPE",
-    ],
 )
 
 closure_js_binary(
