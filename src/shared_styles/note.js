@@ -54,7 +54,7 @@ function obtainNote() {
                   obtainFieldFromId("agentydragon-seed"),
                   obtainFieldFromId("agentydragon-log-enabled"),
                   obtainFieldFromId("agentydragon-type"),
-                  obtainFieldFromId("agentydragon-card"));
+                  obtainFieldFromId("agentydragon-card-type"));
 }
 
 exports = {
