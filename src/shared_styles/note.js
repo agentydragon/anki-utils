@@ -7,13 +7,17 @@ class Note {
    * @param {?string} tags
    * @param {?string} seed
    * @param {?string} logEnabled
+   * @param {?string} noteType
+   * @param {?string} card
    */
-  constructor(heading, deck, tags, seed, logEnabled) {
+  constructor(heading, deck, tags, seed, logEnabled, noteType, card) {
     this._heading = heading;
     this._deck = deck;
     this._tags = tags;
     this._seed = seed;
     this._logEnabled = logEnabled;
+    this._noteType = noteType;
+    this._card = card;
   }
 
   get heading() { return this._heading; }
@@ -21,6 +25,8 @@ class Note {
   get deck() { return this._deck; }
   get seed() { return this._seed; }
   get logEnabled() { return this._logEnabled; }
+  get noteType() { return this._noteType; }
+  get card() { return this._card; }
 }
 
 /**
@@ -46,7 +52,9 @@ function obtainNote() {
                   obtainFieldFromId("agentydragon-deck"),
                   obtainFieldFromId("agentydragon-tags"),
                   obtainFieldFromId("agentydragon-seed"),
-                  obtainFieldFromId("agentydragon-log-enabled"));
+                  obtainFieldFromId("agentydragon-log-enabled"),
+                  obtainFieldFromId("agentydragon-type"),
+                  obtainFieldFromId("agentydragon-card"));
 }
 
 exports = {

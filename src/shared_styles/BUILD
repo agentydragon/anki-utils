@@ -101,5 +101,6 @@ closure_js_test(
     deps = [
         "@io_bazel_rules_closure//closure/library:testing",
         ":heading_lib",
+        ":note_lib",
     ],
 )

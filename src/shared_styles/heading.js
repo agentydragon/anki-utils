@@ -31,8 +31,10 @@ function getLastDeckComponent(deck) {
   return deckHierarchy[deckHierarchy.length - 1];
 }
 
+const HIERARCHY_SEPARATOR = '::';
+
 function tagIsStrictlyUnderTag(tag, parentTag) {
-  return tag.startsWith(parentTag + '::');
+  return tag.startsWith(parentTag + HIERARCHY_SEPARATOR);
 }
 
 /**
@@ -54,11 +56,11 @@ function titlecaseTag(tag) {
 }
 
 function headingFromTag(tag) {
-  const parts = tag.split('::');
+  const parts = tag.split(HIERARCHY_SEPARATOR);
   // If any suffix of the tag is in SPECIAL_TITLECASE, return it.
   for (let firstPartIndex = parts.length - 1; firstPartIndex >= 0;
        --firstPartIndex) {
-    const suffix = parts.slice(firstPartIndex).join('::');
+    const suffix = parts.slice(firstPartIndex).join(HIERARCHY_SEPARATOR);
     if (SPECIAL_TITLECASE[suffix]) {
       return SPECIAL_TITLECASE[suffix];
     }
@@ -79,10 +81,10 @@ function getHeadingFromHeadingField(note) {
 }
 
 function expandTag(tag) {
-  const parts = tag.split('::');
+  const parts = tag.split(HIERARCHY_SEPARATOR);
   let result = [];
   for (let i = 0; i < parts.length; i++) {
-    result.push(parts.slice(0, i + 1).join('::'));
+    result.push(parts.slice(0, i + 1).join(HIERARCHY_SEPARATOR));
   }
   return result;
 }
@@ -114,16 +116,25 @@ function compareTags(lhs, rhs) {
 }
 
 /**
- * @param {string} tags
+ * @param {!Note} note
  * @return {?string} Heading. Can contain unrestricted HTML.
  */
-function getHeadingFromTags(tags) {
+function getHeadingFromTags(note) {
+  const tags = note.tags;
   if (!tags) {
     return null;
   }
   // Fully expand.
   const expandedTags = expandTags(tags.split(' '));
-  const individualTags = expandedTags.filter(tag => !tagIsMeta(tag));
+  let individualTags = expandedTags.filter(tag => !tagIsMeta(tag));
+  // Remove continent names.
+  if (note.card == 'Flag') {
+    // TODO(prvak): This should also be anchored by the note type, but the
+    // note type's UUID is not visible right now, and slug does not sync
+    // the note type name...
+    individualTags =
+        individualTags.filter(tag => !tagIsUnderTag(tag, "geo::continent"));
+  }
   // Remove non-leaf tags.
   const tagIsNonleaf = tag => individualTags.some(
       candidateChild => tagIsStrictlyUnderTag(candidateChild, tag));
@@ -168,7 +179,7 @@ function obtainHeadingHtml(logger, note) {
   if (headingFromHeadingField) {
     return headingFromHeadingField;
   }
-  const headingFromTags = getHeadingFromTags(note.tags);
+  const headingFromTags = getHeadingFromTags(note);
   if (headingFromTags) {
     return headingFromTags;
   }
