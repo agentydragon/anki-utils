@@ -95,5 +95,4 @@ closure_js_binary(
     entry_points = [
         "goog:agentydragon.permutedCloze.main",
     ],
-    language = "ECMASCRIPT6",
 )

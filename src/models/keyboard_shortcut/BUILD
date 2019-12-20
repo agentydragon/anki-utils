@@ -54,7 +54,6 @@ closure_js_library(
 
 closure_js_binary(
     name = "main_bin",
-    language = "ECMASCRIPT6",
     deps = [
         ":keyboard_shortcut_lib",
         ":main_lib",
