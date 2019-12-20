@@ -75,7 +75,6 @@ closure_js_library(
     srcs = ["main.js"],
     suppress = [
         "JSC_UNKNOWN_EXPR_TYPE",
-        "JSC_REQUIRES_NOT_SORTED",
     ],
     deps = [
         ":common_lib",
@@ -96,4 +95,5 @@ closure_js_binary(
     entry_points = [
         "goog:agentydragon.permutedCloze.main",
     ],
+    language = "ECMASCRIPT6",
 )

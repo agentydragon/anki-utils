@@ -42,7 +42,6 @@ closure_js_library(
     srcs = ["main.js"],
     suppress = [
         "JSC_UNKNOWN_EXPR_TYPE",
-        "JSC_REQUIRES_NOT_SORTED",
     ],
     deps = [
         ":keyboard_shortcut_lib",
@@ -55,6 +54,7 @@ closure_js_library(
 
 closure_js_binary(
     name = "main_bin",
+    language = "ECMASCRIPT6",
     deps = [
         ":keyboard_shortcut_lib",
         ":main_lib",

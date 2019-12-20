@@ -1,8 +1,8 @@
 goog.module('agentydragon.permutedCloze.main');
 
+const {Logger} = goog.require('agentydragon.logging');
 const {ensureHeading} = goog.require('agentydragon.heading');
 const {obtainNote} = goog.require('agentydragon.note');
-const {Logger} = goog.require('agentydragon.logging');
 const {shuffleCloze} = goog.require('agentydragon.permutedCloze.permutedCloze');
 
 const note = obtainNote();

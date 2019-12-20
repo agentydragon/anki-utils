@@ -1,10 +1,10 @@
 goog.module('agentydragon.keyboardShortcut.main');
 
 const {Logger} = goog.require('agentydragon.logging');
-const {obtainNote} = goog.require('agentydragon.note');
-const {ensureHeading} = goog.require('agentydragon.heading');
 const {applyShortcuts} =
     goog.require('agentydragon.keyboardShortcut.keyboardShortcut');
+const {ensureHeading} = goog.require('agentydragon.heading');
+const {obtainNote} = goog.require('agentydragon.note');
 
 const note = obtainNote();
 const logger = new Logger(note);

@@ -1,5 +1,3 @@
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary")
-
 def _concat(files):
     if not files:
         return ""

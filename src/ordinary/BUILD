@@ -22,7 +22,6 @@ closure_js_library(
         "//src/shared_styles:note_lib",
     ],
     suppress = [
-        "JSC_REQUIRES_NOT_SORTED",
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
 )
@@ -30,6 +29,7 @@ closure_js_library(
 closure_js_binary(
     name = "main_bin",
     deps = [":main_lib"],
+    language = "ECMASCRIPT6",
     entry_points = [
         "goog:agentydragon.ordinary.main",
     ],
