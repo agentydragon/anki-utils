@@ -32,6 +32,11 @@ class HeadingTest {
     assertEquals(-1, compareTags("cs::libraries::aalib", "cs::languages::cpp"));
     assertEquals(-1, compareTags("cs::libraries::zzlib", "cs::languages::cpp"));
   }
+
+  testSuffixSpecialCase() {
+    assertEquals(getHeadingFromTags("cs::languages::go::stdlib::format"),
+                 "Go - <code>fmt</code> formats");
+  }
 }
 
 testSuite(new HeadingTest());

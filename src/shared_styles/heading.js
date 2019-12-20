@@ -9,6 +9,15 @@ const SPECIAL_TITLECASE = {
   'latex' : 'LaTeX',
   'probability-statistics' : 'Probability & Statistics',
   'zetasql' : 'ZetaSQL',
+  'ffmpeg' : '<code>ffmpeg</code>',
+  'go::stdlib' : 'Go standard library',
+  'go::stdlib::format' : 'Go - <code>fmt</code> formats',
+  'c::stdlib' : 'C standard library',
+  'cpp::absl' : 'C++ absl',
+  'python::stdlib' : 'Python standard library',
+  'python::stdlib::unittest' :
+      'Python standard library - <code>unittest</code>',
+  'cpp::stl' : 'C++ STL',
 };
 
 const META_FAMILIES =
@@ -46,6 +55,14 @@ function titlecaseTag(tag) {
 
 function headingFromTag(tag) {
   const parts = tag.split('::');
+  // If any suffix of the tag is in SPECIAL_TITLECASE, return it.
+  for (let firstPartIndex = parts.length - 1; firstPartIndex >= 0;
+       --firstPartIndex) {
+    const suffix = parts.slice(firstPartIndex).join('::');
+    if (SPECIAL_TITLECASE[suffix]) {
+      return SPECIAL_TITLECASE[suffix];
+    }
+  }
   return titlecaseTag(parts[parts.length - 1]);
 }
 
@@ -98,7 +115,7 @@ function compareTags(lhs, rhs) {
 
 /**
  * @param {string} tags
- * @return {?string}
+ * @return {?string} Heading. Can contain unrestricted HTML.
  */
 function getHeadingFromTags(tags) {
   if (!tags) {
