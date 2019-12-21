@@ -4,22 +4,23 @@ const {Logger} = goog.require('agentydragon.logging');
 const {Note} = goog.require('agentydragon.note');
 
 const SPECIAL_TITLECASE = {
+  'ai-ml' : 'AI & ML',
+  'c::stdlib' : 'C standard library',
   'cpp' : 'C++',
-  'javascript' : 'JavaScript',
-  'latex' : 'LaTeX',
-  'probability-statistics' : 'Probability & Statistics',
-  'zetasql' : 'ZetaSQL',
+  'cpp::absl' : 'C++ absl',
+  'cpp::stl' : 'C++ STL',
   'ffmpeg' : '<code>ffmpeg</code>',
   'go::stdlib' : 'Go standard library',
   'go::stdlib::format' : 'Go - <code>fmt</code> formats',
-  'c::stdlib' : 'C standard library',
-  'cpp::absl' : 'C++ absl',
+  'javascript' : 'JavaScript',
+  'latex' : 'LaTeX',
+  'probability-statistics' : 'Probability & Statistics',
   'python::stdlib' : 'Python standard library',
   'python::stdlib::unittest' :
       'Python standard library - <code>unittest</code>',
   'python::stdlib::unittest::assertions' :
       'Python standard library - <code>unittest</code> assertions',
-  'cpp::stl' : 'C++ STL',
+  'zetasql' : 'ZetaSQL',
 };
 
 /** @const {!Array<string>} */
