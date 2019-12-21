@@ -35,6 +35,12 @@ const SPECIAL_TITLECASE = new Map([
   [ 'zetasql', 'ZetaSQL' ],
 ]);
 
+/** @const {!Map<string, string>} */
+const CARD_SPOILER_TAGS = new Map([
+  // Tags under 'geo:continent' are spoilers for the 'Flag' note type.
+  [ 'Flag', 'geo::continent' ]
+]);
+
 const LIBRARY = "cs::libraries";
 const PROGRAMMING_LANGUAGE = "cs::languages";
 
@@ -121,13 +127,14 @@ function getHeadingFromTags(note) {
   const expandedTags = expandTags(tags.split(' '));
   /** @type {!Array<string>} */
   let individualTags = expandedTags.filter(tag => !tagIsMeta(tag));
-  // Remove continent names.
-  if (note.card == 'Flag') {
+  // Remove spoilers.
+  if (note.card && CARD_SPOILER_TAGS.has(note.card)) {
     // TODO(prvak): This should also be anchored by the note type, but the
     // note type's UUID is not visible right now, and slug does not sync
     // the note type name...
+    const spoilerTag = CARD_SPOILER_TAGS.get(note.card);
     individualTags =
-        individualTags.filter(tag => !tagIsUnderTag(tag, "geo::continent"));
+        individualTags.filter(tag => !tagIsUnderTag(tag, spoilerTag));
   }
   // Remove non-leaf tags.
   /** @type {!function(string): boolean} */
