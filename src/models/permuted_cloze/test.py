@@ -38,7 +38,18 @@ class PermutedClozeTest(card_testcase.CardTestCase):
     actual_text = self.driver.find_element_by_id('agentydragon-content').text
     self.assertIsPermutation(actual_text.strip().split('\n'), items)
 
-  # TODO(prvak): Add test for tbody rows
+  def test_front_permutation_tbody_rows(self):
+    """Tests that permuting rows of a table body."""
+    items = self.make_items(20)
+    html = ('<table><thead><tr><th>Header</tr></thead><tbody>' +
+            ''.join(map(lambda item: '<tr><td>' + item + '</td></tr>', items)) +
+            '</tbody></table>')
+    self.load_front_card(text=html)
+    actual_text = self.driver.find_element_by_id('agentydragon-content').text
+    actual_lines = actual_text.strip().split('\n')
+    # "Header" should remain the first line. The rest should be permuted.
+    self.assertEqual(actual_lines[0], "Header")
+    self.assertIsPermutation(actual_lines[1:], items)
 
   def test_log(self):
     """Tests that Log set to 'true' enables logging."""
