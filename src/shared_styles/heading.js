@@ -17,6 +17,8 @@ const SPECIAL_TITLECASE = {
   'python::stdlib' : 'Python standard library',
   'python::stdlib::unittest' :
       'Python standard library - <code>unittest</code>',
+  'python::stdlib::unittest::assertions' :
+      'Python standard library - <code>unittest</code> assertions',
   'cpp::stl' : 'C++ STL',
 };
 
