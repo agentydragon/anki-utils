@@ -2,6 +2,13 @@ goog.module('agentydragon.heading');
 
 const {Logger} = goog.require('agentydragon.logging');
 const {Note} = goog.require('agentydragon.note');
+const {
+  expandTags,
+  tagIsMeta,
+  tagIsStrictlyUnderTag,
+  tagIsUnderTag,
+  tagSuffixes,
+} = goog.require('agentydragon.tags');
 
 const SPECIAL_TITLECASE = {
   'ai-ml' : 'AI & ML',
@@ -23,10 +30,6 @@ const SPECIAL_TITLECASE = {
   'zetasql' : 'ZetaSQL',
 };
 
-/** @const {!Array<string>} */
-const META_FAMILIES =
-    [ "todo", "marked", "leech", "source", "persons::_my_network" ];
-
 const LIBRARY = "cs::libraries";
 const PROGRAMMING_LANGUAGE = "cs::languages";
 
@@ -37,26 +40,6 @@ const PROGRAMMING_LANGUAGE = "cs::languages";
 function getLastDeckComponent(deck) {
   const deckHierarchy = deck.split("::");
   return deckHierarchy[deckHierarchy.length - 1];
-}
-
-const HIERARCHY_SEPARATOR = '::';
-
-/**
- * @param {string} tag
- * @param {string} parentTag
- * @return {boolean}
- */
-function tagIsStrictlyUnderTag(tag, parentTag) {
-  return tag.startsWith(parentTag + HIERARCHY_SEPARATOR);
-}
-
-/**
- * @param {string} tag
- * @param {string} parentTag
- * @return {boolean}
- */
-function tagIsUnderTag(tag, parentTag) {
-  return tag == parentTag || tagIsStrictlyUnderTag(tag, parentTag);
 }
 
 /**
@@ -77,24 +60,14 @@ function titlecaseTag(tag) {
  * @return {string}
  */
 function headingFromTag(tag) {
-  const parts = tag.split(HIERARCHY_SEPARATOR);
   // If any suffix of the tag is in SPECIAL_TITLECASE, return it.
-  for (let firstPartIndex = parts.length - 1; firstPartIndex >= 0;
-       --firstPartIndex) {
-    const suffix = parts.slice(firstPartIndex).join(HIERARCHY_SEPARATOR);
+  const suffixes = tagSuffixes(tag);
+  for (const suffix of suffixes) {
     if (SPECIAL_TITLECASE[suffix]) {
       return SPECIAL_TITLECASE[suffix];
     }
   }
-  return titlecaseTag(parts[parts.length - 1]);
-}
-
-/**
- * @param {string} tag
- * @return {boolean}
- */
-function tagIsMeta(tag) {
-  return META_FAMILIES.some(family => tagIsUnderTag(tag, family));
+  return titlecaseTag(suffixes[suffixes.length - 1]);
 }
 
 /**
@@ -108,25 +81,6 @@ function getHeadingFromHeadingField(note) {
   }
   return headingField;
 }
-
-/**
- * @param {string} tag
- * @return {!Array<string>}
- */
-function expandTag(tag) {
-  const parts = tag.split(HIERARCHY_SEPARATOR);
-  let result = [];
-  for (let i = 0; i < parts.length; i++) {
-    result.push(parts.slice(0, i + 1).join(HIERARCHY_SEPARATOR));
-  }
-  return result;
-}
-
-/**
- * @param {!Array<string>} tags
- * @return {!Array<string>}
- */
-function expandTags(tags) { return [...new Set(tags.flatMap(expandTag)) ]; }
 
 /**
  * @param {string} lhs
@@ -259,7 +213,6 @@ exports = {
   tagIsUnderTag,
   compareTags,
   ensureHeading,
-  expandTags,
   getHeadingFromTags
 };
 // TODO(prvak): library should win over language

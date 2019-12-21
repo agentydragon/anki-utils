@@ -53,9 +53,18 @@ closure_js_library(
 )
 
 closure_js_library(
+    name = "tags_lib",
+    srcs = ["tags.js"],
+    deps = [
+        "@io_bazel_rules_closure//closure/library",
+    ],
+)
+
+closure_js_library(
     name = "heading_lib",
     srcs = ["heading.js"],
     deps = [
+        ":tags_lib",
         ":log_lib",
         ":note_lib",
         "@io_bazel_rules_closure//closure/library",
