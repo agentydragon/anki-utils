@@ -2,6 +2,20 @@
 blaze run //src/deploy -- --alsologtostderr --collection_path=<...>
 
 If all looks fine, run also --dry_run=False.
+
+Example update slug:
+
+  {
+    '1234-abcd-crowdanki-uuid': {
+      'css': '#card { ... } css { ... }',
+      'templates': [
+        'Card name': {
+          'qfmt': 'HTML for question...',
+          'afmt': 'HTML for answer...',
+        }
+      ]
+    }
+  }
 """
 
 from absl import app
@@ -22,28 +36,10 @@ flags.DEFINE_string('slug_path', None, 'Path to update JSON slug')
 flags.DEFINE_bool('dry_run', True, 'Whether to actually do it')
 FLAGS = flags.FLAGS
 
-# Example update slug:
-# CONFIG = {
-#     # CrowdAnki UUID
-#     '': {
-#         # CSS
-#         'css': (CSS),
-#         'templates': [
-#             'Cloze': {
-#                 # HTML for question
-#                 'qfmt': TODO
-#                 # HTML for answer
-#                 'afmt': TODO
-#             }
-#         ]
-#     }
-# }
-# Permuted Rows Cloze (JS powered)
-
-SLUG_RUNFILES_PATH = "anki_utils/src/models/slug.json"
+SLUG_RUNFILES_PATH = 'anki_utils/src/models/slug.json'
 
 
-def find_model_by_uuid(collection, uuid):
+def _FindModelByUUID(collection, uuid):
     found = None
     for model in collection.models.all():
         if model['crowdanki_uuid'] == uuid:
@@ -55,7 +51,7 @@ def find_model_by_uuid(collection, uuid):
     raise KeyError("Model with UUID " + uuid + " not found.")
 
 
-def apply_model_update(model, model_update):
+def _ApplyModelUpdate(model, model_update):
     if 'css' in model_update:
         model['css'] = model_update['css']
 
@@ -68,9 +64,11 @@ def apply_model_update(model, model_update):
                         'Multiple templates with name {}'.format(template_name))
                 template_found = template
         if not template_found:
+            available_templates = [
+                template['name'] for template in model['tmpls']]
             raise KeyError(
-                'Template with name {} not found. Available: {}'.format(template_name, [template['name']
-                                                                                        for template in model['tmpls']]))
+                'Template with name {} not found. Available: {}'.format(
+                    template_name, available_templates))
 
         if 'qfmt' in template_content:
             template_found['qfmt'] = template_content['qfmt']
@@ -78,11 +76,11 @@ def apply_model_update(model, model_update):
             template_found['afmt'] = template_content['afmt']
 
 
-def apply_slug(collection, slug):
+def _ApplySlug(collection, slug):
     for uuid, model_update in slug.items():
         logging.info("Updating model with UUID %s", uuid)
-        model = find_model_by_uuid(collection, uuid)
-        apply_model_update(model, model_update)
+        model = _FindModelByUUID(collection, uuid)
+        _ApplyModelUpdate(model, model_update)
         collection.models.update(model)
 
 
@@ -99,7 +97,7 @@ def main(_):
     with open(slug_path, 'r') as f:
         slug = json.load(f)
 
-    apply_slug(collection, slug)
+    _ApplySlug(collection, slug)
     collection.models.flush()
 
     if FLAGS.dry_run:
