@@ -37,34 +37,29 @@ class Note {
 }
 
 /**
- * @param {string} id
- * @return {?string}
- */
-function obtainFieldFromId(id) {
-  const field = document.getElementById(id);
-  if (!field) {
-    alert("error, missing " + id);
-    return null;
-  }
-  const content = field.innerHTML;
-  // If the model does not have the field, return null.
-  if (content.indexOf("unknown field ") !== -1) {
-    return null;
-  }
-  return content;
-}
-
-/**
  * @return {!Note}
  */
 function obtainNote() {
-  return new Note(obtainFieldFromId("agentydragon-heading"),
-                  obtainFieldFromId("agentydragon-deck"),
-                  obtainFieldFromId("agentydragon-tags"),
-                  obtainFieldFromId("agentydragon-seed"),
-                  obtainFieldFromId("agentydragon-log-enabled"),
-                  obtainFieldFromId("agentydragon-type"),
-                  obtainFieldFromId("agentydragon-card-type"));
+  const meta = document.getElementById("agentydragon-fields");
+  /**
+   * @param {string} field
+   * @return {?string}
+   */
+  const find = field => {
+    const fieldContainer = meta.querySelector('[data-field="' + field + '"]');
+    if (!fieldContainer) {
+      // TODO(prvak): Alert; this implies a problem.
+      return null;
+    }
+    const value = fieldContainer.innerHTML;
+    // If the model does not have the field, return null.
+    if (value.indexOf("unknown field ") !== -1) {
+      return null;
+    }
+    return value;
+  };
+  return new Note(find("Heading"), find("Deck"), find("Tags"), find("Seed"),
+                  find("Log"), find("Type"), find("Card"));
 }
 
 exports = {

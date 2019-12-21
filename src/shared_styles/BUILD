@@ -108,3 +108,15 @@ closure_js_test(
         ":note_lib",
     ],
 )
+
+closure_js_test(
+    name = "tags_test",
+    srcs = ["tags_test.js"],
+    entry_points = [
+        "goog:agentydragon.tagsTest",
+    ],
+    deps = [
+        "@io_bazel_rules_closure//closure/library:testing",
+        ":tags_lib",
+    ],
+)

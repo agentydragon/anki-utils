@@ -3,16 +3,31 @@ goog.setTestOnly('agentydragon.headingTest');
 
 const testSuite = goog.require('goog.testing.testSuite');
 const {Note} = goog.require('agentydragon.note');
-const {compareTags, expandTags, getHeadingFromTags, tagIsUnderTag} =
-    goog.require('agentydragon.heading');
+const {compareTags, getHeadingFromTags} = goog.require('agentydragon.heading');
+
+/**
+ * @param {string} tags
+ * @param {string} cardType
+ * @return {!Note}
+ */
+function noteWithTagsAndCardType(tags, cardType) {
+  return new Note(
+      /*heading=*/ "",
+      /*deck=*/ "",
+      /*tags=*/ tags,
+      /*seed=*/ "",
+      /*logEnabled=*/ "",
+      /*noteType=*/ "",
+      /*card=*/ cardType);
+}
+
+/**
+ * @param {string} tags
+ * @return {!Note}
+ */
+function noteWithTags(tags) { return noteWithTagsAndCardType(tags, ""); }
 
 class HeadingTest {
-  testExpandTags() {
-    assertSameElements(
-        expandTags([ "foo::bar::baz", "hello::world" ]),
-        [ "foo", "foo::bar", "foo::bar::baz", "hello", "hello::world" ]);
-  }
-
   testGetHeadingFromTags() {
     const TEST_CASES = /** @type {!Array<!Array<string>>} */ ([
       [ "foo::bar::foobar", "Foobar" ], [ "todo::format source::books", null ],
@@ -27,21 +42,17 @@ class HeadingTest {
     for (let [tags, expectedHeading] of TEST_CASES) {
       assertEquals(
           "wrong heading for tags " + tags,
-          getHeadingFromTags(new Note("", "", tags, "", "", "", "")),
+          getHeadingFromTags(noteWithTags(tags)),
           expectedHeading,
       );
     }
   }
 
   testGetHeadingForFlagNoSpoilers() {
-    const note = new Note("", "", "geo::continent::europe", "", "", "", "Flag");
+    const note = noteWithTagsAndCardType("geo::continent::europe", "Flag");
     // Test that card for flag does not spoil that it's a country in
     // Europe.
     assertEquals(getHeadingFromTags(note), "Geo");
-  }
-
-  testTagIsUnderTag() {
-    assertTrue(tagIsUnderTag("cs::libraries::aalib", "cs::libraries"));
   }
 
   testCompareTags() {

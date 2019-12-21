@@ -10,25 +10,30 @@ const {
   tagSuffixes,
 } = goog.require('agentydragon.tags');
 
-const SPECIAL_TITLECASE = {
-  'ai-ml' : 'AI & ML',
-  'c::stdlib' : 'C standard library',
-  'cpp' : 'C++',
-  'cpp::absl' : 'C++ absl',
-  'cpp::stl' : 'C++ STL',
-  'ffmpeg' : '<code>ffmpeg</code>',
-  'go::stdlib' : 'Go standard library',
-  'go::stdlib::format' : 'Go - <code>fmt</code> formats',
-  'javascript' : 'JavaScript',
-  'latex' : 'LaTeX',
-  'probability-statistics' : 'Probability & Statistics',
-  'python::stdlib' : 'Python standard library',
-  'python::stdlib::unittest' :
-      'Python standard library - <code>unittest</code>',
-  'python::stdlib::unittest::assertions' :
-      'Python standard library - <code>unittest</code> assertions',
-  'zetasql' : 'ZetaSQL',
-};
+/** @const {!Map<string, string>} */
+const SPECIAL_TITLECASE = new Map([
+  [ 'ai-ml', 'AI & ML' ],
+  [ 'c::stdlib', 'C standard library' ],
+  [ 'cpp', 'C++' ],
+  [ 'cpp::absl', 'C++ absl' ],
+  [ 'cpp::stl', 'C++ STL' ],
+  [ 'ffmpeg', '<code>ffmpeg</code>' ],
+  [ 'go::stdlib', 'Go standard library' ],
+  [ 'go::stdlib::format', 'Go - <code>fmt</code> formats' ],
+  [ 'javascript', 'JavaScript' ],
+  [ 'latex', 'LaTeX' ],
+  [ 'probability-statistics', 'Probability & Statistics' ],
+  [ 'python::stdlib', 'Python standard library' ],
+  [
+    'python::stdlib::unittest',
+    'Python standard library - <code>unittest</code>'
+  ],
+  [
+    'python::stdlib::unittest::assertions',
+    'Python standard library - <code>unittest</code> assertions'
+  ],
+  [ 'zetasql', 'ZetaSQL' ],
+]);
 
 const LIBRARY = "cs::libraries";
 const PROGRAMMING_LANGUAGE = "cs::languages";
@@ -47,8 +52,8 @@ function getLastDeckComponent(deck) {
  * @return {string}
  */
 function titlecaseTag(tag) {
-  if (SPECIAL_TITLECASE[tag]) {
-    return SPECIAL_TITLECASE[tag];
+  if (SPECIAL_TITLECASE.has(tag)) {
+    return SPECIAL_TITLECASE.get(tag);
   }
   return tag.split('-')
       .map(word => word.substring(0, 1).toUpperCase() + word.substring(1))
@@ -63,11 +68,12 @@ function headingFromTag(tag) {
   // If any suffix of the tag is in SPECIAL_TITLECASE, return it.
   const suffixes = tagSuffixes(tag);
   for (const suffix of suffixes) {
-    if (SPECIAL_TITLECASE[suffix]) {
-      return SPECIAL_TITLECASE[suffix];
+    if (SPECIAL_TITLECASE.has(suffix)) {
+      return SPECIAL_TITLECASE.get(suffix);
     }
   }
-  return titlecaseTag(suffixes[suffixes.length - 1]);
+  // The first suffix is the most specific one.
+  return titlecaseTag(suffixes[0]);
 }
 
 /**
