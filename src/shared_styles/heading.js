@@ -22,6 +22,7 @@ const SPECIAL_TITLECASE = new Map([
   [ 'go::stdlib::format', 'Go - <code>fmt</code> formats' ],
   [ 'javascript', 'JavaScript' ],
   [ 'latex', 'LaTeX' ],
+  [ 'posix-error', 'POSIX error codes' ],
   [ 'probability-statistics', 'Probability & Statistics' ],
   [ 'python::stdlib', 'Python standard library' ],
   [
