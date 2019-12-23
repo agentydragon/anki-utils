@@ -66,10 +66,13 @@ class Logger {
     window.addEventListener(
         'error', e => me.handleError(/** @type {!ErrorEvent} */ (e)));
 
-    MathJax.Hub.Register.MessageHook("Math Processing Error",
-                                     message => me.error(message));
-    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",
-                                     message => me.error(message));
+    // AnkiWeb does not have MathJax.
+    if (typeof MathJax !== "undefined") {
+      MathJax.Hub.Register.MessageHook("Math Processing Error",
+                                       message => me.error(message));
+      MathJax.Hub.Register.MessageHook("TeX Jax - parse error",
+                                       message => me.error(message));
+    }
   }
 }
 
