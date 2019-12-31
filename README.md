@@ -6,14 +6,6 @@ TODO(prvak)
 
 TODO: seed is based on X
 
-## Building
-
-```
-bazel build //src/...
-```
-
-Card HTML templates will appear in `bazel-genfiles/src/*.html`.
-
 ## Permuted Cloze
 
 ### Installing the "Permuted Cloze" note type
@@ -34,43 +26,6 @@ TODO: better install story. script?
 
    *  `Seed`
    *  `Log`
-
-3. Open the card template editor for the note type.
-
-4. Copy-and-paste the generated files into the card template.
-
-   * **Front side**:
-
-     Copy the content of `bazel-genfiles/src/permuted_cloze/front.html` into
-     your clipboard. On Linux, you can run:
-
-     ```
-     cat bazel-genfiles/src/permuted_cloze/front.html | xclip
-     ```
-
-     Paste it into the front side template.
-
-   * **Back side**:
-
-     Repeat the same for the back side with
-     `bazel-genfiles/src/permuted_cloze/back.html`. You can use:
-
-     ```
-     cat bazel-genfiles/src/permuted_cloze/back.html | xclip
-     ```
-
-     Paste it into the back side template.
-
-   * **CSS**:
-
-     Repeat the same for the back side with
-     `src/permuted_cloze/common.css`. You can use:
-
-     ```
-     cat bazel-bin/src/permuted_cloze/permuted_cloze.css | xclip
-     ```
-
-     Paste it into the shared CSS.
 
 After you finish these steps, the preview of the card (in the template editor)
 will show errors. Don't worry about them - the example content the template
@@ -130,38 +85,14 @@ logs.
 
 ### Installing
 
-TODO: bazel build
-
 TODO:
-
-```
-cat bazel-bin/src/keyboard_shortcut/effect_to_shortcut_front.html | xclip
-# --> paste into "effect->shortcut" front
-
-cat bazel-bin/src/keyboard_shortcut/effect_to_shortcut_back.html | xclip
-# --> paste into "effect->shortcut" back
-
-cat bazel-bin/src/keyboard_shortcut/shortcut_to_effect_front.html | xclip
-# --> paste into "shortcut->effect" front
-
-cat bazel-bin/src/keyboard_shortcut/shortcut_to_effect_back.html | xclip
-# --> paste into "shortcut->effect" back
-
-cat bazel-bin/src/keyboard_shortcut/keyboard_shortcut.css | xclip
-# --> paste into CSS
-```
 
 TODO: installation instructions
 
+## Deploying templates and styles
 
-Ordinary:
-
+```bash
+blaze run //src/deploy -- \
+  --alsologtostderr \
+  --collection_path=/home/agentydragon/dropbox/anki/agentydragon
 ```
-cat bazel-bin/src/ordinary/ordinary.css | xclip
-# --> paste into CSS
-
-cat bazel-bin/src/cloze/cloze_front.html | xclip
-cat bazel-bin/src/cloze/cloze_back.html | xclip
-```
-
-TODO: Add auto-title logic into Permuted Cloze
