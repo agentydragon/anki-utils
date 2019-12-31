@@ -39,6 +39,11 @@ code, pre {
   font-family: "Ubuntu Mono", "Roboto Mono", monospace;
 }
 
+pre {
+  /* On mobile, wrap if code lines get too long. */
+  white-space: pre-wrap;
+}
+
 @mixin cardRebase($rebase03, $rebase02, $rebase01, $rebase00, $rebase0, $rebase1, $rebase2, $rebase3) {
   background-color: $rebase03;
   color: $rebase0;
