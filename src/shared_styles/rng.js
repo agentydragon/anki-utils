@@ -50,22 +50,35 @@ function addHash(hash, x) {
 }
 
 /**
+ * @param {number} hash
+ * @param {?string} x
+ * @return {number}
+ */
+function addHashString(hash, x) {
+  if (!x) {
+    return hash;
+  }
+  for (let i = 0; i < x.length; i++) {
+    hash = addHash(hash, x.charCodeAt(i));
+  }
+  return hash;
+}
+
+/**
  * @param {!Note} note
  * @return {number}
  */
 function computeRngSeed(note) {
   const today = new Date();
-  var hash = 0;
+  let hash = 0;
   // YYYYMMDD number as part of the seed.
   hash = addHash(hash, today.getFullYear());
   hash = addHash(hash, today.getMonth());
   hash = addHash(hash, today.getDay());
-  // Add extra seed if given.
-  const extraSeed = note.seed;
-  if (extraSeed) {
-    for (let i = 0; i < extraSeed.length; i++) {
-      hash = addHash(hash, extraSeed.charCodeAt(i));
-    }
+  // Add more fields, including specifically dedicated extra seed.
+  for (const field of [note.heading, note.deck, note.tags, note.seed,
+                       note.noteType, note.card]) {
+    hash = addHashString(hash, field);
   }
   // It would be nice if we could include something about the content of the
   // card into the hash automatically, so that the order of the shuffle on

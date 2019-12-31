@@ -94,5 +94,5 @@ TODO: installation instructions
 ```bash
 blaze run //src/deploy -- \
   --alsologtostderr \
-  --collection_path=/home/agentydragon/dropbox/anki/agentydragon
+  --collection_path=/home/agentydragon/dropbox/anki/agentydragon/collection.anki2
 ```
