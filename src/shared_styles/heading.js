@@ -54,6 +54,7 @@ const SPECIAL_TITLECASE = new Map([
   [ 'journalctl', '<code>journalctl</code>' ],
   [ 'latex', 'LaTeX' ],
   [ 'man::sections', '<code>man</code> sections' ],
+  [ 'math::discrete', 'Discrete mathematics' ],
   [ 'mbti', 'MBTI' ],
   [ 'nato-phonetic', 'NATO phonetic alphabet' ],
   [ 'number-alphabet-mapping', 'Number &harr; alphabet mapping' ],
