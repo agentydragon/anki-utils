@@ -31,6 +31,7 @@ const SPECIAL_TITLECASE = new Map([
   [ 'cpp::core', 'C++ core' ],
   [ 'cpp::stl', 'C++ STL' ],
   [ 'cs::languages', 'Programming languages' ],
+  [ 'css', 'CSS' ],
   [ 'css::selector::attribute', 'CSS attribute selectors' ],
   [ 'css::selector::pseudoclass', 'CSS pseudoclasses' ],
   [ 'czech-cases-latin', 'Latin names of Czech cases' ],
