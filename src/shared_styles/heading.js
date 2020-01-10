@@ -12,31 +12,52 @@ const {
 
 /** @const {!Map<string, string>} */
 const SPECIAL_TITLECASE = new Map([
+  // To keep one heading per line, without wrapping (for easy sorting):
+  // clang-format off
   [ 'ai-ml', 'AI & ML' ],
+  [ 'ai-ml::adam', 'ADAM' ],
+  [ 'anki::search', 'Anki search' ],
+  [ 'anova', 'ANOVA' ],
+  [ 'c::core', 'C core' ],
   [ 'c::stdlib', 'C standard library' ],
+  [ 'c::stdlib::format', 'C - <code>print</code>/<code>scanf</code> formatting' ],
+  [ 'chromeos', 'ChromeOS' ],
   [ 'cpp', 'C++' ],
   [ 'cpp::absl', 'C++ absl' ],
   [ 'cpp::core', 'C++ core' ],
   [ 'cpp::stl', 'C++ STL' ],
+  [ 'css::selector::attribute', 'CSS attribute selectors' ],
+  [ 'css::selector::pseudoclass', 'CSS pseudoclasses' ],
+  [ 'diseases::stds', 'STDs' ],
   [ 'ffmpeg', '<code>ffmpeg</code>' ],
+  [ 'gnu-screen', 'GNU Screen' ],
   [ 'go::core', 'Go core' ],
   [ 'go::stdlib', 'Go standard library' ],
   [ 'go::stdlib::format', 'Go - <code>fmt</code> formats' ],
+  [ 'google::bug-tracker', 'Google Issue Tracker' ],
+  [ 'gsuite::docs', 'Google Docs' ],
+  [ 'gsuite::drive', 'Google Drive' ],
+  [ 'gsuite::sheets', 'Google Sheets' ],
+  [ 'html::entities', 'HTML entities' ],
   [ 'javascript', 'JavaScript' ],
   [ 'latex', 'LaTeX' ],
+  [ 'nato-phonetic', 'NATO phonetic alphabet' ],
+  [ 'octave-matlab', 'Octave/Matlab' ],
   [ 'posix-error', 'POSIX error codes' ],
   [ 'probability-statistics', 'Probability & Statistics' ],
+  [ 'python::absl', 'Python absl' ],
   [ 'python::core', 'Python core' ],
   [ 'python::stdlib', 'Python standard library' ],
-  [
-    'python::stdlib::unittest',
-    'Python standard library - <code>unittest</code>'
-  ],
-  [
-    'python::stdlib::unittest::assertions',
-    'Python standard library - <code>unittest</code> assertions'
-  ],
+  [ 'python::stdlib::unittest', 'Python standard library - <code>unittest</code>' ],
+  [ 'python::stdlib::unittest::assertions', 'Python standard library - <code>unittest</code> assertions' ],
+  [ 'tools::find', 'GNU find' ],
+  [ 'tools::sort::flags', '<code>sort</code> flags' ],
+  [ 'url-encoding', 'URL encoding' ],
+  [ 'vim::help', 'Vim help' ],
+  [ 'vim::replace', 'Vim replace pattern' ],
+  [ 'vim::search', 'Vim search' ],
   [ 'zetasql', 'ZetaSQL' ],
+  // clang-format on
 ]);
 
 /** @const {!Map<string, string>} */
