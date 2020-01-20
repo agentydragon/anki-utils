@@ -30,6 +30,7 @@ const SPECIAL_TITLECASE = new Map([
   [ 'cpp::absl', 'C++ absl' ],
   [ 'cpp::core', 'C++ core' ],
   [ 'cpp::stl', 'C++ STL' ],
+  [ 'cs', 'Computer science' ],
   [ 'cs::languages', 'Programming languages' ],
   [ 'csp', 'CSP' ],
   [ 'css', 'CSS' ],
