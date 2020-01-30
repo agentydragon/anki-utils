@@ -28,9 +28,7 @@ import os
 import json
 import sys
 
-sys.path.append('/usr/share/anki')
-import anki
-
+flags.DEFINE_string('anki_path', '/usr/share/anki', 'Path to Anki Python stuff')
 flags.DEFINE_string('collection_path', None, 'Path to .anki2 collection')
 flags.DEFINE_string('slug_path', None, 'Path to update JSON slug')
 flags.DEFINE_bool('dry_run', True, 'Whether to actually do it')
@@ -86,6 +84,8 @@ def _ApplySlug(collection, slug):
 
 def main(_):
     r = runfiles.Create()
+    sys.path.append(FLAGS.anki_path)
+    import anki
     collection = anki.Collection(FLAGS.collection_path)
 
     slug_path = FLAGS.slug_path
