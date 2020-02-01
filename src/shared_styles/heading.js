@@ -53,6 +53,7 @@ const SPECIAL_TITLECASE = new Map([
   [ 'haml', 'HAML' ],
   [ 'html', 'HTML' ],
   [ 'html::entities', 'HTML entities' ],
+  [ 'java::stdlib', 'Java standard library' ],
   [ 'java::core', 'Java core' ],
   [ 'javascript', 'JavaScript' ],
   [ 'journalctl', '<code>journalctl</code>' ],
