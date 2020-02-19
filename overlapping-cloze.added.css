@@ -1,7 +1,11 @@
 /** TODO: it has a different HTML (div with class title) */
 
+/* TODO: font family? */
+
 .card {
   font-size: initial;
+  text-align: initial;
+  background-color: initial;
 }
 
 .text {
@@ -9,6 +13,11 @@
   align: initial;
   max-width: initial;
   margin: initial;
+  text-align: initial;
+}
+
+.extra {
+	max-width: initial;
 }
 
 /** shared stuff from Unicode characters card */
