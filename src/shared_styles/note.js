@@ -9,8 +9,12 @@ class Note {
    * @param {?string} logEnabled
    * @param {?string} noteType
    * @param {?string} card
+   * @param {?string} textUnclozed Text field with clozes replaced by their
+   *     exposed content. Used for seeding the PRNG based on card content for
+   *     Permuted Cloze.
    */
-  constructor(heading, deck, tags, seed, logEnabled, noteType, card) {
+  constructor(heading, deck, tags, seed, logEnabled, noteType, card,
+              textUnclozed) {
     this.heading_ = heading;
     this.deck_ = deck;
     this.tags_ = tags;
@@ -18,6 +22,7 @@ class Note {
     this.logEnabled_ = logEnabled;
     this.noteType_ = noteType;
     this.card_ = card;
+    this.textUnclozed_ = textUnclozed;
   }
 
   /** @return {?string} */
@@ -34,6 +39,8 @@ class Note {
   get noteType() { return this.noteType_; }
   /** @return {?string} */
   get card() { return this.card_; }
+  /** @return {?string} */
+  get textUnclozed() { return this.textUnclozed_; }
 }
 
 /**
@@ -59,7 +66,8 @@ function obtainNote() {
     return value;
   };
   return new Note(find("Heading"), find("Deck"), find("Tags"), find("Seed"),
-                  find("Log"), find("Type"), find("Card"));
+                  find("Log"), find("Type"), find("Card"),
+                  find("textUnclozed"));
 }
 
 exports = {

@@ -62,6 +62,9 @@ class PermutedClozeTest(card_testcase.CardTestCase):
     self.load_front_card(text='Hello World!')
     self.assertIn('No permuted container', self.get_log())
 
+  # TODO(prvak): Test that front and back permutation for the same card is
+  # the same.
+
 
 if __name__ == "__main__":
   absltest.main()

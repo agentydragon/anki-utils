@@ -77,7 +77,7 @@ function computeRngSeed(note) {
   hash = addHash(hash, today.getDay());
   // Add more fields, including specifically dedicated extra seed.
   for (const field of [note.heading, note.deck, note.tags, note.seed,
-                       note.noteType, note.card]) {
+                       note.noteType, note.card, note.textUnclozed]) {
     hash = addHashString(hash, field);
   }
   // It would be nice if we could include something about the content of the
