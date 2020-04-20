@@ -28,20 +28,33 @@ load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
 
 sass_repositories()
 
-# Python rules
-
-http_archive(
+# NOTE: cannot use version 0.0.1 as it doesn't support Python 3 pip packages.
+git_repository(
     name = "rules_python",
-    sha256 = "aa96a691d3a8177f3215b14b0edc9641787abaaa30363a080165d06ab65e1161",
-    url = "https://github.com/bazelbuild/rules_python/releases/download/0.0.1/rules_python-0.0.1.tar.gz",
+    # NOT VALID: Replace with actual Git commit SHA.
+    commit = "a0fbf98d4e3a232144df4d0d80b577c7a693b570",
+    remote = "https://github.com/bazelbuild/rules_python.git",
 )
 
 load("@rules_python//python:repositories.bzl", "py_repositories")
 
 py_repositories()
+
 # Only needed if using the packaging rules.
-# load("@rules_python//python:pip.bzl", "pip_repositories")
-# pip_repositories()
+#load("@rules_python//python:pip.bzl", "pip_import", "pip_repositories")
+load("@rules_python//python:pip.bzl", "pip_import", "pip_repositories")
+
+pip_repositories()
+
+pip_import(
+    name = "my_deps",
+    python_interpreter = "python3",
+    requirements = "//src:requirements.txt",
+)
+
+load("@my_deps//:requirements.bzl", "pip_install")
+
+pip_install()
 
 node_repositories(package_json = ["//:package.json"])
 
@@ -94,4 +107,5 @@ http_archive(
 load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_dependencies", "rules_closure_toolchains")
 
 rules_closure_dependencies()
+
 rules_closure_toolchains()

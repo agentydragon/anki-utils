@@ -1,4 +1,5 @@
 load("@rules_python//python:defs.bzl", "py_binary")
+load("@my_deps//:requirements.bzl", "requirement")
 
 py_binary(
     name = "build_card_slug",
@@ -22,7 +23,10 @@ py_binary(
     name = "list_models",
     srcs = ["list_models.py"],
     data = ["//src/models:slug.json"],
-    deps = ["@rules_python//python/runfiles"],
+    deps = [
+        "@rules_python//python/runfiles",
+        requirement("anki2"),
+    ],
 )
 
 py_binary(
