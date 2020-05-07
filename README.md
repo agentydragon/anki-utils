@@ -6,6 +6,14 @@ TODO(prvak)
 
 TODO: seed is based on X
 
+## Dependencies
+
+```bash
+pip3 install anki absl-py ankirspy protobuf
+```
+
+TODO(prvak): Wrap dependencies in requirements.txt managed by Bazel
+
 ## Permuted Cloze
 
 ### Installing the "Permuted Cloze" note type
@@ -14,7 +22,7 @@ TODO: better install story. script?
 
 1. Build:
 
-  ```
+  ```bash
   bazel build //src/permuted_cloze/...
   ```
 

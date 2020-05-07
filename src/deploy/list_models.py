@@ -8,13 +8,11 @@ from absl import logging
 from absl import flags
 from rules_python.python.runfiles import runfiles
 
+import anki
 import operator
 import os
 import json
 import sys
-
-sys.path.append('/usr/share/anki')
-import anki
 
 flags.DEFINE_string('collection_path', None, 'Path to .anki2 collection')
 flags.DEFINE_string('slug_path', None, 'Path to update JSON slug')
