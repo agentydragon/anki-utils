@@ -1,4 +1,11 @@
 load("//src:anki_template.bzl", "anki_model")
+load("//src/shared_styles:common_header.bzl", "common_header")
+
+common_header(
+    name = "header",
+    # TODO: put the fields here...
+    fields = ["Heading"],
+)
 
 anki_model(
     name = "memrise_4k",

@@ -4,10 +4,11 @@ load(
     "closure_js_library",
     "closure_js_test",
 )
+load("@rules_python//python:defs.bzl", "py_binary")
 
-exports_files([
-    "common_header.html",
-])
+# exports_files([
+#     "common_header.html",
+# ])
 
 sass_library(
     name = "keyboard_shortcut",
@@ -45,11 +46,11 @@ closure_js_library(
         # Because of window error handling.
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
-    deps = [
-        "@io_bazel_rules_closure//closure/library",
-        ":note_lib",
-    ],
     visibility = ["//visibility:public"],
+    deps = [
+        ":note_lib",
+        "@io_bazel_rules_closure//closure/library",
+    ],
 )
 
 closure_js_library(
@@ -63,37 +64,37 @@ closure_js_library(
 closure_js_library(
     name = "heading_lib",
     srcs = ["heading.js"],
+    visibility = ["//visibility:public"],
     deps = [
-        ":tags_lib",
         ":log_lib",
         ":note_lib",
+        ":tags_lib",
         "@io_bazel_rules_closure//closure/library",
     ],
-    visibility = ["//visibility:public"],
 )
 
 closure_js_library(
     name = "rng_lib",
     srcs = ["rng.js"],
-    deps = [
-        ":log_lib",
-        ":note_lib",
-        "@io_bazel_rules_closure//closure/library",
-    ],
     suppress = [
         # Because of shuffling array of unknown concrete type.
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
     visibility = ["//visibility:public"],
+    deps = [
+        ":log_lib",
+        ":note_lib",
+        "@io_bazel_rules_closure//closure/library",
+    ],
 )
 
 closure_js_library(
     name = "note_lib",
     srcs = ["note.js"],
+    visibility = ["//visibility:public"],
     deps = [
         "@io_bazel_rules_closure//closure/library",
     ],
-    visibility = ["//visibility:public"],
 )
 
 closure_js_test(
@@ -103,9 +104,9 @@ closure_js_test(
         "goog:agentydragon.headingTest",
     ],
     deps = [
-        "@io_bazel_rules_closure//closure/library:testing",
         ":heading_lib",
         ":note_lib",
+        "@io_bazel_rules_closure//closure/library:testing",
     ],
 )
 
@@ -116,7 +117,14 @@ closure_js_test(
         "goog:agentydragon.tagsTest",
     ],
     deps = [
-        "@io_bazel_rules_closure//closure/library:testing",
         ":tags_lib",
+        "@io_bazel_rules_closure//closure/library:testing",
     ],
+)
+
+py_binary(
+    name = "make_common_header",
+    srcs = ["make_common_header.py"],
+    visibility = ["//visibility:public"],
+    deps = ["@rules_python//python/runfiles"],
 )

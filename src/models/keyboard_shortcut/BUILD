@@ -6,6 +6,13 @@ load(
     "closure_js_library",
     "closure_js_test",
 )
+load("//src/shared_styles:common_header.bzl", "common_header")
+
+common_header(
+    name = "header",
+    # TODO: put the fields here...
+    fields = ["Heading"],
+)
 
 anki_model(
     name = "keyboard_shortcut",
@@ -43,23 +50,23 @@ closure_js_library(
     ],
     deps = [
         ":keyboard_shortcut_lib",
-        "@io_bazel_rules_closure//closure/library",
-        "//src/shared_styles:log_lib",
         "//src/shared_styles:heading_lib",
+        "//src/shared_styles:log_lib",
         "//src/shared_styles:note_lib",
+        "@io_bazel_rules_closure//closure/library",
     ],
 )
 
 closure_js_binary(
     name = "main_bin",
-    deps = [
-        ":keyboard_shortcut_lib",
-        ":main_lib",
-    ],
     entry_points = [
         "goog:agentydragon.keyboardShortcut.main",
     ],
     visibility = ["//src/models/keyboard_shortcut:__subpackages__"],
+    deps = [
+        ":keyboard_shortcut_lib",
+        ":main_lib",
+    ],
 )
 
 closure_js_test(
@@ -69,7 +76,7 @@ closure_js_test(
         "goog:agentydragon.keyboardShortcut.keyboardShortcutTest",
     ],
     deps = [
-        "@io_bazel_rules_closure//closure/library:testing",
         ":keyboard_shortcut_lib",
+        "@io_bazel_rules_closure//closure/library:testing",
     ],
 )

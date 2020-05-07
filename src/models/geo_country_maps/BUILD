@@ -1,5 +1,12 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
 load("//src:anki_template.bzl", "anki_model")
+load("//src/shared_styles:common_header.bzl", "common_header")
+
+common_header(
+    name = "header",
+    # TODO: put the fields here...
+    fields = ["Heading"],
+)
 
 anki_model(
     name = "geo_country_maps",

@@ -30,6 +30,7 @@ AnkiModelInfo = provider(fields = [
     "css",
     "crowdanki_uuid",
     "templates",
+    #"fields",
 ])
 
 def _anki_model_impl(ctx):
@@ -43,6 +44,7 @@ def _anki_model_impl(ctx):
             crowdanki_uuid = ctx.attr.crowdanki_uuid,
             templates = templates,
             css = ctx.attr.css,
+            #fields = ctx.attr.fields,
         ),
     ]
 
@@ -57,6 +59,7 @@ anki_model = rule(
             mandatory = True,
             allow_files = True,
         ),
+        #"fields": attr.string_list(mandatory = True, allow_empty = False),
     },
     implementation = _anki_model_impl,
 )
@@ -79,11 +82,15 @@ def _anki_slug_impl(ctx):
                     human_name = template.human_name,
                 ),
             )
+
+        # the template will need to insert particular fields!
         models.append(
             struct(
                 crowdanki_uuid = info.crowdanki_uuid,
                 templates = templates,
-                css = info.css.files.to_list()[0].path,
+                css = info.css.files.to_list()[0].path,  #,
+                #fields = info.fields,
+                # NOTE: not putting in a field. maybe I should?
             ),
         )
     args = ctx.actions.args()

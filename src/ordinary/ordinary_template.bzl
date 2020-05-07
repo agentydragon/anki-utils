@@ -39,13 +39,14 @@ general_template = _general_template_impl
 def _ordinary_template_impl(
         name,
         html_in,
+        html_header,
         js_binary = "//src/ordinary:main_bin.js",
         html_prepend = [],
         **kwargs):
     _general_template_impl(
         name,
         html_headers = html_prepend + [
-            "//src/shared_styles:common_header.html",
+            html_header,
             html_in,
         ],
         js_binary = js_binary,

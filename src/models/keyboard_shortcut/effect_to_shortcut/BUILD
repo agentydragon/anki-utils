@@ -11,12 +11,14 @@ anki_template(
 
 ordinary_template(
     name = "front",
+    html_header = "//src/models/keyboard_shortcut:header.common_header.html",
     html_in = "front.html",
     js_binary = "//src/models/keyboard_shortcut:main_bin.js",
 )
 
 ordinary_template(
     name = "back",
+    html_header = "//src/models/keyboard_shortcut:header.common_header.html",
     html_in = "back.html",
     js_binary = "//src/models/keyboard_shortcut:main_bin.js",
 )

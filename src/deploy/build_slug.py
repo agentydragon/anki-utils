@@ -45,6 +45,5 @@ def main(_):
 
 
 if __name__ == '__main__':
-    flags.mark_flag_as_required('output_file')
-    flags.mark_flag_as_required('models')
+    flags.mark_flags_as_required(['output_file', 'models'])
     app.run(main)

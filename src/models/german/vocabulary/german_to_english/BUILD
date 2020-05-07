@@ -11,10 +11,12 @@ anki_template(
 
 ordinary_template(
     name = "front",
+    html_header = "//src/models/german/vocabulary:header.common_header.html",
     html_in = "front.html",
 )
 
 ordinary_template(
     name = "back",
+    html_header = "//src/models/german/vocabulary:header.common_header.html",
     html_in = "back.html",
 )

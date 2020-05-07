@@ -3,6 +3,17 @@ load("@io_bazel_rules_webtesting//web:py.bzl", "py_web_test_suite")
 load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_library")
+load("//src/shared_styles:common_header.bzl", "common_header")
+
+common_header(
+    name = "header",
+    # TODO: put the fields here...
+    fields = [
+        "Heading",
+        "Seed",
+        "Log",
+    ],
+)
 
 anki_model(
     name = "permuted_cloze",
@@ -23,6 +34,7 @@ anki_template(
 
 ordinary_template(
     name = "back",
+    html_header = ":header.common_header.html",
     html_in = "back_header.html",
     #extra_js = ["common.js"],
     js_binary = ":common_bin.js",
@@ -30,6 +42,7 @@ ordinary_template(
 
 ordinary_template(
     name = "front",
+    html_header = ":header.common_header.html",
     html_in = "front_header.html",
     #extra_js = ["common.js"],
     js_binary = ":common_bin.js",
@@ -49,8 +62,8 @@ py_web_test_suite(
     browsers = [
         "@io_bazel_rules_webtesting//browsers:chromium-local",
     ],
-    local = True,
     data = [":front.expanded.html"],
+    local = True,
     deps = [
         "//src/testing:card_testcase",
     ],
@@ -78,8 +91,8 @@ closure_js_library(
     ],
     deps = [
         ":common_lib",
-        "//src/shared_styles:log_lib",
         "//src/shared_styles:heading_lib",
+        "//src/shared_styles:log_lib",
         "//src/shared_styles:note_lib",
         "@io_bazel_rules_closure//closure/library",
     ],
@@ -87,12 +100,12 @@ closure_js_library(
 
 closure_js_binary(
     name = "common_bin",
+    entry_points = [
+        "goog:agentydragon.permutedCloze.main",
+    ],
     deps = [
         ":common_lib",
         ":main_lib",
         "//src/shared_styles:heading_lib",
-    ],
-    entry_points = [
-        "goog:agentydragon.permutedCloze.main",
     ],
 )

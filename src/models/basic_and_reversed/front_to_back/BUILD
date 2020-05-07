@@ -12,11 +12,13 @@ anki_template(
 
 ordinary_template(
     name = "front",
+    html_header = "//src/models/basic_and_reversed:header.common_header.html",
     html_in = "front.html",
 )
 
 ordinary_template(
     name = "back",
+    html_header = "//src/models/basic_and_reversed:header.common_header.html",
     html_in = "back.html",
 )
 
@@ -26,8 +28,8 @@ py_web_test_suite(
     browsers = [
         "@io_bazel_rules_webtesting//browsers:chromium-local",
     ],
-    local = True,
     data = [":front.expanded.html"],
+    local = True,
     deps = [
         "//src/testing:card_testcase",
     ],
