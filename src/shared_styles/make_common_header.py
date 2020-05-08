@@ -18,8 +18,13 @@ def main(_):
         # TODO: create bazel build constants for those field names
         # TODO: check that FLAGS.fields is in KNOWN_FIELDS
         for field in ALWAYS_PRESENT_FIELDS.union(FLAGS.fields):
-            f.write('  <span data-field="' + field +
-                    '">{{' + field + '}}</span>\n')
+            if field == 'TextUnclozed':
+                f.write('  <span data-field="' +
+                        field + '">{{text:Text}}</span>')
+            else:
+                f.write('  <span data-field="' + field +
+                        '">{{' + field + '}}</span>\n')
+
         f.write('</div>\n')
         f.write('<div id="agentydragon-log"></div>\n')
 
