@@ -100,6 +100,7 @@ def _anki_slug_impl(ctx):
         args.add("--alsologtostderr")
 
     ctx.actions.run(
+        progress_message = "Building Anki slug from %d models" % len(ctx.attr.models),
         inputs = all_files,
         outputs = [ctx.outputs.output_json],
         executable = ctx.executable.build_slug,

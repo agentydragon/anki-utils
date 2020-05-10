@@ -11,6 +11,7 @@ def _common_header_impl(ctx):
     #    args.add("--alsologtostderr")
 
     ctx.actions.run(
+        progress_message = "Generate common header for fields %s" % ctx.attr.fields,
         inputs = [],
         outputs = [ctx.outputs.output_html],  #html_out_file],
         executable = ctx.executable.make_common_header,
