@@ -4,7 +4,7 @@ from absl import flags
 
 import json
 
-flags.DEFINE_list('fields', None, 'field names the model has')
+flags.DEFINE_string('fields', None, 'json string, field names the model has')
 flags.DEFINE_string('output_file', None, 'output file')
 
 FLAGS = flags.FLAGS
@@ -13,11 +13,12 @@ ALWAYS_PRESENT_FIELDS = {'Deck', 'Tags', 'Type', 'Card'}
 
 
 def main(_):
+    fields = json.loads(FLAGS.fields)['fields']
     with open(FLAGS.output_file, 'w') as f:
         f.write('<div id="agentydragon-fields">\n')
         # TODO: create bazel build constants for those field names
         # TODO: check that FLAGS.fields is in KNOWN_FIELDS
-        for field in ALWAYS_PRESENT_FIELDS.union(FLAGS.fields):
+        for field in ALWAYS_PRESENT_FIELDS.union(fields):
             if field == 'TextUnclozed':
                 f.write('  <span data-field="' +
                         field + '">{{text:Text}}</span>')

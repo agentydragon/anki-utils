@@ -5,6 +5,7 @@ common_header(
     name = "header",
     # TODO: put the fields here...
     fields = ["Heading"],
+    visibility = ["//src/models/latex_math:__subpackages__"],
 )
 
 anki_model(

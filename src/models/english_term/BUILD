@@ -5,6 +5,7 @@ common_header(
     name = "header",
     # TODO: put the fields here...
     fields = ["Heading"],
+    visibility = ["//src/models/english_term:__subpackages__"],
 )
 
 anki_model(

@@ -11,6 +11,7 @@ load("//src/shared_styles:common_header.bzl", "common_header")
 common_header(
     name = "header",
     fields = [],
+    visibility = [":__subpackages__"],
 )
 
 anki_model(

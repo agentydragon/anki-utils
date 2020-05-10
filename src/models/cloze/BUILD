@@ -6,7 +6,7 @@ common_header(
     name = "header",
     # TODO: put the fields here...
     fields = [
-        "Text",  # TODO: this is a cloze field
+        #"Text",  # TODO: this is a cloze field
         "Heading",
         "Extra",
         "TODO",

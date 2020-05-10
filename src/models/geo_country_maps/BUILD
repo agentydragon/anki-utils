@@ -5,6 +5,7 @@ load("//src/shared_styles:common_header.bzl", "common_header")
 common_header(
     name = "header",
     fields = [],
+    visibility = ["//src/models/geo_country_maps:__subpackages__"],
 )
 
 anki_model(

@@ -8,7 +8,7 @@ load("//src/shared_styles:common_header.bzl", "common_header")
 common_header(
     name = "header",
     fields = [
-        "TextUnclozed",
+        # TODO: including this is problematic - MathJax might be unable to render it: "TextUnclozed",
         "Heading",
         "Seed",
         "Log",
