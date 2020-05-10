@@ -2,6 +2,8 @@
 
 TODO: Permuted Cloze, Keyboard Shortcut note types
 
+TODO: Roam links in "Roam refs" field
+
 TODO(prvak)
 
 TODO: seed is based on X
