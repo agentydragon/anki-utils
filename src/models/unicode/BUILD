@@ -4,8 +4,11 @@ load("//src/shared_styles:common_header.bzl", "common_header")
 
 common_header(
     name = "header",
-    # TODO: put the fields here...
-    fields = ["Heading"],
+    fields = [
+        "Name",
+        "Character",
+        "Hex code",
+    ],
 )
 
 # TODO(prvak): set title to "Unicode" by default
