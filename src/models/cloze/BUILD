@@ -5,7 +5,16 @@ load("//src/shared_styles:common_header.bzl", "common_header")
 common_header(
     name = "header",
     # TODO: put the fields here...
-    fields = ["Heading"],
+    fields = [
+        "Text",  # TODO: this is a cloze field
+        "Heading",
+        "Extra",
+        "TODO",
+        "Ambiguous",
+        "Sources",
+        "Remarks (hidden)",
+        "Roam refs",
+    ],
 )
 
 anki_model(
