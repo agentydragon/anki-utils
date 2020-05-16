@@ -14,11 +14,13 @@ import os
 import json
 import sys
 
+from src.deploy import slug_pb2
+
 flags.DEFINE_string('collection_path', None, 'Path to .anki2 collection')
-flags.DEFINE_string('slug_path', None, 'Path to update JSON slug')
+flags.DEFINE_string('slug_path', None, 'Path to update binary proto slug')
 FLAGS = flags.FLAGS
 
-SLUG_RUNFILES_PATH = "anki_utils/src/models/slug.json"
+SLUG_RUNFILES_PATH = "anki_utils/src/models/slug.binarypb"
 
 
 def log_model(model):
@@ -37,8 +39,9 @@ def main(_):
         slug_path = path
 
     with open(slug_path, 'r') as f:
-        slug = json.load(f)
-    managed_uuids = slug.keys()
+        slug = slug_pb2.Slug().ParseFromString(f.read())
+
+    managed_uuids = map(lambda model: model.crowdanki_uuid, slug.model)
     logging.info("Managed UUIDs:")
     for key in managed_uuids:
         logging.info("- %s", key)

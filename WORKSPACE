@@ -94,4 +94,44 @@ http_archive(
 load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_dependencies", "rules_closure_toolchains")
 
 rules_closure_dependencies()
+
 rules_closure_toolchains()
+
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "f1748989842b46fa208b2a6e4e2785133cfcc3e4d43c17fecb023733f0f5443f",
+    strip_prefix = "protobuf-3.7.1",
+    urls = ["https://github.com/google/protobuf/archive/v3.7.1.tar.gz"],
+)
+
+http_archive(
+    name = "bazel_skylib",
+    sha256 = "bbccf674aa441c266df9894182d80de104cabd19be98be002f6d478aaa31574d",
+    strip_prefix = "bazel-skylib-2169ae1c374aab4a09aa90e65efe1a3aad4e279b",
+    urls = ["https://github.com/bazelbuild/bazel-skylib/archive/2169ae1c374aab4a09aa90e65efe1a3aad4e279b.tar.gz"],
+)
+
+http_archive(
+    name = "six_archive",
+    build_file = "@com_google_protobuf//:six.BUILD",
+    sha256 = "105f8d68616f8248e24bf0e9372ef04d3cc10104f1980f54d57b2ce73a5ad56a",
+    urls = ["https://pypi.python.org/packages/source/s/six/six-1.10.0.tar.gz"],
+)
+
+bind(
+    name = "six",
+    actual = "@six_archive//:six",
+)
+
+http_archive(
+    name = "net_zlib",
+    build_file = "@com_google_protobuf//:third_party/zlib.BUILD",
+    sha256 = "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1",
+    strip_prefix = "zlib-1.2.11",
+    urls = ["https://zlib.net/zlib-1.2.11.tar.gz"],
+)
+
+bind(
+    name = "zlib",
+    actual = "@net_zlib//:zlib",
+)

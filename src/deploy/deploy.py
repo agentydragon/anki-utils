@@ -26,19 +26,18 @@ from rules_python.python.runfiles import runfiles
 
 import anki
 import os
-import json
 
 flags.DEFINE_string('anki_path', '/usr/share/anki',
                     'Path to Anki Python stuff')
 flags.DEFINE_string('collection_path', None, 'Path to .anki2 collection')
-flags.DEFINE_string('slug_path', None, 'Path to update JSON slug')
+flags.DEFINE_string('slug_path', None, 'Path to update binarypb slug')
 flags.DEFINE_bool('dry_run', True, 'Whether to actually do it')
 FLAGS = flags.FLAGS
 
-SLUG_RUNFILES_PATH = 'anki_utils/src/models/slug.json'
+SLUG_RUNFILES_PATH = 'anki_utils/src/models/slug.binarypb'
 
 
-def _FindModelByUUID(collection, uuid):
+def _find_model_by_uuid(collection, uuid):
     found = None
     for model in collection.models.all():
         if model['crowdanki_uuid'] == uuid:
@@ -50,11 +49,11 @@ def _FindModelByUUID(collection, uuid):
     raise KeyError("Model with UUID " + uuid + " not found.")
 
 
-def _ApplyModelUpdate(model, model_update):
-    if 'css' in model_update:
-        model['css'] = model_update['css']
+def _apply_model_update(model, model_update):
+    model['css'] = model_update.css
 
-    for template_name, template_content in model_update['templates'].items():
+    for card in model_update.card:
+        template_name = card.human_name
         template_found = None
         for template in model['tmpls']:
             if template['name'] == template_name:
@@ -69,17 +68,16 @@ def _ApplyModelUpdate(model, model_update):
                 'Template with name {} not found. Available: {}'.format(
                     template_name, available_templates))
 
-        if 'qfmt' in template_content:
-            template_found['qfmt'] = template_content['qfmt']
-        if 'afmt' in template_content:
-            template_found['afmt'] = template_content['afmt']
+        template_found['qfmt'] = card.question_html_template
+        template_found['afmt'] = card.answer_html_template
 
 
-def _ApplySlug(collection, slug):
-    for uuid, model_update in slug.items():
+def _apply_slug(collection, slug):
+    for model_update in slug.model:
+        uuid = model_update.crowdanki_uuid
         logging.info("Updating model with UUID %s", uuid)
-        model = _FindModelByUUID(collection, uuid)
-        _ApplyModelUpdate(model, model_update)
+        model = _find_model_by_uuid(collection, uuid)
+        _apply_model_update(model, model_update)
         collection.models.update(model)
 
 
@@ -94,9 +92,9 @@ def main(_):
         slug_path = path
 
     with open(slug_path, 'r') as f:
-        slug = json.load(f)
+        slug = slug_pb2.Slug().ParseFromString(f.read())
 
-    _ApplySlug(collection, slug)
+    _apply_slug(collection, slug)
     collection.models.flush()
 
     if FLAGS.dry_run:

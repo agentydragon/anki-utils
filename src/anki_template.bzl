@@ -95,14 +95,15 @@ def _anki_slug_impl(ctx):
         )
     args = ctx.actions.args()
     args.add("--models", struct(models = models).to_json())
-    args.add("--output_file", ctx.outputs.output_json)
+    args.add("--output_binary_proto", ctx.outputs.output_binary_proto)
+    args.add("--output_textproto", ctx.outputs.output_textproto)
     if ctx.attr.log:
         args.add("--alsologtostderr")
 
     ctx.actions.run(
         progress_message = "Building Anki slug from %d models" % len(ctx.attr.models),
         inputs = all_files,
-        outputs = [ctx.outputs.output_json],
+        outputs = [ctx.outputs.output_binary_proto, ctx.outputs.output_textproto],
         executable = ctx.executable.build_slug,
         arguments = [args],
     )
@@ -110,7 +111,8 @@ def _anki_slug_impl(ctx):
 anki_slug = rule(
     attrs = {
         "models": attr.label_list(mandatory = True),
-        "output_json": attr.output(mandatory = True),
+        "output_binary_proto": attr.output(mandatory = True),
+        "output_textproto": attr.output(mandatory = True),
         "build_slug": attr.label(
             executable = True,
             cfg = "host",

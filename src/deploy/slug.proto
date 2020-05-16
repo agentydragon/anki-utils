@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+message Card {
+  // Required, must be unique within a model.
+  string human_name = 1;
+  // Required.
+  string question_html_template = 2;
+  // Required.
+  string answer_html_template = 3;
+  // Next available tag: 4
+}
+
+message Model {
+  // Required.
+  string crowdanki_uuid = 1;
+  // Required.
+  string css = 2;
+  // TODO(prvak) document
+  repeated Card card = 3;
+  // Next available tag: 4
+}
+
+message Slug {
+  repeated Model model = 1;
+  // Next available tag: 2
+}

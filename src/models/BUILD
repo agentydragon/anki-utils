@@ -19,6 +19,7 @@ anki_slug(
         "//src/models/permuted_cloze",
         "//src/models/unicode",
     ],
-    output_json = "slug.json",
+    output_binary_proto = "slug.binarypb",
+    output_textproto = "slug.textproto",
     visibility = ["//src/deploy:__subpackages__"],
 )
