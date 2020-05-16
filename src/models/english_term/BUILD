@@ -4,7 +4,7 @@ load("//src/shared_styles:common_header.bzl", "common_header")
 common_header(
     name = "header",
     # TODO: put the fields here...
-    fields = ["Heading"],
+    fields = [],
     visibility = ["//src/models/english_term:__subpackages__"],
 )
 
