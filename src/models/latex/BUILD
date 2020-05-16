@@ -3,8 +3,8 @@ load("//src/shared_styles:common_header.bzl", "common_header")
 
 common_header(
     name = "header",
+    fields = [],
     # TODO: put the fields here...
-    fields = ["Heading"],
     visibility = [":__subpackages__"],
 )
 
