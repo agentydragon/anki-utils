@@ -92,6 +92,8 @@ Now with that out of the way. install the note type "Permuted Cloze" as I use it
     Be patient, the first run of this command will take a while, as it will need
     to set up a sandbox for building the note types.
 
+    TODO: this should include check, diff, --nodry_run
+
 *   Provided that this finishes successfully, you should now be able to use
     the note type. See instructions provided with each note type.
 
