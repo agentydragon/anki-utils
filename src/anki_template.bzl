@@ -77,6 +77,7 @@ def _anki_model_impl(ctx):
     args = ctx.actions.args()
     args.add("--templates_json", struct(templates = templates).to_json())
     args.add("--css", ctx.attr.css.files.to_list()[0])
+    args.add("--fields", struct(fields = ctx.attr.fields).to_json())
 
     # TODO: also the fields?
     args.add("--output_file", fn_file)
@@ -89,21 +90,10 @@ def _anki_model_impl(ctx):
         arguments = [args],
     )
 
-    return [
-        AnkiModelInfo(
-            #crowdanki_uuid = ctx.attr.crowdanki_uuid,
-            #model_name = ctx.attr.model_name,
-            #templates = ctx.attr.templates,
-            #css = ctx.attr.css,
-            slug = fn_file,
-            #fields = ctx.attr.fields,
-        ),
-    ]
+    return [AnkiModelInfo(slug = fn_file)]
 
 anki_model = rule(
     attrs = {
-        #"crowdanki_uuid": attr.string(mandatory = True),
-        #"model_name": attr.string(mandatory = True),
         "templates": attr.label_list(
             mandatory = True,
             allow_empty = False,
@@ -112,7 +102,7 @@ anki_model = rule(
             mandatory = True,
             allow_files = True,
         ),
-        #"fields": attr.string_list(mandatory = True, allow_empty = False),
+        "fields": attr.string_list(mandatory = True, allow_empty = True),
         "build_model_slug": attr.label(
             executable = True,
             cfg = "host",

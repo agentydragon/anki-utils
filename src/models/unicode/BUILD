@@ -2,13 +2,15 @@ load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 load("//src/shared_styles:common_header.bzl", "common_header")
 
+FIELDS = [
+    "Name",
+    "Character",
+    "Hex code",
+]
+
 common_header(
     name = "header",
-    fields = [
-        "Name",
-        "Character",
-        "Hex code",
-    ],
+    fields = FIELDS,
 )
 
 # TODO(prvak): set title to "Unicode" by default
@@ -16,6 +18,7 @@ common_header(
 anki_model(
     name = "unicode",
     css = "//src/ordinary:ordinary.css",
+    fields = FIELDS,
     templates = [
         ":tmpl",
     ],

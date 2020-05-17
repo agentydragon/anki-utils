@@ -3,14 +3,17 @@ load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 load("//src/shared_styles:common_header.bzl", "common_header")
 
+FIELDS = []
+
 common_header(
     name = "header",
-    fields = [],
+    fields = FIELDS,
 )
 
 anki_model(
     name = "10k",
     css = ":german_10k.css",
+    fields = FIELDS,
     templates = [
         ":tmpl",
     ],

@@ -10,6 +10,7 @@ import json
 
 flags.DEFINE_string('templates_json', None, 'templates json')
 flags.DEFINE_string('output_file', None, 'answer html')
+flags.DEFINE_string('fields', None, 'fields')
 flags.DEFINE_string('css', None, 'css file')
 
 FLAGS = flags.FLAGS
@@ -29,9 +30,11 @@ def main(_):
         templates[human_name] = json.loads(read_file(template['slug']))
     with open(FLAGS.output_file, 'w') as f:
         json.dump({'css': read_file(FLAGS.css),
-                   'templates': templates}, f)
+                   'templates': templates,
+                   'fields': json.loads(FLAGS.fields)['fields']}, f)
 
 
 if __name__ == '__main__':
-    flags.mark_flags_as_required(['templates_json', 'output_file', 'css'])
+    flags.mark_flags_as_required(['templates_json', 'output_file', 'css',
+                                  'fields'])
     app.run(main)

@@ -5,19 +5,22 @@ load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_library")
 load("//src/shared_styles:common_header.bzl", "common_header")
 
+FIELDS = [
+    # TODO: including this is problematic - MathJax might be unable to render it: "TextUnclozed",
+    "Heading",
+    "Seed",
+    "Log",
+]
+
 common_header(
     name = "header",
-    fields = [
-        # TODO: including this is problematic - MathJax might be unable to render it: "TextUnclozed",
-        "Heading",
-        "Seed",
-        "Log",
-    ],
+    fields = FIELDS,
 )
 
 anki_model(
     name = "permuted_cloze",
     css = ":permuted_cloze.css",
+    fields = FIELDS,
     templates = [
         ":template",
     ],

@@ -2,15 +2,18 @@ load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 load("//src/shared_styles:common_header.bzl", "common_header")
 
+# TODO: put the fields here...
+FIELDS = ["Heading"]
+
 common_header(
     name = "header",
-    # TODO: put the fields here...
-    fields = ["Heading"],
+    fields = FIELDS,
 )
 
 anki_model(
     name = "absl_include",
     css = "//src/ordinary:ordinary.css",
+    fields = FIELDS,
     templates = [
         ":function_to_include",
     ],

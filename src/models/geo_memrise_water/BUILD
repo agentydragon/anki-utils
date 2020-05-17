@@ -3,15 +3,18 @@ load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 load("//src/shared_styles:common_header.bzl", "common_header")
 
+FIELDS = []
+
 common_header(
     name = "header",
     # TODO: put the fields here...
-    fields = [],
+    fields = FIELDS,
 )
 
 anki_model(
     name = "geo_memrise_water",
     css = ":style.css",
+    fields = FIELDS,
     templates = [":tmpl"],
     visibility = ["//src/models:__subpackages__"],
 )

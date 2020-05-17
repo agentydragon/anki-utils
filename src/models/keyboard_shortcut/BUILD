@@ -8,15 +8,18 @@ load(
 )
 load("//src/shared_styles:common_header.bzl", "common_header")
 
+FIELDS = []
+
 common_header(
     name = "header",
-    fields = [],
+    fields = FIELDS,
     visibility = [":__subpackages__"],
 )
 
 anki_model(
     name = "keyboard_shortcut",
     css = ":keyboard_shortcut.css",
+    fields = FIELDS,
     templates = [
         "//src/models/keyboard_shortcut/effect_to_shortcut",
         "//src/models/keyboard_shortcut/shortcut_to_effect",

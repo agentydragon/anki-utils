@@ -1,16 +1,18 @@
 load("//src:anki_template.bzl", "anki_model")
 load("//src/shared_styles:common_header.bzl", "common_header")
 
+FIELDS = ["Heading"]
+
 common_header(
     name = "header",
-    # TODO: put the fields here...
-    fields = ["Heading"],
+    fields = FIELDS,
     visibility = ["//src/models/basic_and_reversed:__subpackages__"],
 )
 
 anki_model(
     name = "basic_and_reversed",
     css = "//src/ordinary:ordinary.css",
+    fields = FIELDS,
     templates = [
         "//src/models/basic_and_reversed/front_to_back",
         "//src/models/basic_and_reversed/back_to_front",
