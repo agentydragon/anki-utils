@@ -40,9 +40,10 @@ copy-pasting.
 
 ## Dependencies
 
-```bash
-pip3 install anki absl-py ankirspy protobuf
-```
+*    Install Bazel.
+*   ```bash
+    pip3 install anki absl-py ankirspy protobuf
+    ```
 
 ## Usage
 
@@ -55,6 +56,7 @@ be relatively confident I can bring things back if I break them.
 Now with that out of the way. install the note type "Permuted Cloze" as I use it:
 
 *   In Anki, create the new note type with your desired name, say "Rai's Permuted Cloze".
+    TODO: better install story. script?
 *   Create a Cloze note type in Anki and add the following fields:
     *   `Text`
     *   `Heading`
@@ -87,89 +89,22 @@ Now with that out of the way. install the note type "Permuted Cloze" as I use it
       --cofig_yaml=<CONFIG>
     ```
 
+    Be patient, the first run of this command will take a while, as it will need
+    to set up a sandbox for building the note types.
+
 *   Provided that this finishes successfully, you should now be able to use
     the note type. See instructions provided with each note type.
 
 TODO: example with multiple deployed models
 
+TODO: example with changing and rebuilding
+
 ## My note types
 
 The actual note types are stored under `//src/models`.
 
-## Permuted Cloze
-
-The Permuted Cloze note type solves the problem that TODO
-
-### Fields
-
-*   `Text`
-*   `Heading`
-*   `Seed`
-*   `Log`
-*   `Extra`
-*   TODO: add the rest
-
-### Usage
-
-#### Permuted unordered list items
-
-If your card contains an `<ul>` Permuted Cloze will permute the items of that
-element.
-
-For example, this HTML:
-
-```
-These are the:
-<ul>
-<li>{{c1::xxx}}: {{c2::yyy}}
-<li>{{c1::dsasf}}: {{c2::safa}}
-</ul>
-Foobar.
-```
-
-TODO
-
-#### Permuted table rows
-
-If your card contains an `<tbody>` Permuted Cloze will permute the items of that
-element.
-
-For example, this HTML:
-
-```
-TODO
-```
-
-#### Permuted lines
-
-TODO
-
-### Advanced usage
-
-#### Extra PRNG seeding
-
-Anything you put into the `Seed` field will be used to seed the PRNG that
-shuffles the card. You can use it to force two cards to start from a different
-seed, or to check that varying the seed will indeed change the card order.
-
-#### Logging
-
-If you set the `Log` field to `true`, the JavaScript will write out visible
-logs.
-
-### Implementation details
-
-TODO: seed is based on X
-
-## Keyboard Shortcut
-
-### Fields
-
-TODO
-
-### Usage
-
-TODO
+*   [Permuted Cloze](/src/models/permuted_cloze/README.md)
+*   [Keyboard Shortcut](/src/models/keyboard_shortcut/README.md)
 
 ## Caveats
 
@@ -182,8 +117,3 @@ editor uses is not valid as input for some of my note types.
 TODO: Roam links in "Roam refs" field
 
 TODO(prvak): Write tests interpreting the cards
-
-TODO: better install story. script?
-
-
-The note type should now be ready for use.
