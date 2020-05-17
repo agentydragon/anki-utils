@@ -1,7 +1,7 @@
 load("//src:anki_template.bzl", "anki_model")
 load("//src/shared_styles:common_header.bzl", "common_header")
 
-FIELDS = ["Heading"]
+FIELDS = []
 
 common_header(
     name = "header",
