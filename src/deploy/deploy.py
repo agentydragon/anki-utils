@@ -50,11 +50,11 @@ def _find_unique_model(collection, predicate, human_desc):
     return found[0]
 
 
-def _FindModelByUUID(collection, uuid):
+def _find_model_by_uuid(collection, uuid):
     return _find_unique_model(collection, lambda model: model.get('crowdanki_uuid') == uuid, 'crowdanki_uuid ' + uuid)
 
 
-def _FindModelByName(collection, name):
+def _find_model_by_name(collection, name):
     return _find_unique_model(collection, lambda model: model['name'] == name, 'name ' + name)
 
 
@@ -73,7 +73,7 @@ def _find_model_template(model, template_name):
     return template_found
 
 
-def _ApplyModelUpdate(model, model_update):
+def _apply_model_update(model, model_update):
     if 'css' in model_update:
         model['css'] = model_update['css']
 
@@ -85,22 +85,35 @@ def _ApplyModelUpdate(model, model_update):
             template_found['afmt'] = template_content['afmt']
 
 
-def _ApplySlug(collection, config, slug):
+def _apply_slug(collection, config, slug):
     for model_update_spec in config['models']:
         mapping = model_update_spec['mapping']
         if 'crowdanki_uuid' in mapping:
             uuid = model_update_spec['mapping']['crowdanki_uuid']
             logging.info("Updating model with UUID %s", uuid)
-            model = _FindModelByUUID(collection, uuid)
+            model = _find_model_by_uuid(collection, uuid)
         elif 'name' in mapping:
             name = model_update_spec['mapping']['name']
             logging.info("Updating model with name %s", name)
-            model = _FindModelByName(collection, name)
+            model = _find_model_by_name(collection, name)
         else:
             raise Exception("no mapping spec")
         target = model_update_spec['model']
         model_update = slug[target]
-        _ApplyModelUpdate(model, model_update)
+        #logging.info('%s', model_update['fields'])
+        #logging.info('%s', model['flds'])
+        field_names_in_anki = set(
+            map(operator.itemgetter('name'), model['flds']))
+        field_names_in_defn = set(model_update['fields'])
+        if field_names_in_anki - field_names_in_defn:
+            logging.error('Anki references undefined fields: %s',
+                          field_names_in_anki - field_names_in_defn)
+            # TODO: crash?
+        if field_names_in_defn - field_names_in_anki:
+            logging.error('Defn references fields not in Anki: %s',
+                          field_names_in_defn - field_names_in_anki)
+
+        _apply_model_update(model, model_update)
         collection.models.update(model)
 
 
@@ -120,7 +133,7 @@ def main(_):
     with open(FLAGS.config_yaml, 'r') as f:
         config = yaml.load(f)
 
-    _ApplySlug(collection, config, slug)
+    _apply_slug(collection, config, slug)
     collection.models.flush()
 
     if FLAGS.dry_run:
