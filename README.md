@@ -26,7 +26,6 @@ JavaScript. Examples of how I use this in my note types are:
         I'm learning card content, not appearance.
     *   [Keyboard Shortcut][keyboard_shortcut]: Parsing a field containing e.g.
         `Ctrl+/ Shift+J` and rendering it wrapped in HTML tags and nicely styled.
-        TODO(prvak): note type link
 
 All of those require a bunch of HTML, CSS and JavaScript code that I want to run
 in all of my note types. Anki only lets you edit the HTML and CSS per-template,
