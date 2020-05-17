@@ -1,12 +1,42 @@
 # Rai's Anki utilities
 
-TODO: Permuted Cloze, Keyboard Shortcut note types
+This repository holds:
 
-TODO: Roam links in "Roam refs" field
+*   My toolbox for managing complex Anki note types.
+*   The implementation of my note types, using this toolbox.
 
-TODO(prvak)
+Its purpose is:
 
-TODO: seed is based on X
+*   to let the Anki community use these note types in private or shared decks,
+*   to allow relatively easily customizing these note types as needed,
+*   to enable the community to create and share new useful note types.
+
+## Why note type management
+
+Anki note types allow entering custom HTML and CSS, and you can also run
+JavaScript. Examples of how I use this in my note types are:
+
+*   Esthetics:
+    *   [Solarized colors](https://ethanschoonover.com/solarized/) following
+        light/dark mode in [AnkiDroid](https://github.com/ankidroid/Anki-Android/).
+    *   Setting card title based on tags (e.g.,
+        `cs::tools::cpp::stdlib` &rarr; `C++ Standard Library`).
+*   Function:
+    *   Permuted Cloze: Permuting parts of the card to ensure I'm learning card
+        content, not appearance. TODO: note type link
+    *   Keyboard Shortcut: Parsing a field containing e.g. `Ctrl+/ Shift+J`
+        and rendering it wrapped in HTML tags and nicely styled.
+        TODO(prvak): note type link
+
+All of those require a bunch of HTML, CSS and JavaScript code that I want to run
+in all of my note types. Anki only lets you edit the HTML and CSS per-template,
+so if you have 10 note types, each with 2 cards, and you want to add 1 line of
+HTML to all the templates, you will need to do 20 copy-pastes from your editor
+into Anki.
+
+`anki-utils` manages this source code of your note types, and allows you to
+deploy changes you make to your note types in one command, saving all this
+copy-pasting.
 
 ## Dependencies
 
@@ -14,36 +44,72 @@ TODO: seed is based on X
 pip3 install anki absl-py ankirspy protobuf
 ```
 
-TODO(prvak): Write tests interpreting the cards
+## Usage
+
+First of all: **USE AT YOUR OWN RISK**, and **BACK UP YOUR ANKI DATABASE**.
+
+Personally, before I do any deployment with `anki-utils`, I take a Git snapshot
+of my collection using [Crowdanki](https://github.com/Stvad/CrowdAnki) so I can
+be relatively confident I can bring things back if I break them.
+
+Now with that out of the way. install the note type "Permuted Cloze" as I use it:
+
+*   In Anki, create the new note type with your desired name, say "Rai's Permuted Cloze".
+*   Create a Cloze note type in Anki and add the following fields:
+    *   `Text`
+    *   `Heading`
+    *   `Seed`
+    *   `Log`
+    *   `Extra`
+    *   TODO: add the rest; should link to the BUILD file
+*   Close Anki.
+*   Create a file named `config.yaml` containing:
+
+    ```yaml
+    models:
+    - model: //src/models/permuted_cloze:permuted_cloze
+      mapping:
+        name: Rai's Permuted Cloze
+    ```
+
+    This file defines that the model defined in my repository in the
+    Bazel target `//src/models/permuted_cloze:permuted_cloze` should
+    be deployed in your Anki database into the model named `Rai's Permuted
+    Cloze`.
+*   Run the following command, replacing `<COLLECTION>` with the path to your
+    `collection.anki2` file, and `<CONFIG>` with the path to the `config.yaml`
+    file you created:
+
+    ```bash
+    bazel run //src/deploy -- \
+      --alsologtostderr \
+      --collection_path=<COLLECTION> \
+      --cofig_yaml=<CONFIG>
+    ```
+
+*   Provided that this finishes successfully, you should now be able to use
+    the note type. See instructions provided with each note type.
+
+TODO: example with multiple deployed models
+
+## My note types
+
+The actual note types are stored under `//src/models`.
 
 ## Permuted Cloze
 
-### Installing the "Permuted Cloze" note type
+The Permuted Cloze note type solves the problem that TODO
 
-TODO: better install story. script?
+### Fields
 
-1. Build:
+*   `Text`
+*   `Heading`
+*   `Seed`
+*   `Log`
+*   `Extra`
+*   TODO: add the rest
 
-  ```bash
-  bazel build //src/permuted_cloze/...
-  ```
-
-2. Create a new Cloze type in Anki.
-   By default, it should have the fields "Text" (for the Cloze content) and
-   "Extra" (for extra content to be shown after answering).
-   Make sure those fields have been created. Additionally, add the following
-   extra fields:
-
-   *  `Seed`
-   *  `Log`
-
-After you finish these steps, the preview of the card (in the template editor)
-will show errors. Don't worry about them - the example content the template
-editor uses is not valid, so the JavaScript doesn't know how to permute it.
-
-The note type should now be ready for use.
-
-### Creating "Permuted Cloze" cards
+### Usage
 
 #### Permuted unordered list items
 
@@ -78,7 +144,7 @@ TODO
 
 TODO
 
-### Advanced
+### Advanced usage
 
 #### Extra PRNG seeding
 
@@ -91,20 +157,33 @@ seed, or to check that varying the seed will indeed change the card order.
 If you set the `Log` field to `true`, the JavaScript will write out visible
 logs.
 
+### Implementation details
+
+TODO: seed is based on X
+
 ## Keyboard Shortcut
 
-### Installing
+### Fields
 
-TODO:
+TODO
 
-TODO: installation instructions
+### Usage
 
-## Deploying templates and styles
+TODO
 
-```bash
-blaze run //src/deploy -- \
-  --alsologtostderr \
-  --collection_path=/home/agentydragon/dropbox/anki/agentydragon/collection.anki2 \
-  --anki_path=/home/agentydragon/repos/anki/pylib/anki \
-  --cofig_yaml=/home/agentydragon/repos/anki-utils/config.yaml
-```
+## Caveats
+
+### Card template editor shows errors
+
+When you open some of my note types in the template editor, you might see
+errors. Don't worry about them - the example content the template
+editor uses is not valid as input for some of my note types.
+
+TODO: Roam links in "Roam refs" field
+
+TODO(prvak): Write tests interpreting the cards
+
+TODO: better install story. script?
+
+
+The note type should now be ready for use.
