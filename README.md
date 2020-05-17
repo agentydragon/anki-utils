@@ -105,5 +105,6 @@ TODO: installation instructions
 blaze run //src/deploy -- \
   --alsologtostderr \
   --collection_path=/home/agentydragon/dropbox/anki/agentydragon/collection.anki2 \
-  --anki_path=/home/agentydragon/repos/anki/pylib/anki
+  --anki_path=/home/agentydragon/repos/anki/pylib/anki \
+  --cofig_yaml=/home/agentydragon/repos/anki-utils/config.yaml
 ```
