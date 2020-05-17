@@ -22,10 +22,10 @@ JavaScript. Examples of how I use this in my note types are:
     *   Setting card title based on tags (e.g.,
         `cs::tools::cpp::stdlib` &rarr; `C++ Standard Library`).
 *   Function:
-    *   Permuted Cloze: Permuting parts of the card to ensure I'm learning card
-        content, not appearance. TODO: note type link
-    *   Keyboard Shortcut: Parsing a field containing e.g. `Ctrl+/ Shift+J`
-        and rendering it wrapped in HTML tags and nicely styled.
+    *   [Permuted Cloze][permuted_cloze]: Permuting parts of the card to ensure
+        I'm learning card content, not appearance.
+    *   [Keyboard Shortcut][keyboard_shortcut]: Parsing a field containing e.g.
+        `Ctrl+/ Shift+J` and rendering it wrapped in HTML tags and nicely styled.
         TODO(prvak): note type link
 
 All of those require a bunch of HTML, CSS and JavaScript code that I want to run
@@ -103,8 +103,22 @@ TODO: example with changing and rebuilding
 
 The actual note types are stored under `//src/models`.
 
-*   [Permuted Cloze](/src/models/permuted_cloze/README.md)
-*   [Keyboard Shortcut](/src/models/keyboard_shortcut/README.md)
+*   [Permuted Cloze][permuted_cloze]
+*   [Keyboard Shortcut][keyboard_shortcut]
+
+## Other features
+
+Thanks to Bazel's extensibility, it was easy to run the note types through
+preprocessors and compilers:
+
+*   The CSS is written in [SASS](https://sass-lang.com/).
+*   The JavaScript uses Google's
+    [Closure Library](https://developers.google.com/closure/library).
+*   Both are written into Anki minified.
+
+The components can also be tested. Examples:
+[JavaScript](/src/shared_styles/tags_test.js), [note type integration
+test](/src/models/permuted_cloze/test.py).
 
 ## Caveats
 
@@ -117,3 +131,6 @@ editor uses is not valid as input for some of my note types.
 TODO: Roam links in "Roam refs" field
 
 TODO(prvak): Write tests interpreting the cards
+
+[permuted_cloze]: /src/models/permuted_cloze/README.md
+[keyboard_shortcut]: /src/models/keyboard_shortcut/README.md
