@@ -23,23 +23,25 @@ def main(_):
     slug = {}
     for model in json.loads(FLAGS.models)['models']:
         logging.vlog(1, "Model: %s", model)
-        uuid = model['crowdanki_uuid']
-        if uuid in slug:
-            raise Exception("duplicated UUID: " + uuid)
-        templates = {}
-        for template in model['templates']:
-            human_name = template['human_name']
-            if human_name in templates:
-                raise Exception("duplicated human_name " +
-                                human_name + " in UUID " + uuid)
-            templates[human_name] = {
-                'qfmt': read_file(template['question_html']),
-                'afmt': read_file(template['answer_html']),
-            }
-        slug[uuid] = {
-            'css': read_file(model['css']),
-            'templates': templates
-        }
+        target = model['target']
+        if target in slug:
+            raise Exception("duplicated target: " + target)
+        model_slug = json.loads(read_file(model['slug']))
+        slug[target] = model_slug
+        #templates = {}
+        #for template in model['templates']:
+        #    human_name = template['human_name']
+        #    if human_name in templates:
+        #        raise Exception("duplicated human_name " +
+        #                        human_name + " in target " + target)
+        #    templates[human_name] = {
+        #        'qfmt': read_file(template['question_html']),
+        #        'afmt': read_file(template['answer_html']),
+        #    }
+        #slug[target] = {
+        #    'css': read_file(model['css']),
+        #    'templates': templates
+        #}
     with open(FLAGS.output_file, 'w') as f:
         json.dump(slug, f)
 

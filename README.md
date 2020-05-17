@@ -14,8 +14,6 @@ TODO: seed is based on X
 pip3 install anki absl-py ankirspy protobuf
 ```
 
-TODO(prvak): Wrap dependencies in requirements.txt managed by Bazel
-
 TODO(prvak): Write tests interpreting the cards
 
 ## Permuted Cloze

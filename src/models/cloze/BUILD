@@ -19,7 +19,6 @@ common_header(
 
 anki_model(
     name = "cloze",
-    crowdanki_uuid = "760de482-186c-11ea-9152-151b4dde761a",
     css = "//src/ordinary:ordinary.css",
     # TODO: put the fields here...
     templates = [

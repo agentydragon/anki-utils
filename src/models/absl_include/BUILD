@@ -10,7 +10,6 @@ common_header(
 
 anki_model(
     name = "absl_include",
-    crowdanki_uuid = "89f5db8b-186c-11ea-9152-151b4dde761a",
     css = "//src/ordinary:ordinary.css",
     templates = [
         ":function_to_include",

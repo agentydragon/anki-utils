@@ -9,7 +9,6 @@ common_header(
 
 anki_model(
     name = "memrise_4k",
-    crowdanki_uuid = "76a70b10-186c-11ea-9152-151b4dde761a",
     css = "//src/ordinary:ordinary.css",
     templates = [
         "//src/models/german/memrise_4k/english_to_german",

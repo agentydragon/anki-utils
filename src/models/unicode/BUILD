@@ -15,7 +15,6 @@ common_header(
 
 anki_model(
     name = "unicode",
-    crowdanki_uuid = "8a74a31a-186c-11ea-9152-151b4dde761a",
     css = "//src/ordinary:ordinary.css",
     templates = [
         ":tmpl",

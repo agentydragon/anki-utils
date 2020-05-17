@@ -10,7 +10,6 @@ common_header(
 
 anki_model(
     name = "basic_and_reversed",
-    crowdanki_uuid = "a8359f82-ef5f-11e6-8d44-a44e31493108",
     css = "//src/ordinary:ordinary.css",
     templates = [
         "//src/models/basic_and_reversed/front_to_back",

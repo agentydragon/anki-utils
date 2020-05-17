@@ -10,7 +10,6 @@ common_header(
 
 anki_model(
     name = "english_term",
-    crowdanki_uuid = "760de492-186c-11ea-9152-151b4dde761a",
     css = "//src/ordinary:ordinary.css",
     templates = [
         "//src/models/english_term/term_to_definition",

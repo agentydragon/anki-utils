@@ -16,7 +16,6 @@ common_header(
 
 anki_model(
     name = "keyboard_shortcut",
-    crowdanki_uuid = "873f9847-186c-11ea-9152-151b4dde761a",
     css = ":keyboard_shortcut.css",
     templates = [
         "//src/models/keyboard_shortcut/effect_to_shortcut",

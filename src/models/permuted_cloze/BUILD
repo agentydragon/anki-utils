@@ -17,7 +17,6 @@ common_header(
 
 anki_model(
     name = "permuted_cloze",
-    crowdanki_uuid = "760de475-186c-11ea-9152-151b4dde761a",
     css = ":permuted_cloze.css",
     templates = [
         ":template",

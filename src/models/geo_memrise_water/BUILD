@@ -11,7 +11,6 @@ common_header(
 
 anki_model(
     name = "geo_memrise_water",
-    crowdanki_uuid = "8c695985-186c-11ea-9152-151b4dde761a",
     css = ":style.css",
     templates = [":tmpl"],
     visibility = ["//src/models:__subpackages__"],

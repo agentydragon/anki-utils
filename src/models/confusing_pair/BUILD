@@ -10,7 +10,6 @@ common_header(
 
 anki_model(
     name = "confusing_pair",
-    crowdanki_uuid = "7717a042-186c-11ea-9152-151b4dde761a",
     css = "//src/ordinary:ordinary.css",
     templates = [
         "//src/models/confusing_pair/order_12",

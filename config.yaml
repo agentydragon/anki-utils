@@ -1,0 +1,58 @@
+models:
+  - model: //src/models/unicode:unicode
+    mapping:
+      crowdanki_uuid: 8a74a31a-186c-11ea-9152-151b4dde761a
+  - model: //src/models/basic_and_reversed:basic_and_reversed
+    mapping:
+      crowdanki_uuid: a8359f82-ef5f-11e6-8d44-a44e31493108
+  - model: //src/models/english_term:english_term
+    mapping:
+      crowdanki_uuid: 760de492-186c-11ea-9152-151b4dde761a
+  - model: //src/models/absl_include:absl_include
+    mapping:
+      crowdanki_uuid: 89f5db8b-186c-11ea-9152-151b4dde761a
+  - model: //src/models/keyboard_shortcut:keyboard_shortcut
+    mapping:
+      crowdanki_uuid: 873f9847-186c-11ea-9152-151b4dde761a
+  - model: //src/models/geo_memrise_water:geo_memrise_water
+    mapping:
+      crowdanki_uuid: 8c695985-186c-11ea-9152-151b4dde761a
+  - model: //src/models/latex_math:latex_math
+    mapping:
+      crowdanki_uuid: 897fa727-186c-11ea-9152-151b4dde761a
+  - model: //src/models/permuted_cloze:permuted_cloze
+    mapping:
+      crowdanki_uuid: 760de475-186c-11ea-9152-151b4dde761a
+  - model: //src/models/basic_and_reversed:basic_and_reversed
+    mapping:
+      crowdanki_uuid: a8359f82-ef5f-11e6-8d44-a44e31493108
+  - model: //src/models/absl_include:absl_include
+    mapping:
+      crowdanki_uuid: 89f5db8b-186c-11ea-9152-151b4dde761a
+  - model: //src/models/keyboard_shortcut:keyboard_shortcut
+    mapping:
+      crowdanki_uuid: 873f9847-186c-11ea-9152-151b4dde761a
+  - model: //src/models/vim_golf:vim_golf
+    mapping:
+      name: Vim golf
+  - model: //src/models/german/vocabulary:vocabulary
+    mapping:
+      crowdanki_uuid: 7660bc2e-186c-11ea-9152-151b4dde761a
+  - model: //src/models/german/10k:10k
+    mapping:
+      crowdanki_uuid: 76cced62-186c-11ea-9152-151b4dde761a
+  - model: //src/models/confusing_pair:confusing_pair
+    mapping:
+      crowdanki_uuid: 7717a042-186c-11ea-9152-151b4dde761a
+  - model: //src/models/german/memrise_4k:memrise_4k
+    mapping:
+      crowdanki_uuid: 76a70b10-186c-11ea-9152-151b4dde761a
+  - model: //src/models/cloze:cloze
+    mapping:
+      crowdanki_uuid: 760de482-186c-11ea-9152-151b4dde761a
+  - model: //src/models/latex:latex
+    mapping:
+      crowdanki_uuid: 897fa736-186c-11ea-9152-151b4dde761a
+  - model: //src/models/geo_country_maps:geo_country_maps
+    mapping:
+      crowdanki_uuid: 8cf9f046-186c-11ea-9152-151b4dde761a
