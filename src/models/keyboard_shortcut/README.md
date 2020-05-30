@@ -7,8 +7,8 @@ This note type serves for memorizing keyboard shortcuts for programs.
 * `Program`: `Vim`
 * `Program mode`: `Insert mode`
 * `Shortcut`: `Ctrl+R V`
-* `Effect`: `Insert content of register \<code\>v\</code\> without leaving Insert mode`
-* `Mnemonic`: `Paste \<b\>R\</b\>egister`
+* `Effect`: `Insert content of register <code>v</code> without leaving Insert mode`
+* `Mnemonic`: `Paste <b>R</b>egister`
 
 This note will generate 2 cards:
 
