@@ -56,15 +56,15 @@ of the `Extra` field will be shown on the back side of every card.
 
 Good uses of it include further explanation of content of the card.
 
-## Advanced fields
+### Advanced fields
 
 You will usually not need those fields.
 
-### `Log`
+#### `Log`
 
 See [shared documentation of `Log` field](/src/shared_styles/log.md).
 
-### `Seed`
+#### `Seed`
 
 Content in this field will be mixed into the PRNG seed. You can use the field
 to check that the PRNG is actually correctly permuting your container by putting
