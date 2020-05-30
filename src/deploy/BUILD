@@ -27,6 +27,7 @@ py_binary(
         "@rules_python//python/runfiles",
         requirement("anki"),
         requirement("ankirspy"),
+        requirement("absl-py"),
     ],
 )
 
@@ -39,5 +40,6 @@ py_binary(
         requirement("anki"),
         requirement("ankirspy"),
         requirement("pyyaml"),
+        requirement("absl-py"),
     ],
 )

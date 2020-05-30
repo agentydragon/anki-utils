@@ -42,7 +42,7 @@ copy-pasting.
 *   Install Bazel. See https://bazel.build/ for instructions.
     I use it for the build and test process.
 *   ```bash
-    pip3 install absl-py protobuf
+    pip3 install protobuf
     ```
 *   Clone the repo, and `cd` into it. All `bazel` commands should be executed
     from your clone of this repository. (For those whose target to execute

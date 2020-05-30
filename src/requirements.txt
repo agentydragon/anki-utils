@@ -1,3 +1,4 @@
 anki==2.1.26
 ankirspy==2.1.26
 pyyaml
+absl-py>=0.9
