@@ -76,3 +76,11 @@ This field will be shown on the answer side of both generated cards.
 Good uses for it include alternative ways to accomplish the same effect.
 Unfortunately, key combinations are not rendered nicely in this field.
 (TODO: fix? maybe add `Alternative` fields?)
+
+### `Mnemonic`
+
+This field will also be shown on the answer side of both generated cards.
+
+### `TODO`, `Roam refs`, `Sources`
+
+See [documentation of common metadata fields](/src/shared_styles/metadata.md).
