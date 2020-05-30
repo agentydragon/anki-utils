@@ -34,8 +34,9 @@ not the thing the card is trying to teach you.
 The Permuted Cloze basically does this automatically. If you create a Permuted
 Cloze note with the same content, it will generate the same 2 cards as a normal
 Cloze note type, but when you review the cards, the order of the items in the
-list will be randomized. I hope that should make it somewhat harder for your
-brain to memorize the "card cues" instead of the info you're trying to teach it.
+list will be randomized (with a new permutation every day). I hope that should
+make it somewhat harder for your brain to memorize the "card cues" instead of
+the info you're trying to teach it.
 
 ## Fields
 
