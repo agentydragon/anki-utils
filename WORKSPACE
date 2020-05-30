@@ -31,8 +31,7 @@ sass_repositories()
 # NOTE: cannot use version 0.0.1 as it doesn't support Python 3 pip packages.
 git_repository(
     name = "rules_python",
-    # NOT VALID: Replace with actual Git commit SHA.
-    commit = "a0fbf98d4e3a232144df4d0d80b577c7a693b570",
+    commit = "708ed8679d7510a331ce9a7b910a2a056d24f7b1",
     remote = "https://github.com/bazelbuild/rules_python.git",
 )
 
@@ -40,15 +39,12 @@ load("@rules_python//python:repositories.bzl", "py_repositories")
 
 py_repositories()
 
-# Only needed if using the packaging rules.
-#load("@rules_python//python:pip.bzl", "pip_import", "pip_repositories")
-load("@rules_python//python:pip.bzl", "pip_import", "pip_repositories")
+load("@rules_python//python:pip.bzl", "pip3_import", "pip_repositories")
 
 pip_repositories()
 
-pip_import(
+pip3_import(
     name = "my_deps",
-    python_interpreter = "python3",
     requirements = "//src:requirements.txt",
 )
 

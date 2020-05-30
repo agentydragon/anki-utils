@@ -131,7 +131,7 @@ def main(_):
         slug = json.load(f)
 
     with open(FLAGS.config_yaml, 'r') as f:
-        config = yaml.load(f, loader=yaml.Loader)
+        config = yaml.load(f, Loader=yaml.Loader)
 
     _apply_slug(collection, config, slug)
     collection.models.flush()

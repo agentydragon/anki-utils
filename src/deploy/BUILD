@@ -25,7 +25,8 @@ py_binary(
     data = ["//src/models:slug.json"],
     deps = [
         "@rules_python//python/runfiles",
-        requirement("anki2"),
+        requirement("anki"),
+        requirement("ankirspy"),
     ],
 )
 
@@ -33,5 +34,10 @@ py_binary(
     name = "deploy",
     srcs = [":deploy.py"],
     data = ["//src/models:slug.json"],
-    deps = ["@rules_python//python/runfiles"],
+    deps = [
+        "@rules_python//python/runfiles",
+        requirement("anki"),
+        requirement("ankirspy"),
+        requirement("pyyaml"),
+    ],
 )

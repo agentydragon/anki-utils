@@ -1,1 +1,3 @@
-anki==2.1.24
+anki==2.1.26
+ankirspy==2.1.26
+pyyaml
