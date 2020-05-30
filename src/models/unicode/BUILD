@@ -6,6 +6,11 @@ FIELDS = [
     "Name",
     "Character",
     "Hex code",
+
+    # TODO(prvak): add to common?
+    "TODO",
+    "Source",
+    "Ambiguous",
 ]
 
 common_header(

@@ -1,7 +1,16 @@
 load("//src:anki_template.bzl", "anki_model")
 load("//src/shared_styles:common_header.bzl", "common_header")
 
-FIELDS = ["Heading"]
+FIELDS = [
+    "Heading",
+    "Front",
+    "Back",
+    "Add Reverse",
+    # TODO(prvak): Reuse
+    "TODO",
+    "Source",
+    "Ambiguous",
+]
 
 common_header(
     name = "header",

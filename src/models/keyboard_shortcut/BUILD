@@ -8,7 +8,18 @@ load(
 )
 load("//src/shared_styles:common_header.bzl", "common_header")
 
-FIELDS = []
+FIELDS = [
+    "Program",
+    "Program mode",
+    "Shortcut",
+    "Effect",
+    "Extra",
+    "Mnemonic",
+    # TODO(prvak): common
+    "TODO",
+    "Roam refs",
+    "Sources",
+]
 
 common_header(
     name = "header",

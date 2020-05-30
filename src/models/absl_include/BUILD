@@ -2,8 +2,10 @@ load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 load("//src/shared_styles:common_header.bzl", "common_header")
 
-# TODO: put the fields here...
-FIELDS = ["Heading"]
+FIELDS = [
+    "Function",
+    "Include absl/.",
+]
 
 common_header(
     name = "header",
