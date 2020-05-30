@@ -28,6 +28,7 @@ py_binary(
         requirement("anki"),
         requirement("ankirspy"),
         requirement("absl-py"),
+        requirement("protobuf"),
     ],
 )
 
@@ -41,5 +42,6 @@ py_binary(
         requirement("ankirspy"),
         requirement("pyyaml"),
         requirement("absl-py"),
+        requirement("protobuf"),
     ],
 )

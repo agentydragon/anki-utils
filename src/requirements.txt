@@ -1,4 +1,8 @@
 anki==2.1.26
-ankirspy==2.1.26
 pyyaml
 absl-py>=0.9
+
+# TODO(prvak): Those should not be needed since anki depends on them, but
+# somehow it doesn't work if they're not present.
+ankirspy==2.1.26
+protobuf

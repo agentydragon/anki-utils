@@ -41,9 +41,6 @@ copy-pasting.
 
 *   Install Bazel. See https://bazel.build/ for instructions.
     I use it for the build and test process.
-*   ```bash
-    pip3 install protobuf
-    ```
 *   Clone the repo, and `cd` into it. All `bazel` commands should be executed
     from your clone of this repository. (For those whose target to execute
     starts with `//src/`, it does not matter where in your cloned repo you are,
