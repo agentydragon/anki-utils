@@ -5,10 +5,7 @@ load(
     "closure_js_test",
 )
 load("@rules_python//python:defs.bzl", "py_binary")
-
-# exports_files([
-#     "common_header.html",
-# ])
+load("@my_deps//:requirements.bzl", "requirement")
 
 sass_library(
     name = "keyboard_shortcut",
@@ -126,5 +123,8 @@ py_binary(
     name = "make_common_header",
     srcs = ["make_common_header.py"],
     visibility = ["//visibility:public"],
-    deps = ["@rules_python//python/runfiles"],
+    deps = [
+        requirement("absl-py"),
+        "@rules_python//python/runfiles",
+    ],
 )

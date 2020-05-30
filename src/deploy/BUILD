@@ -5,18 +5,27 @@ py_binary(
     name = "build_card_slug",
     srcs = ["build_card_slug.py"],
     visibility = ["//src/models:__subpackages__"],
+    deps = [
+        requirement("absl-py"),
+    ],
 )
 
 py_binary(
     name = "build_model_slug",
     srcs = ["build_model_slug.py"],
     visibility = ["//src/models:__subpackages__"],
+    deps = [
+        requirement("absl-py"),
+    ],
 )
 
 py_binary(
     name = "build_slug",
     srcs = ["build_slug.py"],
     visibility = ["//src/models:__subpackages__"],
+    deps = [
+        requirement("absl-py"),
+    ],
 )
 
 py_binary(
