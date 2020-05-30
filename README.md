@@ -1,8 +1,12 @@
 # Rai's Anki utilities
 
+Develop and share good Anki note types, and use them easily.
+
+---
+
 This repository holds:
 
-*   My toolbox for managing complex Anki note types.
+*   My toolbox for managing complex Anki note types with source control.
 *   The implementation of my note types, using this toolbox.
 
 Its purpose is:
