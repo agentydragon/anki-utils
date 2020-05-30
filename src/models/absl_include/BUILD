@@ -19,6 +19,7 @@ anki_model(
     templates = [
         ":function_to_include",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )
 

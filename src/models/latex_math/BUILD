@@ -18,5 +18,6 @@ anki_model(
         "//src/models/latex_math/render_to_code",
         "//src/models/latex_math/code_to_render",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )

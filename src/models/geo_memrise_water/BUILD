@@ -16,6 +16,7 @@ anki_model(
     css = ":style.css",
     fields = FIELDS,
     templates = [":tmpl"],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )
 

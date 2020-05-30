@@ -18,6 +18,7 @@ anki_model(
         "//src/models/geo_country_maps/flag",
         "//src/models/geo_country_maps/map",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )
 

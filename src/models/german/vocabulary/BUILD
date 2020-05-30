@@ -17,5 +17,6 @@ anki_model(
         "//src/models/german/vocabulary/english_to_german",
         "//src/models/german/vocabulary/german_to_english",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )

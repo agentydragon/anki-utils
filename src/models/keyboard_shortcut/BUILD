@@ -35,6 +35,7 @@ anki_model(
         "//src/models/keyboard_shortcut/effect_to_shortcut",
         "//src/models/keyboard_shortcut/shortcut_to_effect",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )
 

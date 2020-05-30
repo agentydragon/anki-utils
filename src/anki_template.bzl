@@ -71,6 +71,7 @@ def _anki_model_impl(ctx):
     args.add("--templates_json", struct(templates = templates).to_json())
     args.add("--css", ctx.attr.css.files.to_list()[0])
     args.add("--fields", struct(fields = ctx.attr.fields).to_json())
+    args.add("--type", ctx.attr.type)
 
     # TODO: also the fields?
     args.add("--output_file", fn_file)
@@ -94,6 +95,10 @@ anki_model = rule(
         "css": attr.label(
             mandatory = True,
             allow_files = True,
+        ),
+        "type": attr.string(
+            mandatory = True,
+            values = ["normal", "cloze"],
         ),
         "fields": attr.string_list(mandatory = True, allow_empty = True),
         "build_model_slug": attr.label(

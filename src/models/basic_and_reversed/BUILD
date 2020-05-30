@@ -26,5 +26,6 @@ anki_model(
         "//src/models/basic_and_reversed/front_to_back",
         "//src/models/basic_and_reversed/back_to_front",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )

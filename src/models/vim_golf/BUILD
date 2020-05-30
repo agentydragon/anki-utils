@@ -27,5 +27,6 @@ anki_model(
         "//src/models/vim_golf/state_keys",
         "//src/models/vim_golf/state_effect",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )

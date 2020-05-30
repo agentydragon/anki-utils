@@ -17,5 +17,6 @@ anki_model(
         "//src/models/german/memrise_4k/english_to_german",
         "//src/models/german/memrise_4k/german_to_english",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )

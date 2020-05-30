@@ -24,6 +24,7 @@ anki_model(
     templates = [
         ":template",
     ],
+    type = "cloze",
     visibility = ["//src/models:__subpackages__"],
 )
 

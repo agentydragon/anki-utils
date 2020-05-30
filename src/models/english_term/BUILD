@@ -21,5 +21,6 @@ anki_model(
         "//src/models/english_term/term_to_definition",
         "//src/models/english_term/definition_to_term",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )

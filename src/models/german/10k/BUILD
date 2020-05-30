@@ -17,6 +17,7 @@ anki_model(
     templates = [
         ":tmpl",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )
 

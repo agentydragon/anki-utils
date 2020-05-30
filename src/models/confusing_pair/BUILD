@@ -18,5 +18,6 @@ anki_model(
         "//src/models/confusing_pair/order_12",
         "//src/models/confusing_pair/order_21",
     ],
+    type = "normal",
     visibility = ["//src/models:__subpackages__"],
 )
