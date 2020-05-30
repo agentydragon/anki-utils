@@ -76,7 +76,7 @@ The `Text` of any Permuted Cloze note must contain a *permuted container*.
 Contents of the *permuted container* will be pseudorandomly permuted when
 reviewing.
 
-### Permuted unordered list items
+### Unordered list items
 
 If your `Text` contains an `<ul>`, Permuted Cloze will permute the items of that
 element.
@@ -91,7 +91,7 @@ Some German words:
 </ul>
 ```
 
-### Permuted table rows
+### Table rows
 
 If your card contains a `<tbody>` Permuted Cloze will permute the rows in the
 `<tbody>`.
@@ -128,7 +128,7 @@ For example:
 </table>
 ```
 
-### Permuted lines
+### Lines
 
 TODO: document
 
