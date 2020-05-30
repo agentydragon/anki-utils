@@ -168,6 +168,24 @@ test](/src/models/permuted_cloze/test.py).
 
 ## Caveats
 
+### Deploy cannot add, remove or update fields in existing note types
+
+If you try to run the deploy script to overwrite an existing note type
+whose fields do not match the note type defined in `anki-utils`, the script will
+fail.
+
+If you want to start using `anki-utils` to manage a previously existing note
+type (or if you want to add/remove/update a field on a note type managed
+by `anki-utils`), you need to do the field changes yourself within Anki.
+
+This is because I would need to be extra careful if I wanted to make the deploy
+script do this safely, since adding, removing and updating fields affects your
+cards and existing notes - not just HTML/CSS on a note type.
+
+I might implement this in the future if there's ever enough use to warrant this,
+but for my personal use, I'm OK doing occassional field updates manually in
+Anki.
+
 ### Card template editor shows errors
 
 When you open some of my note types in the template editor, you might see
