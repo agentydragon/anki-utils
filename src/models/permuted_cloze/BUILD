@@ -6,10 +6,11 @@ load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_
 load("//src/shared_styles:common_header.bzl", "common_header")
 
 FIELDS = [
-    # TODO: including this is problematic - MathJax might be unable to render it: "TextUnclozed",
+    # TODO: including Text is problematic - MathJax might be unable to render it: "TextUnclozed",
     "Heading",
     "Seed",
     "Log",
+    "Extra",
 ]
 
 common_header(

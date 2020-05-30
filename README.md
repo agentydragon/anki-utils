@@ -58,54 +58,91 @@ Personally, before I do any deployment with `anki-utils`, I take a Git snapshot
 of my collection using [Crowdanki](https://github.com/Stvad/CrowdAnki) so I can
 be relatively confident I can bring things back if I break them.
 
-Now with that out of the way. install the note type "Permuted Cloze" as I use it:
+Now with that out of the way, to use `anki-utils`, you need to:
 
-*   In Anki, create the new note type with your desired name, say "Rai's
-    Permuted Cloze".
-    TODO: better install story. script?
-*   Create a Cloze note type in Anki and add the following fields:
-    *   `Text`
-    *   `Heading`
-    *   `Seed`
-    *   `Log`
-    *   `Extra`
-    *   TODO: add the rest; should link to the BUILD file
-*   Close Anki.
-*   Create a file named `config.yaml` containing:
+1.  Write a configuration file, then
+2.  deploy it into your Anki collection.
 
-    ```yaml
-    models:
-    - model: //src/models/permuted_cloze:permuted_cloze
-      mapping:
-        name: Rai's Permuted Cloze
-    ```
+### Configuration file
 
-    This file defines that the model defined in my repository in the
-    Bazel target `//src/models/permuted_cloze:permuted_cloze` should
-    be deployed in your Anki database into the model named `Rai's Permuted
-    Cloze`.
-*   Run the following command from your clone of the repo, replacing
-    `<COLLECTION>` with the path to your `collection.anki2` file, and `<CONFIG>`
-    with the path to the `config.yaml` file you created:
+Create a configuration file named `config.yaml`. For example:
 
-    ```bash
-    bazel run //src/deploy -- \
-      --alsologtostderr \
-      --collection_path=<COLLECTION> \
-      --cofig_yaml=<CONFIG>
-    ```
+```yaml
+models:
+- model: //src/models/permuted_cloze:permuted_cloze
+  mapping:
+    name: Rai's Permuted Cloze
+```
 
-    Be patient, the first run of this command will take a while, as it will need
-    to set up a sandbox for building the note types.
+This file defines that the model defined in my repository in the
+Bazel target `//src/models/permuted_cloze:permuted_cloze` should
+be deployed in your Anki database into the model named `Rai's Permuted
+Cloze`.
 
-    TODO: this should include check, diff, --nodry_run
+You can also have multiple mappings in the file:
 
-*   Provided that this finishes successfully, you should now be able to use
-    the note type. See instructions provided with each note type.
+```yaml
+models:
+- model: //src/models/permuted_cloze:permuted_cloze
+  mapping:
+    name: Rai's Permuted Cloze
+- model: //src/models/keyboard_shortcut:keyboard_shortcut
+  mapping:
+    name: Rai's Keyboard Shortcut
+```
 
-TODO: example with multiple deployed models
+### Deploying
+
+Once you have a configuration file, you can *deploy* it. That means the models
+will be built and your Anki collection will be updated to match them.
+
+Deploying is done with the following command. Before running it, *close Anki*.
+un it from your clone of the repo, and replace `<COLLECTION>` with the path to
+your `collection.anki2` file and `<CONFIG>` with the path to the `config.yaml`
+file you created:
+
+```bash
+bazel run //src/deploy -- \
+    --alsologtostderr \
+    --collection_path=<COLLECTION> \
+    --cofig_yaml=<CONFIG>
+```
+
+
+Be patient, the first run of this command will take a while, as it will need
+to set up a sandbox for building the note types.
+
+TODO: Implement diffing, checks.
+
+#### First run (without existing note types)
+
+If the note types **do not yet exist** in your Anki collection, you'll need to
+also pass `--add_if_missing` to allow the deploy program to create the new note
+types.
+
+If you later make some changes in the model definitions (i.e., the CSS or HTML),
+you can keep the same `config.yaml` and run the deploy program again.
+
+#### Dry run by default
+
+By default, this command *will not actually do anything* - it will not actually
+commit the changes to the Anki collection. To actually make it commit changes,
+you need to pass `--nodry_run`.
+
+Again, I urge you to **back up your collection** before running with
+`--nodry_run`.
+
+---
+
+Provided that the deploy script finished successfully, the note types should
+now be available in your collection.
+
+TODO: Make permuted cloze deploy actually work.
 
 TODO: example with changing and rebuilding
+
+To learn how to use individual note types (e.g., what do the fields mean),
+follow the links below.
 
 ## My note types
 
@@ -138,7 +175,7 @@ editor uses is not valid as input for some of my note types.
 
 TODO: Roam links in "Roam refs" field
 
-TODO(prvak): Write tests interpreting the cards
+TODO: Write tests interpreting the cards
 
 [permuted_cloze]: /src/models/permuted_cloze/README.md
 [keyboard_shortcut]: /src/models/keyboard_shortcut/README.md
