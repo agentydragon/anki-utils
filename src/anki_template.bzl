@@ -100,6 +100,13 @@ anki_model = rule(
             mandatory = True,
             values = ["normal", "cloze"],
         ),
+        # TODO(prvak): fields also have:
+        #  - font ("Arial")
+        #  - size (20)
+        #  - sticky (False)
+        # see: https://github.com/ankitects/anki/blob/70784154059a16805936ffa107e52e99cf46f43d/pylib/anki/models.py#L59
+        # bqfmt = browser question format?
+        # bafmt = answer question format?
         "fields": attr.string_list(mandatory = True, allow_empty = True),
         "build_model_slug": attr.label(
             executable = True,

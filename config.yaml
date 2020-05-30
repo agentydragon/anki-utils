@@ -56,3 +56,7 @@ models:
   - model: //src/models/geo_country_maps:geo_country_maps
     mapping:
       crowdanki_uuid: 8cf9f046-186c-11ea-9152-151b4dde761a
+
+  - model: //src/models/keyboard_shortcut:keyboard_shortcut
+    mapping:
+      name: Rai's Keyboard Shortcut
