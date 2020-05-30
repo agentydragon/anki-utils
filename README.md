@@ -147,6 +147,7 @@ follow the links below.
 ## My note types
 
 The actual note types are stored under `//src/models`.
+Follow these links to learn how to use individual note types:
 
 *   [Permuted Cloze][permuted_cloze]
 *   [Keyboard Shortcut][keyboard_shortcut]

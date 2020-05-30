@@ -1,64 +1,143 @@
-## Permuted Cloze
+# Permuted Cloze
 
-The Permuted Cloze note type solves the problem that TODO
+The Permuted Cloze note type lets you create Cloze notes whose content is
+automatically shuffled. This is useful when you want to make sure that you are
+remembering the actual data the card wants you to remember.
 
-### Fields
-
-*   `Text`
-*   `Heading`
-*   `Seed`
-*   `Log`
-*   `Extra`
-*   TODO: add the rest
-
-### Usage
-
-#### Permuted unordered list items
-
-If your card contains an `<ul>` Permuted Cloze will permute the items of that
-element.
-
-For example, this HTML:
+For example, say that you are trying to make a card to learn to disambiguate
+words that sound very similar - "effervescent" and "evanescent". You make a
+Cloze note like this:
 
 ```
-These are the:
 <ul>
-<li>{{c1::xxx}}: {{c2::yyy}}
-<li>{{c1::dsasf}}: {{c2::safa}}
+  <li>
+    e{{c1::fferv}}escent:
+    {{c2::(of liquid) giving off bubbles; fizzy. (of person) enthusiastic,
+    lively}}
+  <li>
+    e{{c1::van}}escent:
+    {{c2::(literary) quickly fading (from memory, sight, existence)}}
 </ul>
-Foobar.
 ```
 
-TODO
+You add the card into your deck, and eventually you get the card right when it
+shows up.
 
-#### Permuted table rows
+But sometimes, instead of actually memorizing the mapping, you may find yourself
+instead memorizing "the first one is *effervescent*, the second one is
+*evancescent*".
 
-If your card contains an `<tbody>` Permuted Cloze will permute the items of that
+This means that if I flipped the order of the words on the card, you might
+answer it incorrectly, because you have just learned the *form of the card*,
+not the thing the card is trying to teach you.
+
+The Permuted Cloze basically does this automatically. If you create a Permuted
+Cloze note with the same content, it will generate the same 2 cards as a normal
+Cloze note type, but when you review the cards, the order of the items in the
+list will be randomized. I hope that should make it somewhat harder for your
+brain to memorize the "card cues" instead of the info you're trying to teach it.
+
+## Fields
+
+### `Text`
+
+The `Text` field contains the text with Clozed out content, and it must contain
+a [permuted container](#Permuted_containers).
+
+### `Heading`
+
+See [shared documentation of `Heading` field](/src/shared_styles/heading.md).
+
+### `Extra`
+
+Similarly to the `Extra` field in Anki's built-in Cloze note type, the content
+of the `Extra` field will be shown on the back side of every card.
+
+Good uses of it include further explanation of content of the card.
+
+## Advanced fields
+
+You will usually not need those fields.
+
+### `Log`
+
+See [shared documentation of `Log` field](/src/shared_styles/log.md).
+
+### `Seed`
+
+Content in this field will be mixed into the PRNG seed. You can use the field
+to check that the PRNG is actually correctly permuting your container by putting
+in different values and seeing that they make the permutation change.
+
+## Permuted containers
+
+The `Text` of any Permuted Cloze note must contain a *permuted container*.
+Contents of the *permuted container* will be pseudorandomly permuted when
+reviewing.
+
+### Permuted unordered list items
+
+If your `Text` contains an `<ul>`, Permuted Cloze will permute the items of that
 element.
 
-For example, this HTML:
+For example:
+
+```html
+Some German words:
+<ul>
+<li>d{{c1::er}} {{c1::Mann}}: the {{c2::man}}
+<li>d{{c1::ie}} {{c1::Frau}}: the {{c2::woman}}
+</ul>
+```
+
+### Permuted table rows
+
+If your card contains a `<tbody>` Permuted Cloze will permute the rows in the
+`<tbody>`.
+
+Note that just having a `<table>` is *not* enough - the rows to permute in the
+table must be closed in `<tbody>`. If your table has a header, wrap it in
+`<thead>` above the `<tbody>` - that way, in each permutation, the header will
+be above the permuted body.
+
+For example:
 
 ```
-TODO
+<table>
+  <thead>
+    <tr>
+      <th>Name
+      <th>Profession
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>L{{c5::inus}}
+      <td>{{c1::programmer}}, {{c3::diver}}
+    </tr>
+    <tr>
+      <td>R{{c6::ai}}
+      <td>{{c1::programmer}}, {{c2::dragon}}
+    </tr>
+    <tr>
+      <td>D{{c7::HH}}
+      <td>{{c1::programmer}}, {{c4::racer}}
+    </tr>
+  </tbody>
+</table>
 ```
 
-#### Permuted lines
+### Permuted lines
 
-TODO
+TODO: document
 
-### Advanced usage
+## Caveats
 
-#### Extra PRNG seeding
+### Permutation changes only once per day
 
-Anything you put into the `Seed` field will be used to seed the PRNG that
-shuffles the card. You can use it to force two cards to start from a different
-seed, or to check that varying the seed will indeed change the card order.
-
-#### Logging
-
-If you set the `Log` field to `true`, the JavaScript will write out visible
-logs.
-
-### Implementation details
-
-TODO: seed is based on X
+The permutation on each card will only change once per day. This is due to a
+limitation of Anki that cannot be solved without changing Anki, whether upstream
+or via an addon. (The issue is that the JS running on the back of the card
+must recalculate the permutation again, and it needs to match the permutation on
+the front, but the front side JS cannot pass the actual permutation to the back
+side JS and Anki does not have any special field with a "current review ID".)
