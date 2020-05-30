@@ -39,10 +39,15 @@ copy-pasting.
 
 ## Dependencies
 
-*    Install Bazel.
+*   Install Bazel. See https://bazel.build/ for instructions.
+    I use it for the build and test process.
 *   ```bash
     pip3 install anki absl-py ankirspy protobuf
     ```
+*   Clone the repo, and `cd` into it. All `bazel` commands should be executed
+    from your clone of this repository. (For those whose target to execute
+    starts with `//src/`, it does not matter where in your cloned repo you are,
+    as long as you are in a subdirectory of the cloned repo.)
 
 ## Usage
 
@@ -54,7 +59,8 @@ be relatively confident I can bring things back if I break them.
 
 Now with that out of the way. install the note type "Permuted Cloze" as I use it:
 
-*   In Anki, create the new note type with your desired name, say "Rai's Permuted Cloze".
+*   In Anki, create the new note type with your desired name, say "Rai's
+    Permuted Cloze".
     TODO: better install story. script?
 *   Create a Cloze note type in Anki and add the following fields:
     *   `Text`
@@ -77,9 +83,9 @@ Now with that out of the way. install the note type "Permuted Cloze" as I use it
     Bazel target `//src/models/permuted_cloze:permuted_cloze` should
     be deployed in your Anki database into the model named `Rai's Permuted
     Cloze`.
-*   Run the following command, replacing `<COLLECTION>` with the path to your
-    `collection.anki2` file, and `<CONFIG>` with the path to the `config.yaml`
-    file you created:
+*   Run the following command from your clone of the repo, replacing
+    `<COLLECTION>` with the path to your `collection.anki2` file, and `<CONFIG>`
+    with the path to the `config.yaml` file you created:
 
     ```bash
     bazel run //src/deploy -- \
