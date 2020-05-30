@@ -50,14 +50,7 @@ anki_template = rule(
     implementation = _anki_template_impl,
 )
 
-AnkiModelInfo = provider(fields = [
-    "css",
-    #"crowdanki_uuid",
-    #"model_name",
-    "templates",
-    "slug",
-    #"fields",
-])
+AnkiModelInfo = provider(fields = ["slug"])
 
 def _anki_model_impl(ctx):
     templates = []
