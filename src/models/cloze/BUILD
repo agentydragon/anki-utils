@@ -4,7 +4,7 @@ load("//src/shared_styles:common_header.bzl", "common_header")
 
 # TODO: put the fields here...
 FIELDS = [
-    #"Text",  # TODO: this is a cloze field
+    "Text",
     "Heading",
     "Extra",
     "TODO",

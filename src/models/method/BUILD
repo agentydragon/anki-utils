@@ -4,10 +4,10 @@ load("//src/shared_styles:common_header.bzl", "common_header")
 
 # TODO: put the fields here...
 FIELDS = [
-    #"Method",  # TODO: this is a cloze field
-    #"Takes",  # TODO: this is a cloze field
-    #"Returns",  # TODO: this is a cloze field
-    #"Effect",  # TODO: this is a cloze field
+    "Method",
+    "Takes",
+    "Returns",
+    "Effect",
     "Heading",
     "Extra",
     "TODO",

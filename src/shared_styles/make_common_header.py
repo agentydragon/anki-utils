@@ -20,7 +20,7 @@ def main(_):
 
         # Only propagate fields that are "well-known", and fields that are
         # always present.
-        for field in ((fields & KNOWN_FIELDS) | ALWAYS_PRESENT_FIELDS):
+        for field in ((set(fields) & KNOWN_FIELDS) | ALWAYS_PRESENT_FIELDS):
             f.write('  <span data-field="' + field +
                     '">{{' + field + '}}</span>\n')
 

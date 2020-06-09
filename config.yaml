@@ -57,6 +57,6 @@ models:
     mapping:
       crowdanki_uuid: 8cf9f046-186c-11ea-9152-151b4dde761a
 
-  - model: //src/models/keyboard_shortcut:keyboard_shortcut
+  - model: //src/models/method:method
     mapping:
-      name: Rai's Keyboard Shortcut
+      name: Programming language method

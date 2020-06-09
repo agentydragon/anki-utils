@@ -6,7 +6,7 @@ load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_
 load("//src/shared_styles:common_header.bzl", "common_header")
 
 FIELDS = [
-    # TODO: including Text is problematic - MathJax might be unable to render it: "TextUnclozed",
+    "Text",
     "Heading",
     "Seed",
     "Log",
