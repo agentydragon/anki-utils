@@ -16,6 +16,7 @@ anki_slug(
         "//src/models/keyboard_shortcut",
         "//src/models/latex",
         "//src/models/latex_math",
+        "//src/models/method",
         "//src/models/permuted_cloze",
         "//src/models/unicode",
         "//src/models/vim_golf",
