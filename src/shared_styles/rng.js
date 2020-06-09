@@ -77,14 +77,14 @@ function computeRngSeed(note) {
   hash = addHash(hash, today.getDay());
   // Add more fields, including specifically dedicated extra seed.
   for (const field of [note.heading, note.deck, note.tags, note.seed,
-                       note.noteType, note.card, note.textUnclozed]) {
+                       note.noteType, note.card]) {
     hash = addHashString(hash, field);
   }
   // It would be nice if we could include something about the content of the
   // card into the hash automatically, so that the order of the shuffle on
   // different notes would not necessarily match on a given day.
   // However, anything that's in the cloze field might get Clozed out.
-  // ... But - maybe we could ge the unclozed content?
+  // ... But - maybe we could get the unclozed content?
   return hash;
 }
 
