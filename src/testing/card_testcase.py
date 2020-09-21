@@ -1,13 +1,13 @@
+from src.testing import card_testcase
+import tempfile
+from absl import logging
+from anki import template as anki_template
+from anki import collection as anki_collection
 from absl.testing import absltest
 from testing.web import webtest
 from selenium.webdriver.support.ui import WebDriverWait
 from rules_python.python.runfiles import runfiles
 
-import sys
-sys.path.append('/usr/share/anki')
-from anki import template as anki_template
-
-from src.testing import card_testcase
 
 # Stub out MathJax.
 # TODO(prvak): Might be nice to also test MathJax rendering.
@@ -28,6 +28,11 @@ class CardTestCase(absltest.TestCase):
     if len(log) > 0:
       print("Browser log:", log)
     try:
+      logging.info("quit:")
+      logging.info("quit:")
+      logging.info("quit:")
+      logging.info("quit:")
+      logging.info("quit:")
       self.driver.quit()
     finally:
       self.driver = None
@@ -45,8 +50,21 @@ class CardTestCase(absltest.TestCase):
 
   def open_card_from_runfiles(self, runfiles_path, fields):
     template = self.load_from_runfiles(runfiles_path)
-    html = MATHJAX_STUB + \
-        anki_template.render(template=template, context=fields)
+
+    collection_file = self.create_tempfile("collection.anki2")
+    collection = anki_collection.Collection(collection_file.full_path)
+
+    model = collection.models.current()
+    model["tmpls"][0]["qfmt"] = template
+    collection.models.save(model)
+
+    note = collection.newNote()
+    for key, value in fields.items():
+        note[key] = value
+    collection.addNote(note)
+
+    html = MATHJAX_STUB + note.cards()[0].a()
+
     self.open_html(html)
     self.wait_until_loaded()
 

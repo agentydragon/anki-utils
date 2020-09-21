@@ -1,6 +1,7 @@
 load("//src:anki_template.bzl", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
 load("@io_bazel_rules_webtesting//web:py.bzl", "py_web_test_suite")
+load("@my_deps//:requirements.bzl", "requirement")
 
 anki_template(
     name = "front_to_back",
@@ -32,5 +33,6 @@ py_web_test_suite(
     local = True,
     deps = [
         "//src/testing:card_testcase",
+        requirement("absl-py"),
     ],
 )

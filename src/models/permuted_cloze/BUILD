@@ -1,4 +1,5 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("@my_deps//:requirements.bzl", "requirement")
 load("@io_bazel_rules_webtesting//web:py.bzl", "py_web_test_suite")
 load("//src:anki_template.bzl", "anki_model", "anki_template")
 load("//src/ordinary:ordinary_template.bzl", "ordinary_template")
@@ -67,10 +68,14 @@ py_web_test_suite(
     browsers = [
         "@io_bazel_rules_webtesting//browsers:chromium-local",
     ],
-    data = [":front.expanded.html"],
+    data = [":front.expanded.html",
+	    ":permuted_cloze_slug.json"],
+	    #":permuted_cloze"],
     local = True,
     deps = [
         "//src/testing:card_testcase",
+	"//src/deploy:deploy_lib",
+	requirement('absl-py'),
     ],
 )
 
