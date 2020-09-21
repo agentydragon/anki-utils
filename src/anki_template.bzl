@@ -65,8 +65,6 @@ def _anki_model_impl(ctx):
             ),
         )
 
-    fn = ctx.label.name + "_slug.json"
-    fn_file = ctx.actions.declare_file(fn)
     args = ctx.actions.args()
     args.add("--templates_json", struct(templates = templates).to_json())
     args.add("--css", ctx.attr.css.files.to_list()[0])
@@ -74,17 +72,17 @@ def _anki_model_impl(ctx):
     args.add("--type", ctx.attr.type)
 
     # TODO: also the fields?
-    args.add("--output_file", fn_file)
+    args.add("--output_file", ctx.outputs.slug.path)
 
     ctx.actions.run(
         progress_message = "Building Anki model slug",
         inputs = all_files,
-        outputs = [fn_file],
+        outputs = [ctx.outputs.slug],
         executable = ctx.executable.build_model_slug,
         arguments = [args],
     )
 
-    return [AnkiModelInfo(slug = fn_file)]
+    return [AnkiModelInfo(slug = ctx.outputs.slug)]
 
 anki_model = rule(
     attrs = {
@@ -112,10 +110,10 @@ anki_model = rule(
             executable = True,
             cfg = "host",
             allow_files = True,
-            default =
-                Label("//src/deploy:build_model_slug"),
+            default = Label("//src/deploy:build_model_slug"),
         ),
     },
+    outputs = {"slug": "%{name}_slug.json"},
     implementation = _anki_model_impl,
 )
 
