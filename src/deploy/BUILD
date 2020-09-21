@@ -41,6 +41,18 @@ py_binary(
     ],
 )
 
+py_library(
+name="deploy_lib",
+    srcs = [":deploy_lib.py"],
+    visibility = ["//visibility:public"],
+    deps = [
+        requirement("anki"),
+        requirement("ankirspy"),
+        requirement("absl-py"),
+        requirement("protobuf"),
+    ],
+)
+
 py_binary(
     name = "deploy",
     srcs = [":deploy.py"],
