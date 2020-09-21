@@ -1,8 +1,11 @@
-anki==2.1.26
+anki==2.1.33
 pyyaml
 absl-py>=0.9
 
 # TODO(prvak): Those should not be needed since anki depends on them, but
 # somehow it doesn't work if they're not present.
-ankirspy==2.1.26
-protobuf
+ankirspy==2.1.33
+
+# See: https://github.com/ankitects/anki/blob/8accd96823439c76aa33029760a7249400611dcd/Dockerfile#L47
+# protobuf==3.11.3 does not work :(
+protobuf==3.13.0
